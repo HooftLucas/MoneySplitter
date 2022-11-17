@@ -6,8 +6,13 @@ public class Person {
     Boolean Betaald;
     double Bedrag;
     double Kosten;
-    public Person(String Name, Boolean Betaald, double Bedrag, double Kosten){
 
+
+    public Person(String Name, Boolean Betaald, double Bedrag, double Kosten){
+    this.Name = Name;
+    this.Betaald = Betaald;
+    this.Bedrag = Bedrag;
+    this.Kosten = Kosten;
     }
 
     public String getName() {
