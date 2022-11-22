@@ -10,5 +10,8 @@ public abstract class dbPerson extends Observable {
     public abstract void addPerson(String name);
 
     public abstract void deletePerson(String name);
+
+    public abstract int size();
+    public abstract void Loop();
 }
 

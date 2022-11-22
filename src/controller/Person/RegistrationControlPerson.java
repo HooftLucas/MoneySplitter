@@ -11,11 +11,13 @@ public class RegistrationControlPerson implements Controller{
     @Override
     public void ConfirmName(String name) {
         if(name.isEmpty()){
-            db.addPerson(name);
-        }
-        else {
             System.out.println("The given name is empty");
             db.addPerson("error");
+        }
+        else {
+
+            db.addPerson(name);
+            System.out.println(name + " is added in the database");
         }
     }
 }

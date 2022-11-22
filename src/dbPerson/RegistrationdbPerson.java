@@ -2,6 +2,7 @@ package dbPerson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class RegistrationdbPerson extends dbPerson{
     private ArrayList<String> NameList;
@@ -10,7 +11,7 @@ public class RegistrationdbPerson extends dbPerson{
         this.NameList = new ArrayList<>();
     }
 
-    //singelton
+    //singleton
     public static RegistrationdbPerson getInstance(){
         if(instance == null){
             instance = new RegistrationdbPerson();
@@ -25,9 +26,8 @@ public class RegistrationdbPerson extends dbPerson{
         instance.setChanged();
         instance.notifyObservers(name);
         System.out.println(name);
-
-
     }
+
 
     @Override
     public void deletePerson(String name) {
@@ -38,4 +38,18 @@ public class RegistrationdbPerson extends dbPerson{
             System.out.println(name+" is not in the database");
         }
     }
+
+    @Override
+    public int size() {
+        return NameList.size();
+    }
+
+    @Override
+    public void Loop() {
+        Iterator<String> it = NameList.iterator();
+        while(it.hasNext()) {
+            System.out.println(it.next());
+        }
+    }
+
 }
