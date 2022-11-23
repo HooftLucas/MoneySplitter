@@ -1,19 +1,25 @@
 package dbTicket;
 
-
 import dbPerson.dbPerson;
-import java.util.Arrays;
+import diffTicket.Ticket;
 import java.util.ArrayList;
-import java.util.List;
 
-// deze class dient op een ticket op te stellen in een array,
-// zodat dat deze eenvoudig in de database geplaasts kan worden.
+
 public class TicketArray {
 
-    public TicketArray() {
+    ArrayList<ArrayList<Object>> array = new ArrayList<>();
+
+    public TicketArray(Ticket ticket,dbPerson db) {
+        this.array.add(new ArrayList<>());
+        this.array.get(0).add(ticket);
+        for (int i = 0; i < db.size(); i++) {
+            this.array.add(new ArrayList<>());
+            this.array.get(i+1).add(db.getPersonID(i));
+        }
     }
 
-    public void buildTicketArray(dbPerson db){
-
+    @Override
+    public String toString() {
+        return "TicketArray = " + array + " ." ;
     }
 }

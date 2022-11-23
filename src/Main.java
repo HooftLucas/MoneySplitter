@@ -2,6 +2,10 @@ import Person.Person;
 import controller.Person.RegistrationControlPerson;
 import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
+import dbTicket.TicketArray;
+import diffTicket.Ticket;
+
+import java.sql.Array;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,6 +19,7 @@ public class Main {
     public void run(){
 
         // testing dbPerson methods:
+        System.out.println("Testing the dbPerson methods:");
         dbPerson testPer = RegistrationdbPerson.getInstance();
         RegistrationControlPerson reg = new RegistrationControlPerson(testPer);
 
@@ -29,14 +34,14 @@ public class Main {
         testPer.addPerson(Dirk);
 
         System.out.println(testPer.size());
-        testPer.Loop();
+        testPer.printDatabase();
 
         testPer.deletePerson(Bart);
         System.out.println(testPer.size());
         Person Lukas = new Person("Lukas",true,50,10);
         testPer.deletePerson(Lukas);
         System.out.println(testPer.size());
-        testPer.Loop();
+        testPer.printDatabase();
 
 
 
@@ -47,16 +52,26 @@ public class Main {
         reg.ConfirmName(Ella);
         reg.ConfirmName(empty);
         System.out.println(testPer.size());
-        testPer.Loop();
+        testPer.printDatabase();
+
+
 
 
 
         // testing dbTicket methods:
+        System.out.println('\n' + "Testing the methods for dbTicket:");
+        Ticket testTicket = new Ticket("TestWinkel");
+        TicketArray testTicketArray = new TicketArray(testTicket,testPer);
+        System.out.println(testTicketArray);
+
+
+
 
 
 
 
 
     }
+
 }
 

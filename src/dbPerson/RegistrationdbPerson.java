@@ -3,7 +3,6 @@ package dbPerson;
 import Person.Person;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Iterator;
 
 public class RegistrationdbPerson extends dbPerson{
@@ -45,11 +44,23 @@ public class RegistrationdbPerson extends dbPerson{
     }
 
     @Override
-    public void Loop() {
-        Iterator<Person> it = PersonList.iterator();
-        while(it.hasNext()) {
-            System.out.println(it.next());
+    public void printDatabase() {
+        for (Person person : PersonList) {
+            System.out.println(person);
         }
+    }
+
+    public Person getPersonID(int id) { //int id is locatie in database.
+        Iterator<Person> it = PersonList.iterator();
+            for (int i = 0; i < id; i++) {
+                it.next();
+            }
+            if (it.hasNext()) {
+                return it.next();
+            } else {
+                System.out.println("Error: Out of bounds of Database.");
+                return null;
+            }
     }
 
 }

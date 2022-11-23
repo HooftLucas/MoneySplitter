@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class RegistrationDbTicket extends dbTicket{
 
     private static RegistrationDbTicket regDB;
-    private final ArrayList<TicketArray> db = new ArrayList<TicketArray>();
+    private final ArrayList<TicketArray> db = new ArrayList<>();
     private RegistrationDbTicket() {}
 
 // singleton:
@@ -16,15 +16,9 @@ public class RegistrationDbTicket extends dbTicket{
     }
 
     @Override
-    public void addEntry(TicketArray ticket) {
-        db.add(ticket);
+    public void addEntry(TicketArray ticketArray) {
+        db.add(ticketArray);
     }
-
-    public TicketArray getEntry(int id) {
-        return this.db.get(id);
-
-    }
-
 
 }
 

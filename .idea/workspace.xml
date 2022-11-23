@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="Updated dbPerson to class person.">
+    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="begin person and dbPerson">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Person/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Person/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Person/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbTicket/TicketArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/TicketArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbTicket/dbTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/dbTicket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/diffTicket/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/diffTicket/Ticket.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,5 +133,15 @@
     <MESSAGE value="dbTicket" />
     <MESSAGE value="Updated dbPerson to class person." />
     <option name="LAST_COMMIT_MESSAGE" value="Updated dbPerson to class person." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.util.NoSuchElementException" package="java.util" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
