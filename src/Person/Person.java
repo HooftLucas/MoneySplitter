@@ -3,16 +3,16 @@ package Person;
 public class Person {
 
     String Name;
-    Boolean Betaald;
-    double Bedrag;
-    double Kosten;
+    Boolean Paid;
+    double Amount;
+    double Cost;
 
 
-    public Person(String Name, Boolean Betaald, double Bedrag, double Kosten){
+    public Person(String Name, Boolean Paid, double Amount, double Cost){
     this.Name = Name;
-    this.Betaald = Betaald;
-    this.Bedrag = Bedrag;
-    this.Kosten = Kosten;
+    this.Paid = Paid;
+    this.Amount = Amount;
+    this.Cost = Cost;
     }
 
     public String getName() {
@@ -23,27 +23,35 @@ public class Person {
         Name = name;
     }
 
-    public Boolean getBetaald() {
-        return Betaald;
+    public Boolean getPaid() {
+        return Paid;
     }
 
-    public void setBetaald(Boolean betaald) {
-        Betaald = betaald;
+    public void setPaid(Boolean paid) {
+        Paid = paid;
     }
 
-    public double getBedrag() {
-        return Bedrag;
+    public double getAmount() {
+        return Amount;
     }
 
-    public void setBedrag(double bedrag) {
-        Bedrag = bedrag;
+    public void setAmount(double amount) {
+        Amount = amount;
     }
 
-    public double getKosten() {
-        return Kosten;
+    public double getCost() {
+        return Cost;
     }
 
-    public void setKosten(double kosten) {
-        Kosten = kosten;
+    public void setCost(double cost) {
+        Cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return "Name='" + Name + '\'' +
+                ", Paid=" + Paid +
+                ", Amount=" + Amount +
+                ", Cost=" + Cost;
     }
 }

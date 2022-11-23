@@ -1,5 +1,6 @@
 package controller.Person;
 
+import Person.Person;
 import dbPerson.dbPerson;
 
 public class RegistrationControlPerson implements Controller{
@@ -9,15 +10,14 @@ public class RegistrationControlPerson implements Controller{
     }
 
     @Override
-    public void ConfirmName(String name) {
-        if(name.isEmpty()){
+    public void ConfirmName(Person person) {
+        if(person.getName().isEmpty()){
             System.out.println("The given name is empty");
-            db.addPerson("error");
+
         }
         else {
-
-            db.addPerson(name);
-            System.out.println(name + " is added in the database");
+            db.addPerson(person);
+            System.out.println(person.getName() + " is added in the database");
         }
     }
 }

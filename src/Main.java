@@ -14,27 +14,45 @@ public class Main {
     }
     public void run(){
 
-        // test voor database person:
+        // testing dbPerson methods:
         dbPerson testPer = RegistrationdbPerson.getInstance();
         RegistrationControlPerson reg = new RegistrationControlPerson(testPer);
-        testPer.addPerson("Alex");
-        testPer.addPerson("Bart");
-        testPer.addPerson("Cedric");
-        testPer.deletePerson("bart");
-        testPer.deletePerson("Lukas");
-        reg.ConfirmName("Ann");
-        reg.ConfirmName("");
-        testPer.deletePerson("Ann");
 
-        System.out.println(testPer.size()); //toont grootte van dbPerson
-        testPer.Loop(); // geeft alle entry's in dbPerson
+        Person Alex = new Person("Alex",true,120,0);
+        Person Bart = new Person("Bart",false,0,0);
+        Person Cedric = new Person("Cedric",false,0,0);
+        Person Dirk = new Person("Dirk",false,0,0);
+
+        testPer.addPerson(Alex);
+        testPer.addPerson(Bart);
+        testPer.addPerson(Cedric);
+        testPer.addPerson(Dirk);
+
+        System.out.println(testPer.size());
+        testPer.Loop();
+
+        testPer.deletePerson(Bart);
+        System.out.println(testPer.size());
+        Person Lukas = new Person("Lukas",true,50,10);
+        testPer.deletePerson(Lukas);
+        System.out.println(testPer.size());
+        testPer.Loop();
 
 
 
-        // test voor database ticket:
-        Person p1 = new Person("Alex",true,90,0);
-        Person p2 = new Person("Bart",false,0,0);
-        Person p3 = new Person("Cedric",false,0,0);
+        // testing RegistrationControllor methods for dbPerson:
+        Person Ella = new Person("Ella",false,0,0);
+        Person empty = new Person("",false,0,0);
+
+        reg.ConfirmName(Ella);
+        reg.ConfirmName(empty);
+        System.out.println(testPer.size());
+        testPer.Loop();
+
+
+
+        // testing dbTicket methods:
+
 
 
 

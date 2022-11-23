@@ -1,5 +1,7 @@
 package controller.Person;
 
+import Person.Person;
+
 public interface Controller {
-    void ConfirmName(String name);
+    void ConfirmName(Person person);
 }

@@ -1,14 +1,16 @@
 package dbPerson;
 
+import Person.Person;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 
 public class RegistrationdbPerson extends dbPerson{
-    private ArrayList<String> NameList;
+    private final ArrayList<Person> PersonList;
     private static RegistrationdbPerson instance;
     public RegistrationdbPerson() {
-        this.NameList = new ArrayList<>();
+        this.PersonList = new ArrayList<>();
     }
 
     //singleton
@@ -21,32 +23,30 @@ public class RegistrationdbPerson extends dbPerson{
 
 
     @Override
-    public void addPerson(String name) {
-        this.NameList.add(name);
+    public void addPerson(Person person) {
+        this.PersonList.add(person);
         instance.setChanged();
-        instance.notifyObservers(name);
-        System.out.println(name);
+        instance.notifyObservers(person);
     }
 
 
     @Override
-    public void deletePerson(String name) {
-        if(NameList.contains(name)){
-            NameList.remove(name);
-
+    public void deletePerson(Person person) {
+        if(PersonList.contains(person)){
+            PersonList.remove(person);
         }else {
-            System.out.println(name+" is not in the database");
+            System.out.println(person.getName()+" is not in the database");
         }
     }
 
     @Override
     public int size() {
-        return NameList.size();
+        return PersonList.size();
     }
 
     @Override
     public void Loop() {
-        Iterator<String> it = NameList.iterator();
+        Iterator<Person> it = PersonList.iterator();
         while(it.hasNext()) {
             System.out.println(it.next());
         }
