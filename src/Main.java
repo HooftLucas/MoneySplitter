@@ -63,6 +63,7 @@ public class Main {
         Ticket testTicket = new Ticket("TestWinkel");
         TicketArray testTicketArray = new TicketArray(testTicket,testPer);
         System.out.println(testTicketArray);
+        System.out.println(testTicketArray.getTicket());
 
 
 

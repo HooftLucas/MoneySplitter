@@ -18,6 +18,10 @@ public class TicketArray {
         }
     }
 
+    public Ticket getTicket() {
+        return (Ticket) this.array.get(0).get(0);
+    }
+
     @Override
     public String toString() {
         return "TicketArray = " + array + " ." ;

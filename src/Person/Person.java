@@ -28,7 +28,6 @@ public class Person {
         Name = name;
     }
 
-
     public double getAmount() {
         return Amount;
     }
