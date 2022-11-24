@@ -8,15 +8,14 @@ public class Person {
     double Cost;
 
 
-    public Person(String Name, Boolean Paid, double Amount, double Cost){
+    public Person(String Name, double Amount, double Cost){
     this.Name = Name;
-    this.Paid = Paid;
+
     this.Amount = Amount;
     this.Cost = Cost;
     }
     public Person(String Name){
         this.Name = Name;
-        this.Paid = Boolean.FALSE;
         this.Amount = 0.0;
         this.Cost = 0.0;
     }
@@ -29,13 +28,6 @@ public class Person {
         Name = name;
     }
 
-    public Boolean getPaid() {
-        return Paid;
-    }
-
-    public void setPaid(Boolean paid) {
-        Paid = paid;
-    }
 
     public double getAmount() {
         return Amount;
@@ -57,7 +49,6 @@ public class Person {
     @Override
     public String toString() {
         return "Name='" + Name + '\'' +
-                ", Paid=" + Paid +
                 ", Amount=" + Amount +
                 ", Cost=" + Cost;
     }

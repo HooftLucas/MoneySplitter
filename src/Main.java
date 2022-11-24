@@ -23,10 +23,10 @@ public class Main {
         dbPerson testPer = RegistrationdbPerson.getInstance();
         RegistrationControlPerson reg = new RegistrationControlPerson(testPer);
 
-        Person Alex = new Person("Alex",true,120,0);
-        Person Bart = new Person("Bart",false,0,0);
-        Person Cedric = new Person("Cedric",false,0,0);
-        Person Dirk = new Person("Dirk",false,0,0);
+        Person Alex = new Person("Alex",120,0);
+        Person Bart = new Person("Bart",0,0);
+        Person Cedric = new Person("Cedric",0,0);
+        Person Dirk = new Person("Dirk",0,0);
 
         testPer.addPerson(Alex);
         testPer.addPerson(Bart);
@@ -38,7 +38,7 @@ public class Main {
 
         testPer.deletePerson(Bart);
         System.out.println(testPer.size());
-        Person Lukas = new Person("Lukas",true,50,10);
+        Person Lukas = new Person("Lukas",50,10);
         testPer.deletePerson(Lukas);
         System.out.println(testPer.size());
         testPer.printDatabase();
@@ -46,8 +46,8 @@ public class Main {
 
 
         // testing RegistrationControllor methods for dbPerson:
-        Person Ella = new Person("Ella",false,0,0);
-        Person empty = new Person("",false,0,0);
+        Person Ella = new Person("Ella",0,0);
+        Person empty = new Person("",0,0);
 
         reg.ConfirmName("Ella");
         reg.ConfirmName("");
