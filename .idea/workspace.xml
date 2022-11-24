@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="observer">
+    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="controller">
+      <change afterPath="$PROJECT_DIR$/src/observer/Ticket/PrintObserverTicket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/observer/Ticket/updateNotifierTicket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Person/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Person/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Person/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/observer/Person/EntryPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/observer/Person/EntryPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/observer/Person/EntryPrinter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/observer/Person/PrintObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/observer/Person/PrintObserver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669294418723</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="controller">
+      <created>1669297558009</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1669297558009</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,7 +151,8 @@
     <MESSAGE value="dbTicket" />
     <MESSAGE value="Updated dbPerson to class person." />
     <MESSAGE value="observer" />
-    <option name="LAST_COMMIT_MESSAGE" value="observer" />
+    <MESSAGE value="controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="controller" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

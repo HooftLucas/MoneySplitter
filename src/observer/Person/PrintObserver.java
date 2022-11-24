@@ -12,9 +12,8 @@ import static sun.misc.Version.print;
 public class PrintObserver implements Observer {
     @Override
     public void update(Observable o, Object arg) {
-
-
-
+        dbPerson db = (dbPerson) o;
+        print((Person) arg ); // hierachter moeten de kosten van de rekening komen
     }
     private void print(Person p){
         System.out.println("name: "+ p.getName());
@@ -23,18 +22,3 @@ public class PrintObserver implements Observer {
 
 }
 
-    public void ControlName(dbPerson db, String Name) {
-        boolean nameInDb = true;
-        for (int i = 0; i < db.size(); i++) {
-            if(db.getPersonID(i).getName() == Name){
-                i = db.size();
-                System.out.println("Name is in the DB" + Name);
-                nameInDb = true;
-                return;
-            }
-            else
-                nameInDb = false;
-        }
-        if (!nameInDb){
-            db.addPerson(new Person(Name));
-        }

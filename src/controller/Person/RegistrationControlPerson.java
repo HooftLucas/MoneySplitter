@@ -40,8 +40,5 @@ public class RegistrationControlPerson implements Controller{
         if (!nameInDb){
             db.addPerson(new Person(Name));
         }
-
-
-
     }
 }
