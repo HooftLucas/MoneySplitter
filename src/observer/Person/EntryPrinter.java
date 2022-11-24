@@ -11,6 +11,6 @@ public class EntryPrinter implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         dbPerson db = (dbPerson) o;
-        System.out.println(db.getPerson());
+       db.printDatabase();
     }
 }

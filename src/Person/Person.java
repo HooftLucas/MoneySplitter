@@ -14,6 +14,12 @@ public class Person {
     this.Amount = Amount;
     this.Cost = Cost;
     }
+    public Person(String Name){
+        this.Name = Name;
+        this.Paid = Boolean.FALSE;
+        this.Amount = 0.0;
+        this.Cost = 0.0;
+    }
 
     public String getName() {
         return Name;

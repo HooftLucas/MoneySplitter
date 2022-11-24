@@ -16,6 +16,8 @@ public abstract class dbPerson extends Observable {
     public abstract void printDatabase();
     public abstract Person getPersonID(int id);
 
+    public abstract ArrayList<Person> GiveDB();
+
 
 }
 

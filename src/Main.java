@@ -49,8 +49,8 @@ public class Main {
         Person Ella = new Person("Ella",false,0,0);
         Person empty = new Person("",false,0,0);
 
-        reg.ConfirmName(Ella);
-        reg.ConfirmName(empty);
+        reg.ConfirmName("Ella");
+        reg.ConfirmName("");
         System.out.println(testPer.size());
         testPer.printDatabase();
 

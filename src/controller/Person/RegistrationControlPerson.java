@@ -3,6 +3,9 @@ package controller.Person;
 import Person.Person;
 import dbPerson.dbPerson;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class RegistrationControlPerson implements Controller{
     private dbPerson db;
     public RegistrationControlPerson(dbPerson db){
@@ -10,14 +13,35 @@ public class RegistrationControlPerson implements Controller{
     }
 
     @Override
-    public void ConfirmName(Person person) {
-        if(person.getName().isEmpty()){
+    public void ConfirmName(String Name) {
+        if(Name.isEmpty()){
             System.out.println("The given name is empty");
 
         }
         else {
-            db.addPerson(person);
-            System.out.println(person.getName() + " is added in the database");
+            ControlName(db,Name);
+            System.out.println(Name + " is added in the database");
         }
+    }
+
+    @Override
+    public void ControlName(dbPerson db, String Name) {
+        boolean nameInDb = true;
+        for (int i = 0; i < db.size(); i++) {
+            if(db.getPersonID(i).getName() == Name){
+                i = db.size();
+                System.out.println("Name is in the DB" + Name);
+                nameInDb = true;
+                return;
+            }
+            else
+                nameInDb = false;
+        }
+        if (!nameInDb){
+            db.addPerson(new Person(Name));
+        }
+
+
+
     }
 }
