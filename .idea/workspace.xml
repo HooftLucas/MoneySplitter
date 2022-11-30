@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="controller">
-      <change afterPath="$PROJECT_DIR$/src/observer/Ticket/PrintObserverTicket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/observer/Ticket/updateNotifierTicket.java" afterDir="false" />
+    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="dbticket ok">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_11_2022_13_48__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_11_2022_13_48__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/observer/Person/EntryPrinter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/observer/Person/PrintObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/observer/Person/PrintObserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ticket/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ticket/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ticket/RegistrationControlTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ticket/RegistrationControlTicket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbTicket/dbTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/dbTicket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/globalBillCalc/Calculate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/globalBillCalc/Calculate.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +30,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -49,6 +50,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -76,6 +78,7 @@
       <workItem from="1668697472497" duration="2370000" />
       <workItem from="1669131022486" duration="724000" />
       <workItem from="1669205459633" duration="1907000" />
+      <workItem from="1669803442913" duration="1271000" />
     </task>
     <task id="LOCAL-00001" summary="begin project">
       <created>1668098209625</created>
@@ -126,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669297558009</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="dbticket ok">
+      <created>1669299231632</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1669299231632</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,7 +162,8 @@
     <MESSAGE value="Updated dbPerson to class person." />
     <MESSAGE value="observer" />
     <MESSAGE value="controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="controller" />
+    <MESSAGE value="dbticket ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="dbticket ok" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -24,6 +24,6 @@ public class TicketArray {
 
     @Override
     public String toString() {
-        return "TicketArray = " + array + " ." ;
+        return  array + "." ;
     }
 }

@@ -1,7 +1,8 @@
 package controller.ticket;
 
 import dbTicket.TicketArray;
+import diffTicket.Ticket;
 
 public interface Controller {
-    void AddTicket(TicketArray ticketArray);
+    void addTicketEntry(Ticket ticket);
 }

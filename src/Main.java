@@ -3,7 +3,10 @@ import controller.Person.RegistrationControlPerson;
 import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
 import dbTicket.TicketArray;
+import dbTicket.dbTicket;
+import dbTicket.RegistrationDbTicket;
 import diffTicket.Ticket;
+import controller.ticket.RegistrationControlTicket;
 
 import java.sql.Array;
 
@@ -21,7 +24,7 @@ public class Main {
         // testing dbPerson methods:
         System.out.println("Testing the dbPerson methods:");
         dbPerson testPer = RegistrationdbPerson.getInstance();
-        RegistrationControlPerson reg = new RegistrationControlPerson(testPer);
+        RegistrationControlPerson regP = new RegistrationControlPerson(testPer);
 
         Person Alex = new Person("Alex",120,0);
         Person Bart = new Person("Bart",0,0);
@@ -49,8 +52,8 @@ public class Main {
         Person Ella = new Person("Ella",0,0);
         Person empty = new Person("",0,0);
 
-        reg.ConfirmName("Ella");
-        reg.ConfirmName("");
+        regP.ConfirmName("Ella");
+        regP.ConfirmName("");
         System.out.println(testPer.size());
         testPer.printDatabase();
 
@@ -60,10 +63,16 @@ public class Main {
 
         // testing dbTicket methods:
         System.out.println('\n' + "Testing the methods for dbTicket:");
-        Ticket testTicket = new Ticket("TestWinkel");
-        TicketArray testTicketArray = new TicketArray(testTicket,testPer);
-        System.out.println(testTicketArray);
-        System.out.println(testTicketArray.getTicket());
+        dbTicket testTicket = RegistrationDbTicket.getInstance();
+        RegistrationControlTicket regT = new RegistrationControlTicket(testTicket);
+        Ticket testTickName1 = new Ticket("Winkel");
+        Ticket testTickName2 = new Ticket("Resto");
+        regT.addTicketEntry(testTickName1);
+        regT.addTicketEntry(testTickName2);
+        testTicket.printDatabase();
+
+
+
 
 
 

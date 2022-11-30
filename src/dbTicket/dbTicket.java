@@ -6,7 +6,8 @@ public abstract class dbTicket extends Observable {
 
     public dbTicket(){}
 
-    public abstract void addTicket(TicketArray ticket);
+    public void addTicket(TicketArray ticket) {
+    }
 
     public abstract void deleteTicket(TicketArray ticket);
 

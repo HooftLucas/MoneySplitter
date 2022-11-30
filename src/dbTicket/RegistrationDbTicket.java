@@ -3,6 +3,7 @@ package dbTicket;
 import Person.Person;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class RegistrationDbTicket extends dbTicket{
 
@@ -20,16 +21,16 @@ public class RegistrationDbTicket extends dbTicket{
     }
 
     @Override
-    public void addTicket(TicketArray ticket) {
-        this.TicketList.add(ticket);
+    public void addTicket(TicketArray ticketarray) {
+        this.TicketList.add(ticketarray);
     }
 
     @Override
-    public void deleteTicket(TicketArray ticket) {
-        if(TicketList.contains(ticket)){
-            TicketList.remove(ticket);
+    public void deleteTicket(TicketArray ticketarray) {
+        if(TicketList.contains(ticketarray)){
+            TicketList.remove(ticketarray);
         }else {
-            System.out.println(ticket.getTicket()+" is not in the database");
+            System.out.println(ticketarray.getTicket()+" is not in the database");
         }
     }
 
@@ -40,6 +41,7 @@ public class RegistrationDbTicket extends dbTicket{
 
     @Override
     public void printDatabase() {
+        System.out.println("Ticket database Content:");
         for (TicketArray ticketArray : TicketList) {
             System.out.println(ticketArray);
         }
@@ -47,7 +49,16 @@ public class RegistrationDbTicket extends dbTicket{
 
     @Override
     public TicketArray getTicketID(int id) {
-        return null;
+        Iterator<TicketArray> it = TicketList.iterator();
+        for (int i = 0; i < id; i++) {
+            it.next();
+        }
+        if (it.hasNext()) {
+            return it.next();
+        } else {
+            System.out.println("Error: Out of bounds of Database.");
+            return null;
+        }
     }
 
 
