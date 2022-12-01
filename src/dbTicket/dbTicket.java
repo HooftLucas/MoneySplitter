@@ -1,5 +1,8 @@
 package dbTicket;
 
+import diffTicket.Ticket;
+
+import java.util.ArrayList;
 import java.util.Observable;
 
 public abstract class dbTicket extends Observable {
@@ -16,6 +19,8 @@ public abstract class dbTicket extends Observable {
     public abstract void printDatabase();
 
     public abstract TicketArray getTicketID(int id);
+
+
 
 
 

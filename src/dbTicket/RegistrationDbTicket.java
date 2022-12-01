@@ -1,7 +1,5 @@
 package dbTicket;
 
-import Person.Person;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -12,6 +10,7 @@ public class RegistrationDbTicket extends dbTicket{
     public RegistrationDbTicket() {
         this.TicketList = new ArrayList<>();
     }
+
 
     // singleton:
     public static RegistrationDbTicket getInstance() {
@@ -30,7 +29,7 @@ public class RegistrationDbTicket extends dbTicket{
         if(TicketList.contains(ticketarray)){
             TicketList.remove(ticketarray);
         }else {
-            System.out.println(ticketarray.getTicket()+" is not in the database");
+            System.out.println(ticketarray+" is not in the database");
         }
     }
 
@@ -60,9 +59,6 @@ public class RegistrationDbTicket extends dbTicket{
             return null;
         }
     }
-
-
-
 
 
 }

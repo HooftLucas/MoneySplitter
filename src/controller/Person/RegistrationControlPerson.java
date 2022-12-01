@@ -20,25 +20,26 @@ public class RegistrationControlPerson implements Controller{
         }
         else {
             ControlName(db,Name);
-            System.out.println(Name + " is added in the database");
         }
     }
 
     @Override
     public void ControlName(dbPerson db, String Name) {
         boolean nameInDb = true;
-        for (int i = 0; i < db.size(); i++) {
-            if(db.getPersonID(i).getName() == Name){
-                i = db.size();
-                System.out.println("Name is in the DB" + Name);
-                nameInDb = true;
-                return;
+        if (db.size() != 0) {
+            for (int i = 0; i < db.size(); i++) {
+                if (db.getPersonID(i).getName() == Name) {
+                    System.out.println(Name+" is already in the DB: ");
+                    nameInDb = true;
+                    return;
+                } else
+                    nameInDb = false;
             }
-            else
-                nameInDb = false;
-        }
-        if (!nameInDb){
-            db.addPerson(new Person(Name));
+            if (!nameInDb) {
+                db.addPerson(new Person(Name));
+                System.out.println(Name + " is added in the database");
+
+            }
         }
     }
 }

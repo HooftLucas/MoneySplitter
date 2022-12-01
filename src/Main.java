@@ -7,6 +7,7 @@ import dbTicket.dbTicket;
 import dbTicket.RegistrationDbTicket;
 import diffTicket.Ticket;
 import controller.ticket.RegistrationControlTicket;
+import view.viewFrame;
 
 import java.sql.Array;
 
@@ -68,7 +69,12 @@ public class Main {
         regT.addTicketEntry("Theater","Culture");
         regT.addTicketEntry("Resto","Food");
         testTicket.printDatabase();
-
+        System.out.println(testTicket.size());
+        // test gui
+        RegistrationControlPerson regPerson = new RegistrationControlPerson(testPer);
+        viewFrame view = new viewFrame();
+        view.initialize(regPerson);
+        // Replace with your own observers
 
 
 
