@@ -65,10 +65,8 @@ public class Main {
         System.out.println('\n' + "Testing the methods for dbTicket:");
         dbTicket testTicket = RegistrationDbTicket.getInstance();
         RegistrationControlTicket regT = new RegistrationControlTicket(testTicket);
-        Ticket testTickName1 = new Ticket("Winkel");
-        Ticket testTickName2 = new Ticket("Resto");
-        regT.addTicketEntry(testTickName1);
-        regT.addTicketEntry(testTickName2);
+        regT.addTicketEntry("Theater","Culture");
+        regT.addTicketEntry("Resto","Food");
         testTicket.printDatabase();
 
 

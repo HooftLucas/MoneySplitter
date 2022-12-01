@@ -6,6 +6,7 @@ import dbTicket.dbTicket;
 import dbTicket.RegistrationDbTicket;
 import dbTicket.TicketArray;
 import diffTicket.Ticket;
+import diffTicket.TicketFactory;
 
 public class RegistrationControlTicket implements Controller {
     private dbTicket db;
@@ -15,10 +16,11 @@ public class RegistrationControlTicket implements Controller {
 
 
     @Override
-    public void addTicketEntry(Ticket ticket) {
+    public void addTicketEntry(String name,String function) {
         dbTicket dbTicket = RegistrationDbTicket.getInstance();
         dbPerson dbPerson = RegistrationdbPerson.getInstance();
-        TicketArray temp = new TicketArray(ticket, dbPerson);
-        dbTicket.addTicket(temp);
+        Ticket tempTicket = TicketFactory.getTicket(name,function);
+        TicketArray tempTA = new TicketArray(tempTicket, dbPerson);
+        dbTicket.addTicket(tempTA);
     }
 }

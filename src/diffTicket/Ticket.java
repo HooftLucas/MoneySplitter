@@ -1,25 +1,33 @@
 package diffTicket;
 
 
-// class voor de naam van het ticket.
-// kan later nog verdeeld worden in verschillende soorten tickets adhv subclasses of factory
 public class Ticket {
-    public String ticket;
+    private String name;
+    private String function;
 
-    public Ticket(String ticket) {
-        this.ticket = ticket;
+    public Ticket(String name,String function) {
+        this.name = name;
+        this.function = function;
     }
 
-    public String getTicket() {
-        return ticket;
+    public String getName() {
+        return name;
     }
 
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFunction() {
+        return function;
+    }
+
+    public void setFunction(String function) {
+        this.function = function;
     }
 
     @Override
     public String toString() {
-        return ticket;
+        return function + ":" + name;
     }
 }

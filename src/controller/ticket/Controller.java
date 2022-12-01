@@ -4,5 +4,5 @@ import dbTicket.TicketArray;
 import diffTicket.Ticket;
 
 public interface Controller {
-    void addTicketEntry(Ticket ticket);
+    void addTicketEntry(String name,String function);
 }
