@@ -1,26 +1,24 @@
 import Person.Person;
 import controller.Person.RegistrationControlPerson;
+import controller.Ticket.RegistrationControlTicket;
 import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
-import dbTicket.TicketArray;
 import dbTicket.dbTicket;
 import dbTicket.RegistrationDbTicket;
-import diffTicket.Ticket;
-import controller.ticket.RegistrationControlTicket;
-import view.viewFrame;
+import view.Menu.viewMenu;
 
-import java.sql.Array;
 
 public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         main.run();
+       // menuWindow menu = new menuWindow();
+       // menu.menuWindow();
+       // run(menu);
 
     }
-    public Main(){
 
-    }
-    public void run(){
+    public static void run(){
 
         // testing dbPerson methods:
         System.out.println("Testing the dbPerson methods:");
@@ -71,10 +69,10 @@ public class Main {
         testTicket.printDatabase();
         System.out.println(testTicket.size());
         // test gui
-        RegistrationControlPerson regPerson = new RegistrationControlPerson(testPer);
-        viewFrame view = new viewFrame();
-        view.initialize(regPerson);
-        // Replace with your own observers
+        //RegistrationControlPerson regPerson = new RegistrationControlPerson(testPer);
+
+        viewMenu view = new viewMenu();
+        view.initialize(regP, regT,testPer);
 
 
 

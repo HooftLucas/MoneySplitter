@@ -1,4 +1,4 @@
-package controller.ticket;
+package controller.Ticket;
 
 import dbTicket.TicketArray;
 import diffTicket.Ticket;

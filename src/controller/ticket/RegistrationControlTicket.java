@@ -1,5 +1,4 @@
-package controller.ticket;
-
+package controller.Ticket;
 import dbPerson.dbPerson;
 import dbPerson.RegistrationdbPerson;
 import dbTicket.dbTicket;
@@ -22,5 +21,6 @@ public class RegistrationControlTicket implements Controller {
         Ticket tempTicket = TicketFactory.getTicket(name,function);
         TicketArray tempTA = new TicketArray(tempTicket, dbPerson);
         dbTicket.addTicket(tempTA);
+        System.out.println("Ticket is added: " + name + " "+ function);
     }
 }

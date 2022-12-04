@@ -26,6 +26,7 @@ public class RegistrationdbPerson extends dbPerson{
         this.PersonList.add(person);
         instance.setChanged();
         instance.notifyObservers(person);
+        System.out.println(person);
     }
 
 

@@ -1,36 +1,36 @@
-package view;
+package view.Ticket;
 
 import Person.Person;
-import controller.Person.RegistrationControlPerson;
+import controller.Ticket.RegistrationControlTicket;
 import dbPerson.RegistrationdbPerson;
-import view.panels.ListPanel;
-import view.panels.RegistrationButtonPanel;
+import dbPerson.dbPerson;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class viewFrame extends JFrame implements Observer {
-    private RegistrationControlPerson regPerson;
-    ListPanel panel;
-    RegistrationButtonPanel buttons;
-    public viewFrame(){
-        super("add Person");
-    }
-    public void initialize(RegistrationControlPerson regPerson){
-        this.setSize(700,550);
+public class ViewTicket extends JFrame implements Observer {
+    RegistrationControlTicket controlTicket;
+    RegisterButton buttons;
+
+
+    public ViewTicket(){super("give your ticket");}
+    public void initialize(RegistrationControlTicket controlTicket, dbPerson db){
+        this.controlTicket = controlTicket;
+        this.setSize(600,400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
-        buttons = new RegistrationButtonPanel(regPerson);
-        panel = new ListPanel();
-
-        this.add(panel);
+        buttons = new RegisterButton(controlTicket, this, db);
         this.add(buttons);
         this.setVisible(true);
+
     }
+
+
+
 
     @Override
     public void update(Observable o, Object arg) {
