@@ -17,6 +17,7 @@ public abstract class dbPerson extends Observable {
     public abstract Person getPersonID(int id);
 
     public abstract ArrayList<Person> GiveDB();
+    public abstract String getName(int id);
 
 
 }

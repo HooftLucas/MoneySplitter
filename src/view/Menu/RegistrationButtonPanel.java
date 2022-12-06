@@ -47,7 +47,7 @@ public class RegistrationButtonPanel extends JPanel implements ActionListener {
     public void addPersonActionListener(){
         this.addPerson.addActionListener(listener -> {
             //controlPerson.ConfirmName("Bob");
-            viewPerson.initialize(controlPerson);
+            viewPerson.initialize(controlPerson, db);
         });
     }
     public void addTicketActionListener(){

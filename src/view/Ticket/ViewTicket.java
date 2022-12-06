@@ -14,6 +14,7 @@ public class ViewTicket extends JFrame implements Observer {
     RegistrationControlTicket controlTicket;
     RegisterButton buttons;
 
+    protected GridBagConstraints c = new GridBagConstraints();
 
     public ViewTicket(){super("give your ticket");}
     public void initialize(RegistrationControlTicket controlTicket, dbPerson db){
@@ -23,7 +24,8 @@ public class ViewTicket extends JFrame implements Observer {
 
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
-        buttons = new RegisterButton(controlTicket, this, db);
+
+        buttons = new RegisterButton(controlTicket, this, c, db);
         this.add(buttons);
         this.setVisible(true);
 

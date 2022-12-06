@@ -1,6 +1,7 @@
 package view.Person;
 
 import controller.Person.RegistrationControlPerson;
+import dbPerson.dbPerson;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,14 +13,15 @@ public class RegisterButton extends JPanel implements ActionListener {
     private JTextField textField;
     private JButton AddName;
     private JButton Return;
+    private JLabel label;
     DefaultListModel<String> dbListModel = new DefaultListModel<>();
 
     JList<String> dbJList = new JList<>(dbListModel);
     private RegistrationControlPerson controlPerson;
-    Boolean firstTime = true;
-    public RegisterButton(RegistrationControlPerson controlPerson, JFrame close){
-
-        JLabel label = new JLabel("add your friends");
+    dbPerson db;
+    public RegisterButton(RegistrationControlPerson controlPerson, JFrame close, dbPerson db){
+        this.db = db;
+        this.label = new JLabel("add your friends");
         this.textField = new JTextField();
         this.controlPerson = controlPerson;
         this.Return = new JButton("return to menu");
@@ -33,7 +35,7 @@ public class RegisterButton extends JPanel implements ActionListener {
         this.add(this.textField);
         this.add(this.AddName);
         this.add(this.Return);
-
+// verwijder uit lijst
 
     }
     public void addNameListener(){
@@ -41,21 +43,22 @@ public class RegisterButton extends JPanel implements ActionListener {
         this.AddName.addActionListener(l -> {
             String name = textField.getText();
             controlPerson.ConfirmName(name);
+            //db.printDatabase();
         });
     }
     public void ReturnMenuListener(JFrame close){
         this.Return.addActionListener(e -> {
             close.dispose();
+            this.remove(label);
+            this.remove(this.textField);
+            this.remove(this.AddName);
+            this.remove(this.Return);
             //https://stackoverflow.com/questions/8632705/how-to-close-a-gui-when-i-push-a-jbutton
         });
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
-        String nameEmployee;
-        if(s.equals("submit")){
-            nameEmployee = s;
 
-        }
     }
 }

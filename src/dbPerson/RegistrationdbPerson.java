@@ -63,6 +63,10 @@ public class RegistrationdbPerson extends dbPerson{
                 return null;
             }
     }
+    public String getName(int id){
+        Person person = PersonList.get(id);
+        return person.getName();
+    }
 
 
 
