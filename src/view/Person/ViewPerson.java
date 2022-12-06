@@ -1,10 +1,7 @@
 package view.Person;
 
-import Person.Person;
 import controller.Person.RegistrationControlPerson;
-import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
-import view.Menu.ListPanel;
 
 import javax.swing.*;
 import java.awt.*;

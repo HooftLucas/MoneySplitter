@@ -72,7 +72,7 @@ public class Main {
         //RegistrationControlPerson regPerson = new RegistrationControlPerson(testPer);
 
         viewMenu view = new viewMenu();
-        view.initialize(regP, regT,testPer);
+        view.initialize(regP, regT,testPer,testTicket );
 
 
 

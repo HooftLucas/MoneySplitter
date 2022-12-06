@@ -1,44 +1,35 @@
-package view.Ticket;
+package view.Bill;
 
 import Person.Person;
 import controller.Ticket.RegistrationControlTicket;
 import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
+import dbTicket.dbTicket;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ViewTicket extends JFrame implements Observer {
-    RegistrationControlTicket controlTicket;
-    RegisterButton buttons;
-
+public class ViewBill extends JFrame implements Observer {
+    RegistationButton buttons;
     protected GridBagConstraints c = new GridBagConstraints();
-
-    public ViewTicket(){super("give your ticket");}
-    public void initialize(RegistrationControlTicket controlTicket, dbPerson db){
-        this.controlTicket = controlTicket;
+    RegistrationControlTicket controlTicket;
+    public ViewBill(){super("give the total bill");}
+    public void initialize(RegistrationControlTicket regControl, dbPerson db, dbTicket dbT){
+        this.controlTicket = regControl;
         this.setSize(800,600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
-
-        buttons = new RegisterButton(controlTicket, this, c, db);
+        buttons = new RegistationButton(controlTicket, this, c, db, dbT);
         this.add(buttons);
         this.setVisible(true);
-
     }
-
-
-
 
     @Override
     public void update(Observable o, Object arg) {
-        Person p= (Person) arg;
-        String name = p.getName();
-        RegistrationdbPerson rPerson = RegistrationdbPerson.getInstance();
+
 
     }
 }

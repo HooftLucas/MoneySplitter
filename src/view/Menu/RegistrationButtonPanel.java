@@ -3,7 +3,8 @@ package view.Menu;
 import controller.Person.RegistrationControlPerson;
 import controller.Ticket.RegistrationControlTicket;
 import dbPerson.dbPerson;
-import view.Person.PersonPanel;
+import dbTicket.dbTicket;
+import view.Bill.ViewBill;
 import view.Person.ViewPerson;
 import view.Ticket.ViewTicket;
 
@@ -20,10 +21,13 @@ public class RegistrationButtonPanel extends JPanel implements ActionListener {
 
     private final ViewPerson viewPerson = new ViewPerson();
     private final ViewTicket viewTicket = new ViewTicket();
-    private dbPerson db;
 
-    public RegistrationButtonPanel(RegistrationControlPerson regPer, RegistrationControlTicket regTicket, dbPerson db){
+    private final ViewBill viewBill = new ViewBill();
+    dbPerson db;
+    dbTicket dbT;
+    public RegistrationButtonPanel(RegistrationControlPerson regPer, RegistrationControlTicket regTicket, dbPerson db, dbTicket dbT){
         this.db = db;
+        this.dbT= dbT;
         JLabel label = new JLabel("Split your bills");
         //Person
         this.addPerson = new JButton("add persons");
@@ -58,7 +62,7 @@ public class RegistrationButtonPanel extends JPanel implements ActionListener {
     }
     public void CalcBillActionListener(){
         this.CalcBill.addActionListener(listener -> {
-            System.out.println(" calculate the bill");
+            viewBill.initialize(controlTicket,db, dbT);
         });
     }
     @Override

@@ -7,6 +7,7 @@ import controller.Person.RegistrationControlPerson;
 import controller.Ticket.RegistrationControlTicket;
 import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
+import dbTicket.dbTicket;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,21 +16,19 @@ import java.util.Observer;
 
 public class viewMenu extends JFrame implements Observer {
     private RegistrationControlPerson regPerson;
-    ListPanel panel;
+
     RegistrationButtonPanel buttons;
     public viewMenu(){
         super("Menu");
     }
-    public void initialize(RegistrationControlPerson regPerson, RegistrationControlTicket regTicket, dbPerson db){
+    public void initialize(RegistrationControlPerson regPerson, RegistrationControlTicket regTicket, dbPerson db, dbTicket dbT){
         this.setSize(700,550);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
-        buttons = new RegistrationButtonPanel(regPerson, regTicket, db);
-        panel = new ListPanel();
+        buttons = new RegistrationButtonPanel(regPerson, regTicket, db, dbT);
 
-        this.add(panel);
         this.add(buttons);
         this.setVisible(true);
     }
