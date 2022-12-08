@@ -1,24 +1,22 @@
 import Person.Person;
 import controller.Person.RegistrationControlPerson;
-import controller.Ticket.RegistrationControlTicket;
 import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
 import dbTicket.dbTicket;
 import dbTicket.RegistrationDbTicket;
-import view.Menu.viewMenu;
-
+import controller.Ticket.RegistrationControlTicket;
+import Bill.Calculate;
 
 public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         main.run();
-       // menuWindow menu = new menuWindow();
-       // menu.menuWindow();
-       // run(menu);
 
     }
+    public Main(){
 
-    public static void run(){
+    }
+    public void run(){
 
         // testing dbPerson methods:
         System.out.println("Testing the dbPerson methods:");
@@ -57,13 +55,10 @@ public class Main {
         testPer.printDatabase();
 
 
-
-
-
         // testing dbTicket methods:
         System.out.println('\n' + "Testing the methods for dbTicket:");
-        dbTicket testTicket = RegistrationDbTicket.getInstance();
-        RegistrationControlTicket regT = new RegistrationControlTicket(testTicket);
+        dbTicket testDbTicket = RegistrationDbTicket.getInstance();
+        RegistrationControlTicket regT = new RegistrationControlTicket(testDbTicket);
         regT.addTicketEntry("Theater","Culture");
         regT.addTicketEntry("Resto","Food");
         testTicket.printDatabase();
@@ -80,7 +75,10 @@ public class Main {
 
 
 
-
+        // testing the Calculate function:
+        System.out.println('\n' + "Testing the calculate function:" );
+        testDbTicket.printDatabase();
+        System.out.println(Calculate.Sum());
 
     }
 

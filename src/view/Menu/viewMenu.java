@@ -1,7 +1,5 @@
 package view.Menu;
 
-
-
 import Person.Person;
 import controller.Person.RegistrationControlPerson;
 import controller.Ticket.RegistrationControlTicket;

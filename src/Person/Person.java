@@ -3,17 +3,16 @@ package Person;
 public class Person {
 
     String Name;
-    Boolean Paid;
     double Amount;
     double Cost;
 
 
     public Person(String Name, double Amount, double Cost){
     this.Name = Name;
-
     this.Amount = Amount;
     this.Cost = Cost;
     }
+
     public Person(String Name){
         this.Name = Name;
         this.Amount = 0.0;

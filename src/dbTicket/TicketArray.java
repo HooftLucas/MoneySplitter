@@ -1,5 +1,6 @@
 package dbTicket;
 
+import Person.Person;
 import dbPerson.dbPerson;
 import diffTicket.Ticket;
 import java.util.ArrayList;
@@ -7,28 +8,25 @@ import java.util.ArrayList;
 
 public class TicketArray {
 
-    ArrayList<ArrayList<Object>> array = new ArrayList<>();
-    RegistrationDbTicket Reg = new RegistrationDbTicket();
+    ArrayList<Object> array = new ArrayList<>();
 
     public TicketArray(Ticket ticket,dbPerson db) {
-        this.array.add(new ArrayList<>());
-        this.array.get(0).add(ticket);
+        this.array.add(ticket);
         for (int i = 0; i < db.size(); i++) {
-            this.array.add(new ArrayList<>());
-            this.array.get(i+1).add(db.getPersonID(i));
+            this.array.add(db.getPersonID(i));
         }
-
     }
 
+    public Ticket getTicket() {
+        return (Ticket) this.array.get(0);
+    }
 
-    public Ticket getTicket(int id) {
-        return (Ticket) this.array.get(id).get(id);
+    public Person getPerson(int i) {
+            return (Person) this.array.get(i + 1);
     }
 
     @Override
     public String toString() {
         return  array + "." ;
     }
-
-
 }
