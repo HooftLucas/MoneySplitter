@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class viewMenu extends JFrame implements Observer {
+public class viewMenu extends JFrame {
     private RegistrationControlPerson regPerson;
 
     RegistrationButtonPanel buttons;
@@ -33,11 +33,5 @@ public class viewMenu extends JFrame implements Observer {
         this.setVisible(true);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        Person p= (Person) arg;
-        String name = p.getName();
-        RegistrationdbPerson rPerson = RegistrationdbPerson.getInstance();
 
-    }
 }

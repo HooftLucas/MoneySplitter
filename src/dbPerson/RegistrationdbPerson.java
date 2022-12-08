@@ -69,7 +69,6 @@ public class RegistrationdbPerson extends dbPerson{
     }
 
 
-
     @Override
     public ArrayList<Person> GiveDB() {
         return PersonList;

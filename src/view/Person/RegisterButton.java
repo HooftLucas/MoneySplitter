@@ -1,5 +1,6 @@
 package view.Person;
 
+import Person.Person;
 import controller.Person.RegistrationControlPerson;
 import dbPerson.dbPerson;
 
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
-public class RegisterButton extends JPanel implements ActionListener {
+public class RegisterButton extends JPanel {
 
     private JTextField textField;
     private JButton AddName;
@@ -43,6 +44,7 @@ public class RegisterButton extends JPanel implements ActionListener {
         this.AddName.addActionListener(l -> {
             String name = textField.getText();
             controlPerson.ConfirmName(name);
+            textField.setText("");
             //db.printDatabase();
         });
     }
@@ -56,9 +58,6 @@ public class RegisterButton extends JPanel implements ActionListener {
             //https://stackoverflow.com/questions/8632705/how-to-close-a-gui-when-i-push-a-jbutton
         });
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String s = e.getActionCommand();
+    public void addEntry(Person entry){this.dbListModel.addElement(String.valueOf(entry));}
 
-    }
 }

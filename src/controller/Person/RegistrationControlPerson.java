@@ -22,6 +22,10 @@ public class RegistrationControlPerson implements Controller{
             ControlName(db,Name);
         }
     }
+    public void addTicket(int id, double Amount, double Cost){
+        db.getPersonID(id).setAmount(Amount);
+        db.getPersonID(id).setCost(Cost);
+    }
 
     @Override
     public void ControlName(dbPerson db, String Name) {

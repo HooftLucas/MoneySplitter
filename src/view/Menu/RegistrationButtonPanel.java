@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RegistrationButtonPanel extends JPanel implements ActionListener {
+public class RegistrationButtonPanel extends JPanel{
     private final JButton addPerson;
     private final JButton addTicket;
     private final JButton CalcBill;
@@ -25,6 +25,7 @@ public class RegistrationButtonPanel extends JPanel implements ActionListener {
     private final ViewBill viewBill = new ViewBill();
     dbPerson db;
     dbTicket dbT;
+
     public RegistrationButtonPanel(RegistrationControlPerson regPer, RegistrationControlTicket regTicket, dbPerson db, dbTicket dbT){
         this.db = db;
         this.dbT= dbT;
@@ -57,7 +58,7 @@ public class RegistrationButtonPanel extends JPanel implements ActionListener {
     public void addTicketActionListener(){
         this.addTicket.addActionListener(listener -> {
             //controlTicket.addTicketEntry("resto", "MCDO");
-            viewTicket.initialize(controlTicket, db);
+            viewTicket.initialize(controlTicket, db, controlPerson, dbT);
         });
     }
     public void CalcBillActionListener(){
@@ -65,16 +66,7 @@ public class RegistrationButtonPanel extends JPanel implements ActionListener {
             viewBill.initialize(controlTicket,db, dbT);
         });
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String s = e.getActionCommand();
-        String nameEmployee;
-        if(s.equals("submit")){
-            nameEmployee = s;
 
-        }
-
-    }
 
 
 }

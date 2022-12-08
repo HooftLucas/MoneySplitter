@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="Interface GUI ticket">
-      <change afterPath="$PROJECT_DIR$/src/view/Bill/RegistationButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/Bill/ViewBill.java" afterDir="false" />
+    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="Interface GUI bill + diff ticket events">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_12_2022_10_19_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_12_2022_10_19__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Menu/ListPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Bill/RegistationButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Bill/RegistationButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Bill/ViewBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Bill/ViewBill.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Menu/RegistrationButtonPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Menu/RegistrationButtonPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Menu/viewMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Menu/viewMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Person/PersonPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Person/ViewPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Person/ViewPerson.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Ticket/RegisterButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Ticket/RegisterButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Ticket/ViewTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Ticket/ViewTicket.java" afterDir="false" />
@@ -93,7 +97,8 @@
       <workItem from="1670177727323" duration="13357000" />
       <workItem from="1670328852423" duration="253000" />
       <workItem from="1670329303895" duration="714000" />
-      <workItem from="1670350050481" duration="13049000" />
+      <workItem from="1670350050481" duration="13817000" />
+      <workItem from="1670501533175" duration="7009000" />
     </task>
     <task id="LOCAL-00001" summary="begin project">
       <created>1668098209625</created>
@@ -172,7 +177,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670355852473</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Interface GUI bill + diff ticket events">
+      <created>1670363442011</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1670363442011</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +214,8 @@
     <MESSAGE value="gui" />
     <MESSAGE value="gui add Person and Ticket" />
     <MESSAGE value="Interface GUI ticket" />
-    <option name="LAST_COMMIT_MESSAGE" value="Interface GUI ticket" />
+    <MESSAGE value="Interface GUI bill + diff ticket events" />
+    <option name="LAST_COMMIT_MESSAGE" value="Interface GUI bill + diff ticket events" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

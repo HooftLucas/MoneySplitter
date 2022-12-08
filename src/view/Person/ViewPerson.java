@@ -1,5 +1,6 @@
 package view.Person;
 
+import Person.Person;
 import controller.Person.RegistrationControlPerson;
 import dbPerson.dbPerson;
 
@@ -7,8 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
+import dbPerson.RegistrationdbPerson;
 
-public class ViewPerson extends JFrame implements Observer {
+public class ViewPerson extends JFrame {
     RegistrationControlPerson controlPerson;
     RegisterButton buttons;
     dbPerson db;
@@ -26,8 +28,5 @@ public class ViewPerson extends JFrame implements Observer {
         this.setVisible(true);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
 
-    }
 }

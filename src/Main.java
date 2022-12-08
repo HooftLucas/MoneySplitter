@@ -67,7 +67,6 @@ public class Main {
         regT.addTicketEntry("Theater","Culture");
         regT.addTicketEntry("Resto","Food");
         testTicket.printDatabase();
-        System.out.println(testTicket.size());
         // test gui
         //RegistrationControlPerson regPerson = new RegistrationControlPerson(testPer);
 

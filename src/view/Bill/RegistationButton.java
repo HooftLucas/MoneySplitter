@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RegistationButton extends JPanel implements ActionListener {
+public class RegistationButton extends JPanel {
     private JLabel[] to_paid = new JLabel[1000];
     private JLabel[] PersonToPaid = new JLabel[1000];
     private JLabel[] Name = new JLabel[1000];
@@ -69,8 +69,4 @@ public class RegistationButton extends JPanel implements ActionListener {
         });
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }

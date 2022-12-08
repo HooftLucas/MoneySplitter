@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ViewBill extends JFrame implements Observer {
+public class ViewBill extends JFrame {
     RegistationButton buttons;
     protected GridBagConstraints c = new GridBagConstraints();
     RegistrationControlTicket controlTicket;
@@ -27,9 +27,4 @@ public class ViewBill extends JFrame implements Observer {
         this.setVisible(true);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-
-
-    }
 }
