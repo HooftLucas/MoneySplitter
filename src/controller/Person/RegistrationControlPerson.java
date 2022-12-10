@@ -1,49 +1,50 @@
 package controller.Person;
 
 import Person.Person;
+import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class RegistrationControlPerson implements Controller{
-    private dbPerson db;
-    public RegistrationControlPerson(dbPerson db){
-        this.db = db;
+    private dbPerson dbPerson;
+
+    public RegistrationControlPerson(dbPerson dbPerson){
+        this.dbPerson = dbPerson;
     }
 
     @Override
-    public void ConfirmName(String Name) {
+    public void addNameToDatabase(String Name) {
+        dbPerson dbPerson = RegistrationdbPerson.getInstance();
+        boolean nameInDb = true;
+
         if(Name.isEmpty()){
             System.out.println("The given name is empty");
-
         }
         else {
-            ControlName(db,Name);
+            if(dbPerson.size() == 0) {
+                dbPerson.addPerson(new Person(Name));
+                System.out.println(Name + " is added in the database.");
+            }
+            else {
+                for (int i = 0; i < dbPerson.size(); i++) {
+                    if (Name.equals(dbPerson.getPersonID(i).getName())) {
+                        System.out.println(Name + " already exists. Please enter another name.");
+                        nameInDb = true;
+                        return;
+                    } else
+                        nameInDb = false;
+                }
+                if (!nameInDb) {
+                    dbPerson.addPerson(new Person(Name));
+                    System.out.println(Name + " is added in the database.");
+                }
+            }
+
         }
-    }
-    public void addTicket(int id, double Amount, double Cost){
-        db.getPersonID(id).setAmount(Amount);
-        db.getPersonID(id).setCost(Cost);
     }
 
     @Override
-    public void ControlName(dbPerson db, String Name) {
-        boolean nameInDb = true;
-        if (db.size() != 0) {
-            for (int i = 0; i < db.size(); i++) {
-                if (db.getPersonID(i).getName() == Name) {
-                    System.out.println(Name+" is already in the DB: ");
-                    nameInDb = true;
-                    return;
-                } else
-                    nameInDb = false;
-            }
-            if (!nameInDb) {
-                db.addPerson(new Person(Name));
-                System.out.println(Name + " is added in the database");
-
-            }
-        }
+    public void setPersonForTicket(int id, double Amount, double Cost){
+        dbPerson.getPersonID(id).setAmount(Amount);
+        dbPerson.getPersonID(id).setCost(Cost);
     }
 }

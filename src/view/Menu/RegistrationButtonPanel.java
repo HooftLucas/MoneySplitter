@@ -9,13 +9,11 @@ import view.Person.ViewPerson;
 import view.Ticket.ViewTicket;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RegistrationButtonPanel extends JPanel{
-    private final JButton addPerson;
-    private final JButton addTicket;
-    private final JButton CalcBill;
+    private final JButton addPersonMenu;
+    private final JButton addTicketMenu;
+    private final JButton CalcBillMenu;
     private final RegistrationControlPerson controlPerson;
     private final RegistrationControlTicket controlTicket;
 
@@ -23,21 +21,21 @@ public class RegistrationButtonPanel extends JPanel{
     private final ViewTicket viewTicket = new ViewTicket();
 
     private final ViewBill viewBill = new ViewBill();
-    dbPerson db;
-    dbTicket dbT;
+    dbPerson dbPerson;
+    dbTicket dbTicket;
 
-    public RegistrationButtonPanel(RegistrationControlPerson regPer, RegistrationControlTicket regTicket, dbPerson db, dbTicket dbT){
-        this.db = db;
-        this.dbT= dbT;
+    public RegistrationButtonPanel(RegistrationControlPerson regPerson, RegistrationControlTicket regTicket, dbPerson dbPerson, dbTicket dbTicket){
+        this.dbPerson = dbPerson;
+        this.dbTicket= dbTicket;
         JLabel label = new JLabel("Split your bills");
         //Person
-        this.addPerson = new JButton("add persons");
-        this.controlPerson = regPer;
+        this.addPersonMenu = new JButton("add new persons");
+        this.controlPerson = regPerson;
         //Ticket
-        this.addTicket = new JButton("add Ticket");
+        this.addTicketMenu = new JButton("add new ticket");
         this.controlTicket = regTicket;
         //bill
-        this.CalcBill = new JButton("calculate the total bill" );
+        this.CalcBillMenu = new JButton("calculate the total bill" );
 
 
         addPersonActionListener();
@@ -45,25 +43,23 @@ public class RegistrationButtonPanel extends JPanel{
         CalcBillActionListener();
         this.setLayout(new BoxLayout(this ,BoxLayout.Y_AXIS));
         this.add(label);
-        this.add(this.addPerson);
-        this.add(this.addTicket);
-        this.add(this.CalcBill);
+        this.add(this.addPersonMenu);
+        this.add(this.addTicketMenu);
+        this.add(this.CalcBillMenu);
     }
     public void addPersonActionListener(){
-        this.addPerson.addActionListener(listener -> {
-            //controlPerson.ConfirmName("Bob");
-            viewPerson.initialize(controlPerson, db);
+        this.addPersonMenu.addActionListener(listener -> {
+            viewPerson.initialize(controlPerson, dbPerson);
         });
     }
     public void addTicketActionListener(){
-        this.addTicket.addActionListener(listener -> {
-            //controlTicket.addTicketEntry("resto", "MCDO");
-            viewTicket.initialize(controlTicket, db, controlPerson, dbT);
+        this.addTicketMenu.addActionListener(listener -> {
+            viewTicket.initialize(controlTicket, dbPerson, controlPerson, dbTicket);
         });
     }
     public void CalcBillActionListener(){
-        this.CalcBill.addActionListener(listener -> {
-            viewBill.initialize(controlTicket,db, dbT);
+        this.CalcBillMenu.addActionListener(listener -> {
+            viewBill.initialize(dbPerson, dbTicket);
         });
     }
 

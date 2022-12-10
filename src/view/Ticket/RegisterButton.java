@@ -7,10 +7,6 @@ import dbTicket.dbTicket;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RegisterButton extends JPanel {
    // private ArrayList<JTextField> Amount;
@@ -20,12 +16,12 @@ public class RegisterButton extends JPanel {
     private JTextField titleTicket;
     private JButton AddTicket;
     private JButton Return;
-    private JLabel tittle;
+    private JLabel title;
 
     private JLabel[] Name = new JLabel[100] ;
 
-    private JLabel tittle_amount;
-    private JLabel tittle_paid;
+    private JLabel title_amount;
+    private JLabel title_paid;
 
     private JLabel name_Ticket;
 
@@ -40,27 +36,28 @@ public class RegisterButton extends JPanel {
     DefaultListModel<String> dbListModel = new DefaultListModel<>();
     RegistrationControlTicket controlTicket;
     JList<String> dbJList = new JList<>(dbListModel);
-    dbPerson db;
+    dbPerson dbPerson;
     RegistrationControlPerson controlPerson;
     dbTicket dbTicket;
-    RegisterButton(RegistrationControlTicket controlTicket, JFrame close, GridBagConstraints c, dbPerson db, RegistrationControlPerson controlPerson, dbTicket dbTicket){
+
+    RegisterButton(RegistrationControlTicket controlTicket, JFrame close, GridBagConstraints c, dbPerson dbPerson, RegistrationControlPerson controlPerson, dbTicket dbTicket){
         this.controlPerson = controlPerson;
         this.dbTicket = dbTicket;
         this.c =c;
-        this.db = db;
+        this.dbPerson = dbPerson;
         this.controlTicket = controlTicket;
-        tittle = new JLabel("Add your ticket");
+        title = new JLabel("Add your ticket");
         AddTicket = new JButton("add Ticket");
         Return = new JButton("Return");
-        tittle_amount = new JLabel("who have paid");
-        tittle_paid = new JLabel("total bill");
-        rules1 = new JLabel("for an even split put a 0 by 'who have paid'");
-        rules2 = new JLabel(" for not even split put the right value by 'who have paid'");
+        title_amount = new JLabel("Amount paid");
+        title_paid = new JLabel("Cost to be paid");
+        rules1 = new JLabel("for an even split put a 0 by 'Amount paid'");
+        rules2 = new JLabel(" for not even split put the right value by 'Amount paid'");
         titleTicket = new JTextField(10);
         name_Ticket = new JLabel("give the name of your ticket");
 
-
         AddTicketListener();
+        //listListener();
         ReturnMenuListener(close);
 
         this.add(dbJList);
@@ -69,7 +66,7 @@ public class RegisterButton extends JPanel {
         c.gridx = 0;
         this.setLayout(new GridBagLayout());
 
-        this.add(tittle,c );
+        this.add(title,c );
         c.gridy++;
         c.gridx = 0;
         this.add(name_Ticket, c);
@@ -80,17 +77,16 @@ public class RegisterButton extends JPanel {
         c.gridy++;
 
         c.gridx= 2;
-        this.add(tittle_paid,c);
+        this.add(title_amount,c);
         c.gridx ++;
-        this.add(tittle_amount,c );
-
+        this.add(title_paid,c );
 
         c.gridy++;
 
         //
-        for (int i = 0; i <db.size() ; i++) {
+        for (int i = 0; i < dbPerson.size() ; i++) {
             c.gridx = 0;
-            Name[i] = new JLabel(db.getName(i));
+            Name[i] = new JLabel(dbPerson.getName(i));
             Amount[i] = new JTextField(10);
             Cost[i] = new JTextField(10);
 
@@ -120,23 +116,18 @@ public class RegisterButton extends JPanel {
         final double[] amount_person = new double[1];
         final double[] cost_person = new double[1];
         this.AddTicket.addActionListener(l -> {
-            for (int i = 0; i <db.size() ; i++) {
-               // System.out.println("Amount: "+ Amount[i].getText());
-                //System.out.println("Cost: "+ Cost[i].getText());
+            for (int i = 0; i < dbPerson.size() ; i++) {
                 //person id = i -> waarde amount en cost meegeven
                 if(Amount[i].getText().matches("[0-9]+")) {
-                 //   System.out.println("Amount: "+ Amount[i]);
                     amount_person[0] = Double.parseDouble(Amount[i].getText());
                 } else
                     amount_person[0] = 0;
                 if(Cost[i].getText().matches("[0-9]+")) {
-                   // System.out.println("Amount: "+ Cost[i]);
-
                     cost_person[0] = Double.parseDouble(Cost[i].getText());
                 } else
                     cost_person[0] = 0;
 
-                controlPerson.addTicket(i, amount_person[0], cost_person[0]);
+                controlPerson.setPersonForTicket(i, amount_person[0], cost_person[0]);
                 Amount[i].setText("");
                 Cost[i].setText("");
             }
@@ -159,13 +150,12 @@ public class RegisterButton extends JPanel {
     public void ReturnMenuListener(JFrame close){
         this.Return.addActionListener(e -> {
             close.dispose();
-            this.remove(tittle);
+            this.remove(title);
             this.remove(AddTicket);
             this.remove(Return);
-            this.remove(tittle_amount);
-            this.remove(tittle_paid);
-            for (int i = 0; i <db.size() ; i++) {
-
+            this.remove(title_amount);
+            this.remove(title_paid);
+            for (int i = 0; i < dbPerson.size() ; i++) {
                 this.remove(Name[i]);
                 this.remove(Amount[i]);
                 this.remove(Cost[i]);
@@ -180,5 +170,6 @@ public class RegisterButton extends JPanel {
 
         });
     }
+
 
 }

@@ -1,5 +1,7 @@
 package Person;
 
+import diffTicket.Ticket;
+
 public class Person {
 
     String Name;

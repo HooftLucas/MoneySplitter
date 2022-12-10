@@ -5,9 +5,6 @@ import controller.Person.RegistrationControlPerson;
 import dbPerson.dbPerson;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 public class RegisterButton extends JPanel {
 
@@ -19,9 +16,9 @@ public class RegisterButton extends JPanel {
 
     JList<String> dbJList = new JList<>(dbListModel);
     private RegistrationControlPerson controlPerson;
-    dbPerson db;
-    public RegisterButton(RegistrationControlPerson controlPerson, JFrame close, dbPerson db){
-        this.db = db;
+    dbPerson dbPerson;
+    public RegisterButton(RegistrationControlPerson controlPerson, JFrame close, dbPerson dbPerson){
+        this.dbPerson = dbPerson;
         this.label = new JLabel("add your friends");
         this.textField = new JTextField();
         this.controlPerson = controlPerson;
@@ -43,7 +40,7 @@ public class RegisterButton extends JPanel {
 
         this.AddName.addActionListener(l -> {
             String name = textField.getText();
-            controlPerson.ConfirmName(name);
+            controlPerson.addNameToDatabase(name);
             textField.setText("");
             //db.printDatabase();
         });

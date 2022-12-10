@@ -1,13 +1,10 @@
 package view.Bill;
 
-import controller.Ticket.RegistrationControlTicket;
 import dbPerson.dbPerson;
 import dbTicket.dbTicket;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RegistationButton extends JPanel {
     private JLabel[] to_paid = new JLabel[1000];
@@ -19,13 +16,12 @@ public class RegistationButton extends JPanel {
     private JButton Return;
     protected GridBagConstraints c = new GridBagConstraints();
     DefaultListModel<String> dbListModel = new DefaultListModel<>();
-    RegistrationControlTicket controlTicket;
     JList<String> dbJList = new JList<>(dbListModel);
-    dbPerson dbP;
-    RegistationButton(RegistrationControlTicket controlTicket, JFrame close, GridBagConstraints c, dbPerson dbP, dbTicket dbT){
-        this.dbP = dbP;
+    dbPerson dbPerson;
+
+    RegistationButton(JFrame close, GridBagConstraints c, dbPerson dbPerson, dbTicket dbTicket){
+        this.dbPerson = dbPerson;
         this.c =c;
-        this.controlTicket = controlTicket;
         title = new JLabel("the total bill: ");
         titlePaid = new JLabel("amount to pay");
         titlePersonToPaid = new JLabel("Person to pay");
@@ -37,15 +33,16 @@ public class RegistationButton extends JPanel {
         c.gridy = 0;
         c.gridx = 0;
         this.setLayout(new GridBagLayout());
-        for (int i = 0; i <dbP.size() ; i++) {
+        for (int i = 0; i < dbPerson.size() ; i++) {
             c.gridx = 0;
-            Name[i] = new JLabel(dbP.getName(i));
+            Name[i] = new JLabel(dbPerson.getName(i));
             //to_paid[i] = new JLabel(); -> waarde uit ticket halen
             //PersonToPaid[i] = new JLabel();
 
             this.add(Name[i], c);
             c.gridx +=2;
             //this.add(to_paid[i],c );
+
             c.gridx ++;
            // this.add(PersonToPaid[i], c);
             c.gridy ++;
@@ -56,7 +53,7 @@ public class RegistationButton extends JPanel {
             close.dispose();
             this.remove(title);
             this.remove(Return);
-            for (int i = 0; i <dbP.size() ; i++) {
+            for (int i = 0; i < dbPerson.size() ; i++) {
 
                 this.remove(Name[i]);
                // this.remove(to_paid[i]);

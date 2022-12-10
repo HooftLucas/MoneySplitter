@@ -29,24 +29,26 @@ public class Calculate_Itest {
         testDbP.addPerson(new Person("Dirk"));
 
         dbTicket testDbT = RegistrationDbTicket.getInstance();
-        RegistrationControlTicket regT = new RegistrationControlTicket(testDbT);
-        regT.addTicketEntry("Theater","Culture");
+        RegistrationControlTicket regTicket = new RegistrationControlTicket(testDbT);
+        regTicket.addTicketEntry("Theater","Culture");
+        regTicket.addTicketEntry("macD","Food");
 
     }
 
     @Test
-    public void t_Calculate_Sum() {
-        // testing the Sum method in Class calculate:
+    public void t_Calculate_Balance() {
+        // testing the Balance method in Class calculate:
 
         HashMap<String, Double> compareMap = new HashMap<>();
-        compareMap.put("Alex", 300.0);
-        compareMap.put("Bart", 0.0);
-        compareMap.put("Cedric", 0.0);
-        compareMap.put("Dirk", 0.0);
+        compareMap.put("Alex", 150.0);
+        compareMap.put("Bart", 150.0);
+        compareMap.put("Cedric", 150.0);
+        compareMap.put("Dirk", 150.0);
 
-        HashMap<String, Double> testMap = Calculate.Sum();
 
-        assertEquals("Testing booking integration - day 10 - should return 0",
+        HashMap<String, Double> testMap = Calculate.Balance();
+
+        assertEquals("Testing the Balance of the bill:",
                 compareMap, testMap);
     }
 

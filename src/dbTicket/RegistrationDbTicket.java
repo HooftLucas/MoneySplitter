@@ -44,6 +44,7 @@ public class RegistrationDbTicket extends dbTicket{
         for (TicketArray ticketArray : TicketList) {
             System.out.println(ticketArray);
         }
+        System.out.println();
     }
 
     @Override
@@ -59,7 +60,6 @@ public class RegistrationDbTicket extends dbTicket{
             return null;
         }
     }
-
 
 }
 

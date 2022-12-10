@@ -1,7 +1,7 @@
 package diffTicket;
 
 
-public class Ticket {
+public class Ticket  {
     private String name;
     private String function;
 

@@ -1,18 +1,20 @@
 package controller.Ticket;
-import dbPerson.dbPerson;
+
 import dbPerson.RegistrationdbPerson;
-import dbTicket.dbTicket;
+import dbPerson.dbPerson;
 import dbTicket.RegistrationDbTicket;
 import dbTicket.TicketArray;
+import dbTicket.dbTicket;
 import diffTicket.Ticket;
 import diffTicket.TicketFactory;
 
-public class RegistrationControlTicket implements Controller {
-    private dbTicket db;
-    public RegistrationControlTicket(dbTicket db){
-        this.db = db;
-    }
 
+public class RegistrationControlTicket implements Controller {
+    private dbTicket dbTicket;
+
+    public RegistrationControlTicket(dbTicket dbTicket){
+        this.dbTicket = dbTicket;
+    }
 
     @Override
     public void addTicketEntry(String name,String function) {
@@ -21,6 +23,6 @@ public class RegistrationControlTicket implements Controller {
         Ticket tempTicket = TicketFactory.getTicket(name,function);
         TicketArray tempTA = new TicketArray(tempTicket, dbPerson);
         dbTicket.addTicket(tempTA);
-        System.out.println("Ticket is added: " + name + " "+ function);
+        System.out.println("Ticket is added: " + tempTA);
     }
 }

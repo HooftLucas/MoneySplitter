@@ -1,9 +1,6 @@
 package controller.Person;
 
-import Person.Person;
-import dbPerson.dbPerson;
-
 public interface Controller {
-    void ConfirmName(String Name);
-    void ControlName(dbPerson db, String Name);
+    void addNameToDatabase(String Name);
+    void setPersonForTicket(int id, double Amount, double Cost);
 }

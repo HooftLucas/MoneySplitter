@@ -10,10 +10,10 @@ public class TicketArray {
 
     ArrayList<Object> array = new ArrayList<>();
 
-    public TicketArray(Ticket ticket,dbPerson db) {
+    public TicketArray(Ticket ticket,dbPerson dbPerson) {
         this.array.add(ticket);
-        for (int i = 0; i < db.size(); i++) {
-            this.array.add(db.getPersonID(i));
+        for (int i = 0; i < dbPerson.size(); i++) {
+            this.array.add(dbPerson.getPersonID(i));
         }
     }
 

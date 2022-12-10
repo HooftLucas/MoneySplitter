@@ -1,47 +1,52 @@
 package Bill;
 
-import Person.Person;
-import dbPerson.dbPerson;
 import dbPerson.RegistrationdbPerson;
+import dbPerson.dbPerson;
 import dbTicket.RegistrationDbTicket;
-import dbTicket.dbTicket;
 import dbTicket.TicketArray;
+import dbTicket.dbTicket;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Calculate {
 
-    private static dbTicket dbT = RegistrationDbTicket.getInstance();
-    private static dbPerson dbP = RegistrationdbPerson.getInstance();
-    private static HashMap<String , Double> sumMap = new HashMap<>();
+    private static dbTicket dbTicket = RegistrationDbTicket.getInstance();
+    private static dbPerson dbPerson = RegistrationdbPerson.getInstance();
+    private static HashMap<String , Double> BalanceMap = new HashMap<>();
 
-    public static HashMap<String , Double> Sum() {
-        double moneyPaid;
-        double amountPaid;
-        double costPaid;
+    public static HashMap<String , Double> Balance() {
+        double moneyPaid = 0;
+        double moneyOwed = 0;
         String name;
+        boolean even = false;
 
-        for (int ticketI = 0; ticketI < dbT.size(); ticketI++) {
-            TicketArray tempTA = dbT.getTicketID(ticketI);
-            for (int personI = 0; personI <dbP.size();personI++) {
-                Person tempP = tempTA.getPerson(personI);
-                name = tempP.getName();
-                amountPaid = tempP.getAmount();
-                costPaid = tempP.getCost();
 
-                // calc moneyPaid
-                moneyPaid = amountPaid - costPaid; // temporary value, has to change in the future.
-                sumMap.put(name,sumMap.getOrDefault(name, 0.0) + moneyPaid);
+        for (int ticketI = 0; ticketI < dbTicket.size(); ticketI++) {
+            TicketArray tempTA = dbTicket.getTicketID(ticketI);
+
+            for (int personID = 0; personID < dbPerson.size(); personID++) {
+                if (tempTA.getPerson(personID).getAmount() != 0.0) { // gives the person who paid.
+                    name = tempTA.getPerson(personID).getName();
+                    moneyPaid = tempTA.getPerson(personID).getAmount();
+                    BalanceMap.put(name,BalanceMap.getOrDefault(name,0.0) - moneyPaid);
+                }
             }
-            // at the end of each loop add the name + money paid in a HashMap:
-            // sumMap.put(name,sumMap.getOrDefault(name, 0.0) + moneyPaid);
+            for (int personID = 0; personID < dbPerson.size(); personID++) {
+                name = tempTA.getPerson(personID).getName();
+                if (tempTA.getPerson(personID).getCost() == 0.0){ //even
+                    moneyOwed = moneyPaid / dbPerson.size();
+                }
+                else { //uneven
+                    moneyOwed = tempTA.getPerson(personID).getCost();
+                }
+                BalanceMap.put(name, BalanceMap.getOrDefault(name, 0.0) + moneyOwed);
+            }
+
         }
-
-
-
-        return sumMap;
+        return BalanceMap;
     }
+
+
 
 
 
