@@ -21,6 +21,12 @@ public class Person {
         this.Cost = 0.0;
     }
 
+    public Person(Person person) {
+        this.Name = person.Name;
+        this.Amount = person.Amount;
+        this.Cost = person.Cost;
+    }
+
     public String getName() {
         return Name;
     }

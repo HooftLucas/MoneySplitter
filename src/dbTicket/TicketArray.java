@@ -13,7 +13,8 @@ public class TicketArray {
     public TicketArray(Ticket ticket,dbPerson dbPerson) {
         this.array.add(ticket);
         for (int i = 0; i < dbPerson.size(); i++) {
-            this.array.add(dbPerson.getPersonID(i));
+            Person tempPerson = new Person(dbPerson.getPersonID(i));
+            this.array.add(tempPerson);
         }
     }
 

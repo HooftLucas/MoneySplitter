@@ -22,7 +22,20 @@ public class RegistrationControlTicket implements Controller {
         dbPerson dbPerson = RegistrationdbPerson.getInstance();
         Ticket tempTicket = TicketFactory.getTicket(name,function);
         TicketArray tempTA = new TicketArray(tempTicket, dbPerson);
-        dbTicket.addTicket(tempTA);
-        System.out.println("Ticket is added: " + tempTA);
+
+        // check if amount paid > cost to pay:
+        double totalAmount = 0,totalCost = 0;
+        for (int personID = 0; personID < dbPerson.size(); personID++) {
+                totalAmount += tempTA.getPerson(personID).getAmount();
+                totalCost += tempTA.getPerson(personID).getCost();
+        }
+        
+        if (totalAmount < totalCost){
+            System.out.println("Invalid Ticket: total cost to pay is higher then total amount paid!");
+        }
+        else {
+            dbTicket.addTicket(tempTA);
+            System.out.println("Ticket is added: " + tempTA);
+        }
     }
 }

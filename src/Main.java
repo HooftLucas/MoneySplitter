@@ -28,6 +28,10 @@ public class Main {
 
 
         // testing:
+        dbPerson.addPerson(new Person("alex"));
+        dbPerson.addPerson(new Person("bob"));
+        dbPerson.addPerson(new Person("cindy"));
+        dbPerson.addPerson(new Person("Dirk"));
 
         // gui:
         viewMenu view = new viewMenu();

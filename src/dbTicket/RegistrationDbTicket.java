@@ -40,7 +40,7 @@ public class RegistrationDbTicket extends dbTicket{
 
     @Override
     public void printDatabase() {
-        System.out.println("Ticket database Content:");
+        System.out.println("Ticket database content:");
         for (TicketArray ticketArray : TicketList) {
             System.out.println(ticketArray);
         }
