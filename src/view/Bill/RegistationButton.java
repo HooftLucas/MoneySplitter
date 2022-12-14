@@ -7,6 +7,7 @@ import dbTicket.dbTicket;
 import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RegistationButton extends JPanel {
@@ -25,7 +26,8 @@ public class RegistationButton extends JPanel {
     RegistationButton(JFrame close, GridBagConstraints c, dbPerson dbPerson, dbTicket dbTicket){
         this.dbPerson = dbPerson;
         this.c =c;
-        HashMap<String, Double> Balance =  Calculate.Balance();
+        HashMap<String, Double> BalanceMap =  Calculate.Balance();
+        ArrayList<String> Exchange = Calculate.Exchange(BalanceMap);
         titleBalance = new JLabel("Balance: ");
         titleExchange = new JLabel("Exchange: ");
         Return = new JButton("return -> bill will be deleted");
@@ -38,21 +40,29 @@ public class RegistationButton extends JPanel {
         c.gridx = 0;
         this.setLayout(new GridBagLayout());
 
+
+        // Balance
         this.add(titleBalance,c);
         c.gridy += 2 ;
         for (int i = 0; i < dbPerson.size() ; i++) {
             c.gridx = 0;
             Name[i] = new JLabel(dbPerson.getName(i) + " : ");
-            BalanceValue[i] = new JLabel(df.format(Balance.get(dbPerson.getName(i))) + "€");
+            BalanceValue[i] = new JLabel(df.format(BalanceMap.get(dbPerson.getName(i))) + "€");
             this.add(Name[i], c);
             c.gridx ++;
             this.add(BalanceValue[i],c );
             c.gridy ++;
         }
 
+        // Exchange:
         c.gridy ++;
         c.gridx = 0;
         this.add(titleExchange,c);
+        c.gridy ++;
+        for( String line : Exchange) {
+            this.add(new JLabel(line), c);
+            c.gridy ++;
+        }
 
 
     }

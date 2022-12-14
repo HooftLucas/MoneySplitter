@@ -22,7 +22,6 @@ public class RegistrationdbPerson extends dbPerson{
     @Override
     public void addPerson(Person person) {
         this.PersonList.add(person);
-        //System.out.println(person);
     }
 
     @Override

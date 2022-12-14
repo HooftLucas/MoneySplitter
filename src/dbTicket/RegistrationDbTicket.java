@@ -33,6 +33,7 @@ public class RegistrationDbTicket extends dbTicket{
         }
     }
 
+
     @Override
     public int size() {
         return TicketList.size();

@@ -5,7 +5,7 @@ import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
 
 public class RegistrationControlPerson implements Controller{
-    private dbPerson dbPerson;
+    private final dbPerson dbPerson;
 
     public RegistrationControlPerson(dbPerson dbPerson){
         this.dbPerson = dbPerson;
@@ -28,7 +28,6 @@ public class RegistrationControlPerson implements Controller{
                 for (int i = 0; i < dbPerson.size(); i++) {
                     if (Name.equals(dbPerson.getPersonID(i).getName())) {
                         System.out.println(Name + " already exists. Please enter another name.");
-                        nameInDb = true;
                         return;
                     } else
                         nameInDb = false;

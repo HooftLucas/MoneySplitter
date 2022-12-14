@@ -1,4 +1,4 @@
-import Person.Person;
+
 import controller.Person.RegistrationControlPerson;
 import controller.Ticket.RegistrationControlTicket;
 import dbPerson.RegistrationdbPerson;
@@ -7,15 +7,17 @@ import dbTicket.RegistrationDbTicket;
 import dbTicket.dbTicket;
 import view.Menu.viewMenu;
 
+
+
 public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         main.run();
-
     }
+
     public Main(){
-
     }
+
     public void run(){
 
 
@@ -26,16 +28,14 @@ public class Main {
         dbTicket dbTicket = RegistrationDbTicket.getInstance();
         RegistrationControlTicket regTicket= new RegistrationControlTicket(dbTicket);
 
-
-        // testing:
-        dbPerson.addPerson(new Person("alex"));
-        dbPerson.addPerson(new Person("bob"));
-        dbPerson.addPerson(new Person("cindy"));
-        dbPerson.addPerson(new Person("Dirk"));
-
         // gui:
         viewMenu view = new viewMenu();
         view.initialize(regPerson, regTicket, dbPerson, dbTicket);
+
+
+
+
+
 
 
     }

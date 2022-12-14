@@ -27,7 +27,7 @@ public class RegistrationButtonPanel extends JPanel{
     public RegistrationButtonPanel(RegistrationControlPerson regPerson, RegistrationControlTicket regTicket, dbPerson dbPerson, dbTicket dbTicket){
         this.dbPerson = dbPerson;
         this.dbTicket= dbTicket;
-        JLabel label = new JLabel("Split your bills");
+        JLabel label = new JLabel("Split your bill");
         //Person
         this.addPersonMenu = new JButton("add new persons");
         this.controlPerson = regPerson;
@@ -35,8 +35,7 @@ public class RegistrationButtonPanel extends JPanel{
         this.addTicketMenu = new JButton("add new ticket");
         this.controlTicket = regTicket;
         //bill
-        this.CalcBillMenu = new JButton("calculate the total bill" );
-
+        this.CalcBillMenu = new JButton("calculate bill" );
 
         addPersonActionListener();
         addTicketActionListener();

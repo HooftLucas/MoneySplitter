@@ -10,7 +10,7 @@ import diffTicket.TicketFactory;
 
 
 public class RegistrationControlTicket implements Controller {
-    private dbTicket dbTicket;
+    private final dbTicket dbTicket;
 
     public RegistrationControlTicket(dbTicket dbTicket){
         this.dbTicket = dbTicket;
@@ -36,6 +36,7 @@ public class RegistrationControlTicket implements Controller {
         else {
             dbTicket.addTicket(tempTA);
             System.out.println("Ticket is added: " + tempTA);
+            //dbTicket.printDatabase();
         }
     }
 }
