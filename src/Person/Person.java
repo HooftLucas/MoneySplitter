@@ -4,32 +4,32 @@ package Person;
 public class Person {
 
     String Name;
-    int IDCode;
     double Amount;
     double Cost;
+    boolean doPay;
 
 
 
 
-    public Person(String Name, int IDCode ){
+    public Person(String Name){
         this.Name = Name;
-        this.IDCode = IDCode;
         this.Amount = 0.0;
         this.Cost = 0.0;
+        this.doPay = true;
     }
 
     public Person(Person person) {
         this.Name = person.Name;
         this.Amount = person.Amount;
         this.Cost = person.Cost;
+        this.doPay = person.doPay;
     }
 
-    public int getIDCode() {
-        return IDCode;
-    }
-
-    public void setIDCode(int IDCode) {
-        this.IDCode = IDCode;
+    public Person(String Name, double Amount, double Cost,boolean doPay) {
+        this.Name = Name;
+        this.Amount = Amount;
+        this.Cost = Cost;
+        this.doPay = doPay;
     }
 
     public String getName() {
@@ -56,11 +56,19 @@ public class Person {
         Cost = cost;
     }
 
+    public boolean isDoPay() {
+        return doPay;
+    }
+
+    public void setDoPay(boolean doPay) {
+        this.doPay = doPay;
+    }
 
     @Override
     public String toString() {
         return "Name='" + Name + '\'' +
                 ", Amount=" + Amount +
-                ", Cost=" + Cost;
+                ", Cost=" + Cost +
+                ", doPay=" + doPay;
     }
 }

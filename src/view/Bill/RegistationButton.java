@@ -36,15 +36,17 @@ public class RegistationButton extends JPanel  {
     private static final DecimalFormat df = new DecimalFormat("0.00");
     int teller = 0;
     boolean cleardb = false;
+    HashMap<String, Double> BalanceMap =  Calculate.Balance();
+    ArrayList<String> Exchange = Calculate.Exchange(BalanceMap);
     private JLabel[] lineToPaid= new JLabel[100];
     dbTicket dbTicket;
+
     RegistationButton(JFrame close, GridBagConstraints c, dbPerson dbPerson, dbTicket dbTicket){
         this.dbTicket = dbTicket;
         this.dbPerson = dbPerson;
         this.c =c;
         this.close = close;
-        HashMap<String, Double> BalanceMap =  Calculate.Balance();
-        ArrayList<String> Exchange = Calculate.Exchange(BalanceMap);
+
         titleBalance = new JLabel("Balance: ");
         titleExchange = new JLabel("Exchange: ");
         ReturnDeldb = new JButton("return -> bill will be deleted");
@@ -96,6 +98,7 @@ public class RegistationButton extends JPanel  {
         controlCheckBox(teller);
         canReturn(teller);
     }
+
     public void ReturnListener(){
         this.Return.addActionListener(e -> {
             cleardb = false;
@@ -114,7 +117,6 @@ public class RegistationButton extends JPanel  {
 
 
         for (int i = 0; i < teller; i++) {
-            System.out.println("test 1");
             hasPaid[i].addItemListener(new ItemListener() {
                 public void itemStateChanged(ItemEvent e) {
                     if (e.getStateChange() == 1) {
@@ -146,7 +148,6 @@ public class RegistationButton extends JPanel  {
         for (int i = 0; i < dbPerson.size() ; i++) {
             this.remove(Name[i]);
             this.remove(BalanceValue[i]);
-
         }
         for (int j = 0; j< teller; j++){
             this.remove(hasPaid[j]);
@@ -164,7 +165,6 @@ public class RegistationButton extends JPanel  {
             }
 
         }
-
 
         teller = 0;
 

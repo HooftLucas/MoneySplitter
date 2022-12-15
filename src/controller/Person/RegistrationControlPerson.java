@@ -21,7 +21,7 @@ public class RegistrationControlPerson implements Controller{
         }
         else {
             if(dbPerson.size() == 0) {
-                dbPerson.addPerson(new Person(Name,0));
+                dbPerson.addPerson(new Person(Name));
                 System.out.println(Name + " is added in the database.");
             }
             else {
@@ -33,7 +33,7 @@ public class RegistrationControlPerson implements Controller{
                         nameInDb = false;
                 }
                 if (!nameInDb) {
-                    dbPerson.addPerson(new Person(Name,1));
+                    dbPerson.addPerson(new Person(Name));
                     System.out.println(Name + " is added in the database.");
                 }
             }

@@ -26,8 +26,16 @@ public class TicketArray {
             return (Person) this.array.get(i + 1);
     }
 
+    public int size() {
+        int size = this.array.size();
+        return size;
+    }
+
     @Override
     public String toString() {
         return  array + "." ;
     }
+
+
+
 }

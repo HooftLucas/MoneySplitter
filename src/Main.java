@@ -1,4 +1,6 @@
 
+import Bill.Calculate;
+import Person.Person;
 import controller.Person.RegistrationControlPerson;
 import controller.Ticket.RegistrationControlTicket;
 import dbPerson.RegistrationdbPerson;
@@ -7,6 +9,7 @@ import dbTicket.RegistrationDbTicket;
 import dbTicket.dbTicket;
 import view.Menu.viewMenu;
 
+import java.util.HashMap;
 
 
 public class Main {
@@ -28,9 +31,15 @@ public class Main {
         dbTicket dbTicket = RegistrationDbTicket.getInstance();
         RegistrationControlTicket regTicket= new RegistrationControlTicket(dbTicket);
 
+
         // gui:
         viewMenu view = new viewMenu();
         view.initialize(regPerson, regTicket, dbPerson, dbTicket);
+
+
+
+
+
 
 
 

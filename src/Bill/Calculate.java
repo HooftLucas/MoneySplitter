@@ -18,24 +18,26 @@ public class Calculate {
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public static HashMap<String, Double> Balance() {
-
+        BalanceMap.clear();
         for (int ticketI = 0; ticketI < dbTicket.size(); ticketI++) {
             TicketArray tempTA = dbTicket.getTicketID(ticketI);
+            int personSize = tempTA.size() - 1; // allows persons to be added and deleted.
             double moneyPaidTotal = 0, moneyPaid, moneyOwedTotal = 0, moneyOwed, tempValue;
-            int evenSize = dbPerson.size();
+            int evenSize = personSize;
             String name;
 
-            for (int personID = 0; personID < dbPerson.size(); personID++) {
-                if (tempTA.getPerson(personID).getAmount() != 0.0) {
+
+            for (int personID = 0; personID < personSize; personID++) {
+                if (tempTA.getPerson(personID).getAmount() != 0.0 & tempTA.getPerson(personID).isDoPay()) {
                     name = tempTA.getPerson(personID).getName();
                     moneyPaid = tempTA.getPerson(personID).getAmount();
                     moneyPaidTotal += moneyPaid;
                     BalanceMap.put(name,BalanceMap.getOrDefault(name,0.0) - moneyPaid);
                 }
             }
-            for (int personID = 0; personID < dbPerson.size(); personID++) { //person has to pay a set cost.
-                name = tempTA.getPerson(personID).getName();
-                if (tempTA.getPerson(personID).getCost() != 0.0){
+            for (int personID = 0; personID < personSize; personID++) { //person has to pay a set cost.
+                if (tempTA.getPerson(personID).getCost() != 0.0 & tempTA.getPerson(personID).isDoPay()){
+                    name = tempTA.getPerson(personID).getName();
                     evenSize = evenSize - 1;
                     moneyOwed = tempTA.getPerson(personID).getCost();
                     moneyOwedTotal += moneyOwed;
@@ -43,27 +45,31 @@ public class Calculate {
                 }
             } tempValue = moneyOwedTotal;
 
-            for (int personID = 0; personID < dbPerson.size(); personID++) { //person has to pay a variable cost based on the amount paid.
-                name = tempTA.getPerson(personID).getName();
-                if (tempTA.getPerson(personID).getCost() == 0.0){
-                        moneyOwed = (moneyPaidTotal - moneyOwedTotal) / evenSize;
-                        tempValue += moneyOwed;
-                        BalanceMap.put(name, BalanceMap.getOrDefault(name, 0.0) + moneyOwed);
+            for (int personID = 0; personID < personSize; personID++) { //person has to pay a variable cost based on the amount paid.
+                if (tempTA.getPerson(personID).getCost() == 0.0 & tempTA.getPerson(personID).isDoPay()){
+                    name = tempTA.getPerson(personID).getName();
+                    moneyOwed = (moneyPaidTotal - moneyOwedTotal) / evenSize;
+                    tempValue += moneyOwed;
+                    BalanceMap.put(name, BalanceMap.getOrDefault(name, 0.0) + moneyOwed);
                 }
             } moneyOwedTotal = tempValue;
 
             if (moneyPaidTotal - moneyOwedTotal > 0.0){ //if there is any money owed left over, divide costs equally.
-                for (int personID = 0; personID < dbPerson.size(); personID++) {
-                    name = tempTA.getPerson(personID).getName();
-                    moneyOwed = (moneyPaidTotal - moneyOwedTotal) / dbPerson.size();
-                    BalanceMap.put(name, BalanceMap.getOrDefault(name, 0.0) + moneyOwed);
+                for (int personID = 0; personID < personSize; personID++) {
+                    if(tempTA.getPerson(personID).isDoPay()) {
+                        name = tempTA.getPerson(personID).getName();
+                        moneyOwed = (moneyPaidTotal - moneyOwedTotal) / dbPerson.size();
+                        BalanceMap.put(name, BalanceMap.getOrDefault(name, 0.0) + moneyOwed);
+                    }
                 }
             }
 
         }
+
         return BalanceMap;
     }
 
+    // Exchange function calculates the exchange needed to settle bill.
     public static ArrayList<String> Exchange(HashMap<String, Double> BalanceMap) {
         // first make a deep copy of the BalanceMap:
         HashMap<String, Double> ExchangeMap = new HashMap<>();
@@ -90,7 +96,6 @@ public class Calculate {
                 }
                 else if(ExchangeMap.get(key) < 0.0){
                     negName = key;
-                    //negValue = posValue;
                 }
             }
             if (zeroBalance != ExchangeMap.size() ) {
