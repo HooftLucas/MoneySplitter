@@ -15,7 +15,7 @@ public abstract class dbPerson extends Observable  {
     public abstract void printDatabase();
     public abstract Person getPersonID(int id);
     public abstract String getName(int id);
-
+    public abstract boolean checkDb(Person person);
 
 
 }

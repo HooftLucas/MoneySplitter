@@ -1,0 +1,307 @@
+Index: src/Person/Person.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Person;\r\n\r\npublic class Person {\r\n\r\n    String Name;\r\n    double Amount;\r\n    double Cost;\r\n\r\n\r\n    public Person(String Name, double Amount, double Cost){\r\n    this.Name = Name;\r\n    this.Amount = Amount;\r\n    this.Cost = Cost;\r\n    }\r\n\r\n    public Person(String Name){\r\n        this.Name = Name;\r\n        this.Amount = 0.0;\r\n        this.Cost = 0.0;\r\n    }\r\n\r\n    public String getName() {\r\n        return Name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        Name = name;\r\n    }\r\n\r\n    public double getAmount() {\r\n        return Amount;\r\n    }\r\n\r\n    public void setAmount(double amount) {\r\n        Amount = amount;\r\n    }\r\n\r\n    public double getCost() {\r\n        return Cost;\r\n    }\r\n\r\n    public void setCost(double cost) {\r\n        Cost = cost;\r\n    }\r\n\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Name='\" + Name + '\\'' +\r\n                \", Amount=\" + Amount +\r\n                \", Cost=\" + Cost;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Person/Person.java b/src/Person/Person.java
+--- a/src/Person/Person.java	(revision e6cbaea674ec01d744150088a590a3e6b548f978)
++++ b/src/Person/Person.java	(date 1670511052730)
+@@ -3,6 +3,7 @@
+ public class Person {
+ 
+     String Name;
++    int IDCode;
+     double Amount;
+     double Cost;
+ 
+@@ -11,14 +12,24 @@
+     this.Name = Name;
+     this.Amount = Amount;
+     this.Cost = Cost;
++
+     }
+ 
+-    public Person(String Name){
++    public Person(String Name, int IDCode ){
+         this.Name = Name;
++        this.IDCode = IDCode;
+         this.Amount = 0.0;
+         this.Cost = 0.0;
+     }
+ 
++    public int getIDCode() {
++        return IDCode;
++    }
++
++    public void setIDCode(int IDCode) {
++        this.IDCode = IDCode;
++    }
++
+     public String getName() {
+         return Name;
+     }
+Index: src/controller/Person/RegistrationControlPerson.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package controller.Person;\r\n\r\nimport Person.Person;\r\nimport dbPerson.dbPerson;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Iterator;\r\n\r\npublic class RegistrationControlPerson implements Controller{\r\n    private dbPerson db;\r\n    public RegistrationControlPerson(dbPerson db){\r\n        this.db = db;\r\n    }\r\n\r\n    @Override\r\n    public void ConfirmName(String Name) {\r\n        if(Name.isEmpty()){\r\n            System.out.println(\"The given name is empty\");\r\n\r\n        }\r\n        else {\r\n            ControlName(db,Name);\r\n        }\r\n    }\r\n    public void addTicket(int id, double Amount, double Cost){\r\n        db.getPersonID(id).setAmount(Amount);\r\n        db.getPersonID(id).setCost(Cost);\r\n    }\r\n\r\n    @Override\r\n    public void ControlName(dbPerson db, String Name) {\r\n        boolean nameInDb = true;\r\n        if (db.size() != 0) {\r\n            for (int i = 0; i < db.size(); i++) {\r\n                if (db.getPersonID(i).getName() == Name) {\r\n                    System.out.println(Name+\" is already in the DB: \");\r\n                    nameInDb = true;\r\n                    return;\r\n                } else\r\n                    nameInDb = false;\r\n            }\r\n            if (!nameInDb) {\r\n                db.addPerson(new Person(Name));\r\n                System.out.println(Name + \" is added in the database\");\r\n\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/controller/Person/RegistrationControlPerson.java b/src/controller/Person/RegistrationControlPerson.java
+--- a/src/controller/Person/RegistrationControlPerson.java	(revision e6cbaea674ec01d744150088a590a3e6b548f978)
++++ b/src/controller/Person/RegistrationControlPerson.java	(date 1670511809883)
+@@ -6,43 +6,36 @@
+ import java.util.ArrayList;
+ import java.util.Iterator;
+ 
+-public class RegistrationControlPerson implements Controller{
++public class RegistrationControlPerson implements Controller {
+     private dbPerson db;
+-    public RegistrationControlPerson(dbPerson db){
++    private int teller = 0;
++
++    public RegistrationControlPerson(dbPerson db) {
+         this.db = db;
+     }
+ 
+     @Override
+     public void ConfirmName(String Name) {
+-        if(Name.isEmpty()){
++        if (Name.isEmpty()) {
+             System.out.println("The given name is empty");
+ 
+-        }
+-        else {
+-            ControlName(db,Name);
++        } else {
++            ControlName(db, Name);
+         }
+     }
+-    public void addTicket(int id, double Amount, double Cost){
++
++    public void addTicket(int id, double Amount, double Cost) {
+         db.getPersonID(id).setAmount(Amount);
+         db.getPersonID(id).setCost(Cost);
+     }
+ 
+     @Override
+     public void ControlName(dbPerson db, String Name) {
+-        boolean nameInDb = true;
++        // boolean nameInDb = true;
+         if (db.size() != 0) {
+             for (int i = 0; i < db.size(); i++) {
+-                if (db.getPersonID(i).getName() == Name) {
+-                    System.out.println(Name+" is already in the DB: ");
+-                    nameInDb = true;
+-                    return;
+-                } else
+-                    nameInDb = false;
+-            }
+-            if (!nameInDb) {
+-                db.addPerson(new Person(Name));
+-                System.out.println(Name + " is added in the database");
+-
++                db.addPerson(new Person(Name, teller));
++                teller += 1;
+             }
+         }
+     }
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import Person.Person;\r\nimport controller.Person.RegistrationControlPerson;\r\nimport dbPerson.RegistrationdbPerson;\r\nimport dbPerson.dbPerson;\r\nimport dbTicket.dbTicket;\r\nimport dbTicket.RegistrationDbTicket;\r\nimport controller.Ticket.RegistrationControlTicket;\r\nimport Bill.Calculate;\r\n\r\npublic class Main {\r\n    public static void main(String[] args) {\r\n        Main main = new Main();\r\n        main.run();\r\n\r\n    }\r\n    public Main(){\r\n\r\n    }\r\n    public void run(){\r\n\r\n        // testing dbPerson methods:\r\n        System.out.println(\"Testing the dbPerson methods:\");\r\n        dbPerson testPer = RegistrationdbPerson.getInstance();\r\n        RegistrationControlPerson regP = new RegistrationControlPerson(testPer);\r\n\r\n        Person Alex = new Person(\"Alex\",120,0);\r\n        Person Bart = new Person(\"Bart\",0,0);\r\n        Person Cedric = new Person(\"Cedric\",0,0);\r\n        Person Dirk = new Person(\"Dirk\",0,0);\r\n\r\n        testPer.addPerson(Alex);\r\n        testPer.addPerson(Bart);\r\n        testPer.addPerson(Cedric);\r\n        testPer.addPerson(Dirk);\r\n\r\n        System.out.println(testPer.size());\r\n        testPer.printDatabase();\r\n\r\n        testPer.deletePerson(Bart);\r\n        System.out.println(testPer.size());\r\n        Person Lukas = new Person(\"Lukas\",50,10);\r\n        testPer.deletePerson(Lukas);\r\n        System.out.println(testPer.size());\r\n        testPer.printDatabase();\r\n\r\n\r\n\r\n        // testing RegistrationControllor methods for dbPerson:\r\n        Person Ella = new Person(\"Ella\",0,0);\r\n        Person empty = new Person(\"\",0,0);\r\n\r\n        regP.ConfirmName(\"Ella\");\r\n        regP.ConfirmName(\"\");\r\n        System.out.println(testPer.size());\r\n        testPer.printDatabase();\r\n\r\n\r\n        // testing dbTicket methods:\r\n        System.out.println('\\n' + \"Testing the methods for dbTicket:\");\r\n        dbTicket testDbTicket = RegistrationDbTicket.getInstance();\r\n        RegistrationControlTicket regT = new RegistrationControlTicket(testDbTicket);\r\n        regT.addTicketEntry(\"Theater\",\"Culture\");\r\n        regT.addTicketEntry(\"Resto\",\"Food\");\r\n        testTicket.printDatabase();\r\n        // test gui\r\n        //RegistrationControlPerson regPerson = new RegistrationControlPerson(testPer);\r\n\r\n        viewMenu view = new viewMenu();\r\n        view.initialize(regP, regT,testPer,testTicket );\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n        // testing the Calculate function:\r\n        System.out.println('\\n' + \"Testing the calculate function:\" );\r\n        testDbTicket.printDatabase();\r\n        System.out.println(Calculate.Sum());\r\n\r\n    }\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision e6cbaea674ec01d744150088a590a3e6b548f978)
++++ b/src/Main.java	(date 1670510087235)
+@@ -6,6 +6,7 @@
+ import dbTicket.RegistrationDbTicket;
+ import controller.Ticket.RegistrationControlTicket;
+ import Bill.Calculate;
++import view.Menu.viewMenu;
+ 
+ public class Main {
+     public static void main(String[] args) {
+@@ -61,12 +62,12 @@
+         RegistrationControlTicket regT = new RegistrationControlTicket(testDbTicket);
+         regT.addTicketEntry("Theater","Culture");
+         regT.addTicketEntry("Resto","Food");
+-        testTicket.printDatabase();
++        //testTicket.printDatabase();
+         // test gui
+         //RegistrationControlPerson regPerson = new RegistrationControlPerson(testPer);
+ 
+         viewMenu view = new viewMenu();
+-        view.initialize(regP, regT,testPer,testTicket );
++        view.initialize(regP, regT,testPer,testDbTicket );
+ 
+ 
+ 
+Index: src/view/Person/RegisterButton.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view.Person;\r\n\r\nimport Person.Person;\r\nimport controller.Person.RegistrationControlPerson;\r\nimport dbPerson.dbPerson;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.WindowEvent;\r\n\r\npublic class RegisterButton extends JPanel {\r\n\r\n    private JTextField textField;\r\n    private JButton AddName;\r\n    private JButton Return;\r\n    private JLabel label;\r\n    DefaultListModel<String> dbListModel = new DefaultListModel<>();\r\n\r\n    JList<String> dbJList = new JList<>(dbListModel);\r\n    private RegistrationControlPerson controlPerson;\r\n    dbPerson db;\r\n    public RegisterButton(RegistrationControlPerson controlPerson, JFrame close, dbPerson db){\r\n        this.db = db;\r\n        this.label = new JLabel(\"add your friends\");\r\n        this.textField = new JTextField();\r\n        this.controlPerson = controlPerson;\r\n        this.Return = new JButton(\"return to menu\");\r\n        this.AddName = new JButton(\"add name\");\r\n        addNameListener();\r\n        ReturnMenuListener(close);\r\n\r\n        this.add(dbJList);\r\n        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));\r\n        this.add(label);\r\n        this.add(this.textField);\r\n        this.add(this.AddName);\r\n        this.add(this.Return);\r\n// verwijder uit lijst\r\n\r\n    }\r\n    public void addNameListener(){\r\n\r\n        this.AddName.addActionListener(l -> {\r\n            String name = textField.getText();\r\n            controlPerson.ConfirmName(name);\r\n            textField.setText(\"\");\r\n            //db.printDatabase();\r\n        });\r\n    }\r\n    public void ReturnMenuListener(JFrame close){\r\n        this.Return.addActionListener(e -> {\r\n            close.dispose();\r\n            this.remove(label);\r\n            this.remove(this.textField);\r\n            this.remove(this.AddName);\r\n            this.remove(this.Return);\r\n            //https://stackoverflow.com/questions/8632705/how-to-close-a-gui-when-i-push-a-jbutton\r\n        });\r\n    }\r\n    public void addEntry(Person entry){this.dbListModel.addElement(String.valueOf(entry));}\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/view/Person/RegisterButton.java b/src/view/Person/RegisterButton.java
+--- a/src/view/Person/RegisterButton.java	(revision e6cbaea674ec01d744150088a590a3e6b548f978)
++++ b/src/view/Person/RegisterButton.java	(date 1670511362722)
+@@ -61,3 +61,4 @@
+     public void addEntry(Person entry){this.dbListModel.addElement(String.valueOf(entry));}
+ 
+ }
++ //observer toevoegen -> kijken als op de knop gedrukt wordt om alle vakjes leeg te maken
+\ No newline at end of file
+Index: src/Test/Calculate_Itest.java
+===================================================================
+diff --git a/src/Test/Calculate_Itest.java b/src/Test/Calculate_Itest.java
+deleted file mode 100644
+--- a/src/Test/Calculate_Itest.java	(revision e6cbaea674ec01d744150088a590a3e6b548f978)
++++ /dev/null	(revision e6cbaea674ec01d744150088a590a3e6b548f978)
+@@ -1,63 +0,0 @@
+-package Test;
+-
+-import Person.Person;
+-import controller.Ticket.RegistrationControlTicket;
+-import dbPerson.RegistrationdbPerson;
+-import dbPerson.dbPerson;
+-import dbTicket.dbTicket;
+-import dbTicket.RegistrationDbTicket;
+-import Bill.Calculate;
+-
+-import java.util.HashMap;
+-
+-import org.junit.Test;
+-import org.junit.Before;
+-import static org.junit.Assert.*;
+-
+-public class Calculate_Itest {
+-
+-    public Calculate_Itest() {
+-    }
+-
+-    @Before
+-    public void initialize() {
+-        dbPerson testDbP = RegistrationdbPerson.getInstance();
+-
+-        testDbP.addPerson(new Person("Alex",300.0,0.0));
+-        testDbP.addPerson(new Person("Bart"));
+-        testDbP.addPerson(new Person("Cedric"));
+-        testDbP.addPerson(new Person("Dirk"));
+-
+-        dbTicket testDbT = RegistrationDbTicket.getInstance();
+-        RegistrationControlTicket regT = new RegistrationControlTicket(testDbT);
+-        regT.addTicketEntry("Theater","Culture");
+-
+-    }
+-
+-    @Test
+-    public void t_Calculate_Sum() {
+-        // testing the Sum method in Class calculate:
+-
+-        HashMap<String, Double> compareMap = new HashMap<>();
+-        compareMap.put("Alex", 300.0);
+-        compareMap.put("Bart", 0.0);
+-        compareMap.put("Cedric", 0.0);
+-        compareMap.put("Dirk", 0.0);
+-
+-        HashMap<String, Double> testMap = Calculate.Sum();
+-
+-        assertEquals("Testing booking integration - day 10 - should return 0",
+-                compareMap, testMap);
+-    }
+-
+-    /*
+-    @Test
+-    pulic void t_Calculate_exchange() {
+-        // testing the exchange methods in Class calculate:
+-    }
+-
+-    */
+-
+-
+-
+-}
+Index: src/dbPerson/RegistrationdbPerson.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dbPerson;\r\n\r\nimport Person.Person;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Iterator;\r\n\r\npublic class RegistrationdbPerson extends dbPerson{\r\n    private final ArrayList<Person> PersonList;\r\n    private static RegistrationdbPerson instance;\r\n    public RegistrationdbPerson() {\r\n        this.PersonList = new ArrayList<>();\r\n    }\r\n\r\n    //singleton\r\n    public static RegistrationdbPerson getInstance(){\r\n        if(instance == null){\r\n            instance = new RegistrationdbPerson();\r\n        }\r\n        return instance;\r\n    }\r\n\r\n\r\n    @Override\r\n    public void addPerson(Person person) {\r\n        this.PersonList.add(person);\r\n        instance.setChanged();\r\n        instance.notifyObservers(person);\r\n        System.out.println(person);\r\n    }\r\n\r\n\r\n    @Override\r\n    public void deletePerson(Person person) {\r\n        if(PersonList.contains(person)){\r\n            PersonList.remove(person);\r\n        }else {\r\n            System.out.println(person.getName()+\" is not in the database\");\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public int size() {\r\n        return PersonList.size();\r\n    }\r\n\r\n    @Override\r\n    public void printDatabase() {\r\n        for (Person person : PersonList) {\r\n            System.out.println(person);\r\n        }\r\n    }\r\n\r\n    public Person getPersonID(int id) { //int id is locatie in database.\r\n        Iterator<Person> it = PersonList.iterator();\r\n            for (int i = 0; i < id; i++) {\r\n                it.next();\r\n            }\r\n            if (it.hasNext()) {\r\n                return it.next();\r\n            } else {\r\n                System.out.println(\"Error: Out of bounds of Database.\");\r\n                return null;\r\n            }\r\n    }\r\n    public String getName(int id){\r\n        Person person = PersonList.get(id);\r\n        return person.getName();\r\n    }\r\n\r\n\r\n    @Override\r\n    public ArrayList<Person> GiveDB() {\r\n        return PersonList;\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/dbPerson/RegistrationdbPerson.java b/src/dbPerson/RegistrationdbPerson.java
+--- a/src/dbPerson/RegistrationdbPerson.java	(revision e6cbaea674ec01d744150088a590a3e6b548f978)
++++ b/src/dbPerson/RegistrationdbPerson.java	(date 1670511052754)
+@@ -11,7 +11,7 @@
+     public RegistrationdbPerson() {
+         this.PersonList = new ArrayList<>();
+     }
+-
++    int teller = 0;
+     //singleton
+     public static RegistrationdbPerson getInstance(){
+         if(instance == null){
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"18f92bb0-d844-471c-983e-af0e8a319a56\" name=\"Changes\" comment=\"updated TicketArray, Calculate.Sum, and added a basic Integration test\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/Bill/Calculate.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/Test/Calculate_Itest.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_12_2022_10_19__Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_12_2022_10_19__Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Person/Person.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Person/Person.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/controller/ticket/Controller.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/controller/Ticket/Controller.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/controller/ticket/RegistrationControlTicket.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/controller/Ticket/RegistrationControlTicket.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/dbTicket/TicketArray.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/dbTicket/TicketArray.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/globalBillCalc/Calculate.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/view/Menu/viewMenu.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/view/Menu/viewMenu.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/untitled.iml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/untitled.iml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitSEFilterConfiguration\">\r\n    <file-type-list>\r\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\r\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\r\n      <filtered-out-file-type name=\"TAG\" />\r\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\r\n    </file-type-list>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2HMTLxbrArJP5BykDlwaCBjqY0u\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"preferences.lookFeel\" />\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Main\" />\r\n      <module name=\"untitled\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"18f92bb0-d844-471c-983e-af0e8a319a56\" name=\"Changes\" comment=\"\" />\r\n      <created>1668093901737</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1668093901737</updated>\r\n      <workItem from=\"1668097950480\" duration=\"532000\" />\r\n      <workItem from=\"1668697472497\" duration=\"2370000\" />\r\n      <workItem from=\"1669131022486\" duration=\"724000\" />\r\n      <workItem from=\"1669205459633\" duration=\"1907000\" />\r\n      <workItem from=\"1669803442913\" duration=\"3503000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"begin project\">\r\n      <created>1668098209625</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1668098209625</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"begin project\">\r\n      <created>1668098246999</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1668098246999</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"begin project\">\r\n      <created>1668098344763</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1668098344763</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"dbTicket\">\r\n      <created>1669109763595</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669109763595</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"observer\">\r\n      <created>1669294405885</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669294405885</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"observer\">\r\n      <created>1669294418723</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669294418723</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"controller\">\r\n      <created>1669297558009</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669297558009</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"dbticket ok\">\r\n      <created>1669299231632</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669299231632</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"TicketController added\">\r\n      <created>1669804998832</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669804998832</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"10\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.History.Properties\">\r\n    <option name=\"SHOW_OTHER_BRANCHES\" value=\"true\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"begin project\" />\r\n    <MESSAGE value=\"dbTicket\" />\r\n    <MESSAGE value=\"Updated dbPerson to class person.\" />\r\n    <MESSAGE value=\"observer\" />\r\n    <MESSAGE value=\"controller\" />\r\n    <MESSAGE value=\"dbticket ok\" />\r\n    <MESSAGE value=\"TicketController added\" />\r\n    <MESSAGE value=\"updated TicketArray, Calculate.Sum, and added a basic Integration test\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"updated TicketArray, Calculate.Sum, and added a basic Integration test\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <breakpoint enabled=\"true\" type=\"java-exception\">\r\n          <properties class=\"java.util.NoSuchElementException\" package=\"java.util\" />\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision e6cbaea674ec01d744150088a590a3e6b548f978)
++++ b/.idea/workspace.xml	(date 1670511840572)
+@@ -1,19 +1,14 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="updated TicketArray, Calculate.Sum, and added a basic Integration test">
+-      <change afterPath="$PROJECT_DIR$/src/Bill/Calculate.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/Test/Calculate_Itest.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_12_2022_10_19__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_1_12_2022_10_19__Changes_.xml" afterDir="false" />
++    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="Interface GUI bill + diff ticket events">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Person/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Person/Person.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/controller/ticket/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Ticket/Controller.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/controller/ticket/RegistrationControlTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Ticket/RegistrationControlTicket.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/dbTicket/TicketArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/TicketArray.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/globalBillCalc/Calculate.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/view/Menu/viewMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Menu/viewMenu.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/untitled.iml" beforeDir="false" afterPath="$PROJECT_DIR$/untitled.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Test/Calculate_Itest.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -52,10 +47,11 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">
+-    <property name="WebServerToolWindowFactoryState" value="false" />
+-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+-  </component>
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "WebServerToolWindowFactoryState": "false"
++  }
++}]]></component>
+   <component name="RunManager">
+     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="Main" />
+@@ -83,6 +79,7 @@
+       <workItem from="1669131022486" duration="724000" />
+       <workItem from="1669205459633" duration="1907000" />
+       <workItem from="1669803442913" duration="3503000" />
++      <workItem from="1670511789547" duration="51000" />
+     </task>
+     <task id="LOCAL-00001" summary="begin project">
+       <created>1668098209625</created>

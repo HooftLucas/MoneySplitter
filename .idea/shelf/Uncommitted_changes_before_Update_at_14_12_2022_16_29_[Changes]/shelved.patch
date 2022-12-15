@@ -1,0 +1,602 @@
+Index: src/view/Bill/ViewBill.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view.Bill;\r\n\r\nimport dbPerson.dbPerson;\r\nimport dbTicket.dbTicket;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\n\r\npublic class ViewBill extends JFrame {\r\n    RegistationButton buttons;\r\n    protected GridBagConstraints c = new GridBagConstraints();\r\n    public ViewBill(){super(\"give the total bill\");}\r\n    public void initialize(dbPerson dbPerson, dbTicket dbTicket){\r\n        this.setSize(800,600);\r\n        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n        GridBagLayout layout = new GridBagLayout();\r\n        this.setLayout(layout);\r\n        buttons = new RegistationButton(this, c, dbPerson, dbTicket);\r\n        this.add(buttons);\r\n        this.setVisible(true);\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/view/Bill/ViewBill.java b/src/view/Bill/ViewBill.java
+--- a/src/view/Bill/ViewBill.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/view/Bill/ViewBill.java	(date 1671031785989)
+@@ -5,8 +5,10 @@
+ 
+ import javax.swing.*;
+ import java.awt.*;
++import java.util.Observable;
++import java.util.Observer;
+ 
+-public class ViewBill extends JFrame {
++public class ViewBill extends JFrame implements Observer {
+     RegistationButton buttons;
+     protected GridBagConstraints c = new GridBagConstraints();
+     public ViewBill(){super("give the total bill");}
+@@ -20,4 +22,9 @@
+         this.setVisible(true);
+     }
+ 
++    @Override
++    public void update(Observable o, Object arg) {
++        //controleren of de vakjes zijn gekleurd voor het de database gecleerd kan worden
++
++    }
+ }
+Index: src/view/Bill/RegistationButton.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view.Bill;\r\n\r\nimport dbPerson.dbPerson;\r\nimport dbTicket.dbTicket;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\n\r\npublic class RegistationButton extends JPanel {\r\n    private JLabel[] to_paid = new JLabel[1000];\r\n    private JLabel[] PersonToPaid = new JLabel[1000];\r\n    private JLabel[] Name = new JLabel[1000];\r\n    private JLabel title;\r\n    private JLabel titlePaid;\r\n    private JLabel titlePersonToPaid;\r\n    private JButton Return;\r\n    protected GridBagConstraints c = new GridBagConstraints();\r\n    DefaultListModel<String> dbListModel = new DefaultListModel<>();\r\n    JList<String> dbJList = new JList<>(dbListModel);\r\n    dbPerson dbPerson;\r\n\r\n    RegistationButton(JFrame close, GridBagConstraints c, dbPerson dbPerson, dbTicket dbTicket){\r\n        this.dbPerson = dbPerson;\r\n        this.c =c;\r\n        title = new JLabel(\"the total bill: \");\r\n        titlePaid = new JLabel(\"amount to pay\");\r\n        titlePersonToPaid = new JLabel(\"Person to pay\");\r\n        Return = new JButton(\"return -> bill will be deleted\");\r\n\r\n        ReturnListener(close);\r\n        this.add(dbJList);\r\n        //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));\r\n        c.gridy = 0;\r\n        c.gridx = 0;\r\n        this.setLayout(new GridBagLayout());\r\n        for (int i = 0; i < dbPerson.size() ; i++) {\r\n            c.gridx = 0;\r\n            Name[i] = new JLabel(dbPerson.getName(i));\r\n            //to_paid[i] = new JLabel(); -> waarde uit ticket halen\r\n            //PersonToPaid[i] = new JLabel();\r\n\r\n            this.add(Name[i], c);\r\n            c.gridx +=2;\r\n            //this.add(to_paid[i],c );\r\n\r\n            c.gridx ++;\r\n           // this.add(PersonToPaid[i], c);\r\n            c.gridy ++;\r\n        }\r\n    }\r\n    public void ReturnListener(JFrame close){\r\n        this.Return.addActionListener(e -> {\r\n            close.dispose();\r\n            this.remove(title);\r\n            this.remove(Return);\r\n            for (int i = 0; i < dbPerson.size() ; i++) {\r\n\r\n                this.remove(Name[i]);\r\n               // this.remove(to_paid[i]);\r\n               // this.remove(PersonToPaid[i]);\r\n            }\r\n\r\n            c.gridy = 0;\r\n            c.gridx = 0;\r\n\r\n        });\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/view/Bill/RegistationButton.java b/src/view/Bill/RegistationButton.java
+--- a/src/view/Bill/RegistationButton.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/view/Bill/RegistationButton.java	(date 1671031611866)
+@@ -14,6 +14,8 @@
+     private JLabel titlePaid;
+     private JLabel titlePersonToPaid;
+     private JButton Return;
++    private JCheckBox[] hasPaid = new JCheckBox[100];
++
+     protected GridBagConstraints c = new GridBagConstraints();
+     DefaultListModel<String> dbListModel = new DefaultListModel<>();
+     JList<String> dbJList = new JList<>(dbListModel);
+@@ -38,6 +40,7 @@
+             Name[i] = new JLabel(dbPerson.getName(i));
+             //to_paid[i] = new JLabel(); -> waarde uit ticket halen
+             //PersonToPaid[i] = new JLabel();
++            hasPaid[i] = new JCheckBox();
+ 
+             this.add(Name[i], c);
+             c.gridx +=2;
+@@ -45,8 +48,10 @@
+ 
+             c.gridx ++;
+            // this.add(PersonToPaid[i], c);
++            this.add(hasPaid[i], c);
+             c.gridy ++;
+         }
++        this.add(Return,c);
+     }
+     public void ReturnListener(JFrame close){
+         this.Return.addActionListener(e -> {
+@@ -58,6 +63,7 @@
+                 this.remove(Name[i]);
+                // this.remove(to_paid[i]);
+                // this.remove(PersonToPaid[i]);
++                this.remove(hasPaid[i]);
+             }
+ 
+             c.gridy = 0;
+Index: src/Test/Calculate_Itest.java
+===================================================================
+diff --git a/src/Test/Calculate_Itest.java b/src/Test/Calculate_Itest.java
+deleted file mode 100644
+--- a/src/Test/Calculate_Itest.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ /dev/null	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
+@@ -1,65 +0,0 @@
+-package Test;
+-
+-import Person.Person;
+-import controller.Ticket.RegistrationControlTicket;
+-import dbPerson.RegistrationdbPerson;
+-import dbPerson.dbPerson;
+-import dbTicket.dbTicket;
+-import dbTicket.RegistrationDbTicket;
+-import Bill.Calculate;
+-
+-import java.util.HashMap;
+-
+-import org.junit.Test;
+-import org.junit.Before;
+-import static org.junit.Assert.*;
+-
+-public class Calculate_Itest {
+-
+-    public Calculate_Itest() {
+-    }
+-
+-    @Before
+-    public void initialize() {
+-        dbPerson testDbP = RegistrationdbPerson.getInstance();
+-
+-        testDbP.addPerson(new Person("Alex",300.0,0.0));
+-        testDbP.addPerson(new Person("Bart"));
+-        testDbP.addPerson(new Person("Cedric"));
+-        testDbP.addPerson(new Person("Dirk"));
+-
+-        dbTicket testDbT = RegistrationDbTicket.getInstance();
+-        RegistrationControlTicket regTicket = new RegistrationControlTicket(testDbT);
+-        regTicket.addTicketEntry("Theater","Culture");
+-        regTicket.addTicketEntry("macD","Food");
+-
+-    }
+-
+-    @Test
+-    public void t_Calculate_Balance() {
+-        // testing the Balance method in Class calculate:
+-
+-        HashMap<String, Double> compareMap = new HashMap<>();
+-        compareMap.put("Alex", 150.0);
+-        compareMap.put("Bart", 150.0);
+-        compareMap.put("Cedric", 150.0);
+-        compareMap.put("Dirk", 150.0);
+-
+-
+-        HashMap<String, Double> testMap = Calculate.Balance();
+-
+-        assertEquals("Testing the Balance of the bill:",
+-                compareMap, testMap);
+-    }
+-
+-    /*
+-    @Test
+-    pulic void t_Calculate_exchange() {
+-        // testing the exchange methods in Class calculate:
+-    }
+-
+-    */
+-
+-
+-
+-}
+Index: src/controller/Person/Controller.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package controller.Person;\r\n\r\npublic interface Controller {\r\n    void addNameToDatabase(String Name);\r\n    void setPersonForTicket(int id, double Amount, double Cost);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/controller/Person/Controller.java b/src/controller/Person/Controller.java
+--- a/src/controller/Person/Controller.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/controller/Person/Controller.java	(date 1670777183694)
+@@ -3,4 +3,5 @@
+ public interface Controller {
+     void addNameToDatabase(String Name);
+     void setPersonForTicket(int id, double Amount, double Cost);
++
+ }
+Index: src/Person/Person.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Person;\r\n\r\nimport diffTicket.Ticket;\r\n\r\npublic class Person {\r\n\r\n    String Name;\r\n    double Amount;\r\n    double Cost;\r\n\r\n\r\n    public Person(String Name, double Amount, double Cost){\r\n    this.Name = Name;\r\n    this.Amount = Amount;\r\n    this.Cost = Cost;\r\n    }\r\n\r\n    public Person(String Name){\r\n        this.Name = Name;\r\n        this.Amount = 0.0;\r\n        this.Cost = 0.0;\r\n    }\r\n\r\n    public String getName() {\r\n        return Name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        Name = name;\r\n    }\r\n\r\n    public double getAmount() {\r\n        return Amount;\r\n    }\r\n\r\n    public void setAmount(double amount) {\r\n        Amount = amount;\r\n    }\r\n\r\n    public double getCost() {\r\n        return Cost;\r\n    }\r\n\r\n    public void setCost(double cost) {\r\n        Cost = cost;\r\n    }\r\n\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Name='\" + Name + '\\'' +\r\n                \", Amount=\" + Amount +\r\n                \", Cost=\" + Cost;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Person/Person.java b/src/Person/Person.java
+--- a/src/Person/Person.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/Person/Person.java	(date 1670787468095)
+@@ -5,22 +5,28 @@
+ public class Person {
+ 
+     String Name;
++    int IDCode;
+     double Amount;
+     double Cost;
+ 
+ 
+-    public Person(String Name, double Amount, double Cost){
+-    this.Name = Name;
+-    this.Amount = Amount;
+-    this.Cost = Cost;
+-    }
+-
+-    public Person(String Name){
++
++
++    public Person(String Name, int IDCode ){
+         this.Name = Name;
++        this.IDCode = IDCode;
+         this.Amount = 0.0;
+         this.Cost = 0.0;
+     }
+ 
++    public int getIDCode() {
++        return IDCode;
++    }
++
++    public void setIDCode(int IDCode) {
++        this.IDCode = IDCode;
++    }
++
+     public String getName() {
+         return Name;
+     }
+Index: src/dbPerson/RegistrationdbPerson.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dbPerson;\r\n\r\nimport Person.Person;\r\nimport java.util.ArrayList;\r\nimport java.util.Iterator;\r\n\r\npublic class RegistrationdbPerson extends dbPerson{\r\n\r\n    private static RegistrationdbPerson instance;\r\n    private final ArrayList<Person> PersonList;\r\n    public RegistrationdbPerson() {\r\n        this.PersonList = new ArrayList<>();\r\n    }\r\n\r\n    // singleton:\r\n    public static RegistrationdbPerson getInstance() {\r\n        if(instance == null) {\r\n            instance = new RegistrationdbPerson();\r\n        }  return instance;\r\n    }\r\n\r\n    @Override\r\n    public void addPerson(Person person) {\r\n        this.PersonList.add(person);\r\n        System.out.println(person);\r\n    }\r\n\r\n    @Override\r\n    public void deletePerson(Person person) {\r\n        if(PersonList.contains(person)){\r\n            PersonList.remove(person);\r\n        }else {\r\n            System.out.println(person.getName()+\" is not in the database\");\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public int size() {\r\n        return PersonList.size();\r\n    }\r\n\r\n    @Override\r\n    public void printDatabase() {\r\n        for (Person person : PersonList) {\r\n            System.out.println(person);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public Person getPersonID(int id) { //int id is locatie in database.\r\n        Iterator<Person> it = PersonList.iterator();\r\n            for (int i = 0; i < id; i++) {\r\n                it.next();\r\n            }\r\n            if (it.hasNext()) {\r\n                return it.next();\r\n            } else {\r\n                System.out.println(\"Error: Out of bounds of Database.\");\r\n                return null;\r\n            }\r\n    }\r\n\r\n    @Override\r\n    public String getName(int id){\r\n        Person person = PersonList.get(id);\r\n        return person.getName();\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/dbPerson/RegistrationdbPerson.java b/src/dbPerson/RegistrationdbPerson.java
+--- a/src/dbPerson/RegistrationdbPerson.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/dbPerson/RegistrationdbPerson.java	(date 1670773847665)
+@@ -11,7 +11,7 @@
+     public RegistrationdbPerson() {
+         this.PersonList = new ArrayList<>();
+     }
+-
++    int teller = 0;
+     // singleton:
+     public static RegistrationdbPerson getInstance() {
+         if(instance == null) {
+@@ -67,5 +67,15 @@
+         return person.getName();
+     }
+ 
++    @Override
++    public boolean checkDb(Person person) {
++        for(int i = 0; i< size(); i++){
++            if(person.getName() == getName(i))
++                return true;
++        }
++
++        return false;
++    }
++
+ 
+ }
+Index: src/view/error/ViewError.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/view/error/ViewError.java b/src/view/error/ViewError.java
+new file mode 100644
+--- /dev/null	(date 1670777498634)
++++ b/src/view/error/ViewError.java	(date 1670777498634)
+@@ -0,0 +1,20 @@
++package view.error;
++
++import javax.swing.*;
++import java.awt.*;
++
++public class ViewError extends JFrame{
++    public ViewError(){super("Error!!!");}
++    RegistrationButtonPanel buttons;
++    public void initialize(String title) {
++        this.setSize(700, 550);
++        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
++
++        GridBagLayout layout = new GridBagLayout();
++        this.setLayout(layout);
++        buttons = new view.error.RegistrationButtonPanel(this, title);
++
++        this.add(buttons);
++        this.setVisible(true);
++    }
++}
+Index: src/dbPerson/dbPerson.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package dbPerson;\r\n\r\nimport Person.Person;\r\n\r\nimport java.util.Observable;\r\n\r\npublic abstract class dbPerson extends Observable  {\r\n\r\n    public dbPerson(){}\r\n\r\n    public abstract void addPerson(Person person);\r\n    public abstract void deletePerson(Person person);\r\n\r\n    public abstract int size();\r\n    public abstract void printDatabase();\r\n    public abstract Person getPersonID(int id);\r\n    public abstract String getName(int id);\r\n\r\n\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/dbPerson/dbPerson.java b/src/dbPerson/dbPerson.java
+--- a/src/dbPerson/dbPerson.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/dbPerson/dbPerson.java	(date 1670773847647)
+@@ -15,7 +15,7 @@
+     public abstract void printDatabase();
+     public abstract Person getPersonID(int id);
+     public abstract String getName(int id);
+-
++    public abstract boolean checkDb(Person person);
+ 
+ 
+ }
+Index: src/view/error/RegistrationButtonPanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/view/error/RegistrationButtonPanel.java b/src/view/error/RegistrationButtonPanel.java
+new file mode 100644
+--- /dev/null	(date 1670777498650)
++++ b/src/view/error/RegistrationButtonPanel.java	(date 1670777498650)
+@@ -0,0 +1,24 @@
++package view.error;
++
++import javax.swing.*;
++
++public class RegistrationButtonPanel extends JPanel {
++    private final JButton Return;
++    JLabel Error;
++    public RegistrationButtonPanel(JFrame close,String title){
++        Error = new JLabel("error: there are not enough people to make a "+ title);
++        this.Return = new JButton("Return");
++
++        addReturnlistener(close);
++        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
++        this.add(Error);
++        this.add(this.Return);
++    }
++    public void addReturnlistener(JFrame close){
++        this.Return.addActionListener(l-> {
++            close.dispose();
++            this.remove(Error);
++            this.remove(this.Return);
++        });
++    }
++}
+Index: src/controller/Person/RegistrationControlPerson.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package controller.Person;\r\n\r\nimport Person.Person;\r\nimport dbPerson.RegistrationdbPerson;\r\nimport dbPerson.dbPerson;\r\n\r\npublic class RegistrationControlPerson implements Controller{\r\n    private dbPerson dbPerson;\r\n\r\n    public RegistrationControlPerson(dbPerson dbPerson){\r\n        this.dbPerson = dbPerson;\r\n    }\r\n\r\n    @Override\r\n    public void addNameToDatabase(String Name) {\r\n        dbPerson dbPerson = RegistrationdbPerson.getInstance();\r\n        boolean nameInDb = true;\r\n\r\n        if(Name.isEmpty()){\r\n            System.out.println(\"The given name is empty\");\r\n        }\r\n        else {\r\n            if(dbPerson.size() == 0) {\r\n                dbPerson.addPerson(new Person(Name));\r\n                System.out.println(Name + \" is added in the database.\");\r\n            }\r\n            else {\r\n                for (int i = 0; i < dbPerson.size(); i++) {\r\n                    if (Name.equals(dbPerson.getPersonID(i).getName())) {\r\n                        System.out.println(Name + \" already exists. Please enter another name.\");\r\n                        nameInDb = true;\r\n                        return;\r\n                    } else\r\n                        nameInDb = false;\r\n                }\r\n                if (!nameInDb) {\r\n                    dbPerson.addPerson(new Person(Name));\r\n                    System.out.println(Name + \" is added in the database.\");\r\n                }\r\n            }\r\n\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void setPersonForTicket(int id, double Amount, double Cost){\r\n        dbPerson.getPersonID(id).setAmount(Amount);\r\n        dbPerson.getPersonID(id).setCost(Cost);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/controller/Person/RegistrationControlPerson.java b/src/controller/Person/RegistrationControlPerson.java
+--- a/src/controller/Person/RegistrationControlPerson.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/controller/Person/RegistrationControlPerson.java	(date 1670772911843)
+@@ -6,6 +6,7 @@
+ 
+ public class RegistrationControlPerson implements Controller{
+     private dbPerson dbPerson;
++    int teller = 0;
+ 
+     public RegistrationControlPerson(dbPerson dbPerson){
+         this.dbPerson = dbPerson;
+@@ -15,14 +16,14 @@
+     public void addNameToDatabase(String Name) {
+         dbPerson dbPerson = RegistrationdbPerson.getInstance();
+         boolean nameInDb = true;
+-
+         if(Name.isEmpty()){
+             System.out.println("The given name is empty");
+         }
+         else {
+             if(dbPerson.size() == 0) {
+-                dbPerson.addPerson(new Person(Name));
++                dbPerson.addPerson(new Person(Name,teller));
+                 System.out.println(Name + " is added in the database.");
++                teller += 1;
+             }
+             else {
+                 for (int i = 0; i < dbPerson.size(); i++) {
+@@ -34,8 +35,9 @@
+                         nameInDb = false;
+                 }
+                 if (!nameInDb) {
+-                    dbPerson.addPerson(new Person(Name));
++                    dbPerson.addPerson(new Person(Name, teller));
+                     System.out.println(Name + " is added in the database.");
++                    teller += 1;
+                 }
+             }
+ 
+Index: src/view/Menu/RegistrationButtonPanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view.Menu;\r\n\r\nimport controller.Person.RegistrationControlPerson;\r\nimport controller.Ticket.RegistrationControlTicket;\r\nimport dbPerson.dbPerson;\r\nimport dbTicket.dbTicket;\r\nimport view.Bill.ViewBill;\r\nimport view.Person.ViewPerson;\r\nimport view.Ticket.ViewTicket;\r\n\r\nimport javax.swing.*;\r\n\r\npublic class RegistrationButtonPanel extends JPanel{\r\n    private final JButton addPersonMenu;\r\n    private final JButton addTicketMenu;\r\n    private final JButton CalcBillMenu;\r\n    private final RegistrationControlPerson controlPerson;\r\n    private final RegistrationControlTicket controlTicket;\r\n\r\n    private final ViewPerson viewPerson = new ViewPerson();\r\n    private final ViewTicket viewTicket = new ViewTicket();\r\n\r\n    private final ViewBill viewBill = new ViewBill();\r\n    dbPerson dbPerson;\r\n    dbTicket dbTicket;\r\n\r\n    public RegistrationButtonPanel(RegistrationControlPerson regPerson, RegistrationControlTicket regTicket, dbPerson dbPerson, dbTicket dbTicket){\r\n        this.dbPerson = dbPerson;\r\n        this.dbTicket= dbTicket;\r\n        JLabel label = new JLabel(\"Split your bills\");\r\n        //Person\r\n        this.addPersonMenu = new JButton(\"add new persons\");\r\n        this.controlPerson = regPerson;\r\n        //Ticket\r\n        this.addTicketMenu = new JButton(\"add new ticket\");\r\n        this.controlTicket = regTicket;\r\n        //bill\r\n        this.CalcBillMenu = new JButton(\"calculate the total bill\" );\r\n\r\n\r\n        addPersonActionListener();\r\n        addTicketActionListener();\r\n        CalcBillActionListener();\r\n        this.setLayout(new BoxLayout(this ,BoxLayout.Y_AXIS));\r\n        this.add(label);\r\n        this.add(this.addPersonMenu);\r\n        this.add(this.addTicketMenu);\r\n        this.add(this.CalcBillMenu);\r\n    }\r\n    public void addPersonActionListener(){\r\n        this.addPersonMenu.addActionListener(listener -> {\r\n            viewPerson.initialize(controlPerson, dbPerson);\r\n        });\r\n    }\r\n    public void addTicketActionListener(){\r\n        this.addTicketMenu.addActionListener(listener -> {\r\n            viewTicket.initialize(controlTicket, dbPerson, controlPerson, dbTicket);\r\n        });\r\n    }\r\n    public void CalcBillActionListener(){\r\n        this.CalcBillMenu.addActionListener(listener -> {\r\n            viewBill.initialize(dbPerson, dbTicket);\r\n        });\r\n    }\r\n\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/view/Menu/RegistrationButtonPanel.java b/src/view/Menu/RegistrationButtonPanel.java
+--- a/src/view/Menu/RegistrationButtonPanel.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/view/Menu/RegistrationButtonPanel.java	(date 1670777498618)
+@@ -7,6 +7,7 @@
+ import view.Bill.ViewBill;
+ import view.Person.ViewPerson;
+ import view.Ticket.ViewTicket;
++import view.error.ViewError;
+ 
+ import javax.swing.*;
+ 
+@@ -23,6 +24,7 @@
+     private final ViewBill viewBill = new ViewBill();
+     dbPerson dbPerson;
+     dbTicket dbTicket;
++    private final ViewError viewerror = new ViewError();
+ 
+     public RegistrationButtonPanel(RegistrationControlPerson regPerson, RegistrationControlTicket regTicket, dbPerson dbPerson, dbTicket dbTicket){
+         this.dbPerson = dbPerson;
+@@ -54,12 +56,19 @@
+     }
+     public void addTicketActionListener(){
+         this.addTicketMenu.addActionListener(listener -> {
+-            viewTicket.initialize(controlTicket, dbPerson, controlPerson, dbTicket);
++            if(dbPerson.size()>=2) {
++                viewTicket.initialize(controlTicket, dbPerson, controlPerson, dbTicket);
++            }else
++                viewerror.initialize("Ticket");
+         });
+     }
+     public void CalcBillActionListener(){
+         this.CalcBillMenu.addActionListener(listener -> {
+-            viewBill.initialize(dbPerson, dbTicket);
++            if(dbPerson.size()>=2) {
++                viewBill.initialize(dbPerson, dbTicket);
++            }else
++                viewerror.initialize("Bill");
++
+         });
+     }
+ 
+Index: src/view/Person/ViewPerson.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view.Person;\r\n\r\nimport controller.Person.RegistrationControlPerson;\r\nimport dbPerson.dbPerson;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\n\r\npublic class ViewPerson extends JFrame {\r\n    RegistrationControlPerson controlPerson;\r\n    RegisterButton buttons;\r\n    dbPerson dbPerson;\r\n    public ViewPerson(){ super(\"give up your friends\");}\r\n    public void initialize(RegistrationControlPerson controlPerson, dbPerson dbPerson){\r\n        this.dbPerson = dbPerson;\r\n        this.controlPerson = controlPerson;\r\n        this.setSize(400,200);\r\n        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n\r\n        GridBagLayout layout = new GridBagLayout();\r\n        this.setLayout(layout);\r\n        buttons = new RegisterButton(controlPerson, this, dbPerson);\r\n        this.add(buttons);\r\n        this.setVisible(true);\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/view/Person/ViewPerson.java b/src/view/Person/ViewPerson.java
+--- a/src/view/Person/ViewPerson.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/view/Person/ViewPerson.java	(date 1670776082994)
+@@ -1,15 +1,20 @@
+ package view.Person;
+ 
++import Person.Person;
+ import controller.Person.RegistrationControlPerson;
+-import dbPerson.dbPerson;
++import dbPerson.*;
+ 
+ import javax.swing.*;
+ import java.awt.*;
++import java.util.Observable;
++import java.util.Observer;
+ 
+-public class ViewPerson extends JFrame {
++public class ViewPerson extends JFrame implements Observer {
+     RegistrationControlPerson controlPerson;
+     RegisterButton buttons;
+     dbPerson dbPerson;
++    RegistrationdbPerson regPerson;
++
+     public ViewPerson(){ super("give up your friends");}
+     public void initialize(RegistrationControlPerson controlPerson, dbPerson dbPerson){
+         this.dbPerson = dbPerson;
+@@ -25,4 +30,10 @@
+     }
+ 
+ 
++    @Override
++    public void update(Observable o, Object arg) {
++        Person p = (Person) arg;
++        buttons.clearText(regPerson.checkDb(p));
++        System.out.println("clear textfield");
++    }
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"18f92bb0-d844-471c-983e-af0e8a319a56\" name=\"Changes\" comment=\"updated TicketArray, Calculate.Sum, and added a basic Integration test\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Bill/Calculate.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Bill/Calculate.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Person/Person.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Person/Person.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/Test/Calculate_Itest.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/Test/Calculate_Itest.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/controller/Person/Controller.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/controller/Person/Controller.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/controller/Ticket/RegistrationControlTicket.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/controller/Ticket/RegistrationControlTicket.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/dbPerson/dbPerson.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/dbPerson/dbPerson.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/dbTicket/TicketArray.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/dbTicket/TicketArray.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/dbTicket/dbTicket.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/dbTicket/dbTicket.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/diffTicket/Culture.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/diffTicket/Culture.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/diffTicket/Food.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/diffTicket/Food.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/diffTicket/Ticket.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/diffTicket/Ticket.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/diffTicket/TicketFactory.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/diffTicket/TicketFactory.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/diffTicket/Transport.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/diffTicket/Transport.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/view/Bill/RegistationButton.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/view/Bill/RegistationButton.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/view/Bill/ViewBill.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/view/Bill/ViewBill.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/view/Menu/RegistrationButtonPanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/view/Menu/RegistrationButtonPanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/view/Menu/viewMenu.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/view/Menu/viewMenu.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/view/Person/RegisterButton.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/view/Person/RegisterButton.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/view/Person/ViewPerson.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/view/Person/ViewPerson.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/view/Ticket/RegisterButton.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/view/Ticket/RegisterButton.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/view/Ticket/ViewTicket.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/view/Ticket/ViewTicket.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\r\n  </component>\r\n  <component name=\"GitSEFilterConfiguration\">\r\n    <file-type-list>\r\n      <filtered-out-file-type name=\"LOCAL_BRANCH\" />\r\n      <filtered-out-file-type name=\"REMOTE_BRANCH\" />\r\n      <filtered-out-file-type name=\"TAG\" />\r\n      <filtered-out-file-type name=\"COMMIT_BY_MESSAGE\" />\r\n    </file-type-list>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2HMTLxbrArJP5BykDlwaCBjqY0u\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/../Lab3\" />\r\n    <property name=\"nodejs_package_manager_path\" value=\"npm\" />\r\n    <property name=\"settings.editor.selected.configurable\" value=\"preferences.lookFeel\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.Main\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Main\" />\r\n      <module name=\"untitled\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"Calculate_Itest\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"untitled\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"Test.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"Test\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"Test.Calculate_Itest\" />\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"JUnit.Calculate_Itest\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"18f92bb0-d844-471c-983e-af0e8a319a56\" name=\"Changes\" comment=\"\" />\r\n      <created>1668093901737</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1668093901737</updated>\r\n      <workItem from=\"1668097950480\" duration=\"532000\" />\r\n      <workItem from=\"1668697472497\" duration=\"2370000\" />\r\n      <workItem from=\"1669131022486\" duration=\"724000\" />\r\n      <workItem from=\"1669205459633\" duration=\"1907000\" />\r\n      <workItem from=\"1669803442913\" duration=\"3503000\" />\r\n      <workItem from=\"1670676126551\" duration=\"15036000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"begin project\">\r\n      <created>1668098209625</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1668098209625</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"begin project\">\r\n      <created>1668098246999</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1668098246999</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"begin project\">\r\n      <created>1668098344763</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1668098344763</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"dbTicket\">\r\n      <created>1669109763595</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669109763595</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"observer\">\r\n      <created>1669294405885</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669294405885</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"observer\">\r\n      <created>1669294418723</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669294418723</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"controller\">\r\n      <created>1669297558009</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669297558009</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00008\" summary=\"dbticket ok\">\r\n      <created>1669299231632</created>\r\n      <option name=\"number\" value=\"00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669299231632</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00009\" summary=\"TicketController added\">\r\n      <created>1669804998832</created>\r\n      <option name=\"number\" value=\"00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1669804998832</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00010\" summary=\"updated TicketArray, Calculate.Sum, and added a basic Integration test\">\r\n      <created>1670499817556</created>\r\n      <option name=\"number\" value=\"00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1670499817556</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"11\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.History.Properties\">\r\n    <option name=\"SHOW_OTHER_BRANCHES\" value=\"true\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"begin project\" />\r\n    <MESSAGE value=\"dbTicket\" />\r\n    <MESSAGE value=\"Updated dbPerson to class person.\" />\r\n    <MESSAGE value=\"observer\" />\r\n    <MESSAGE value=\"controller\" />\r\n    <MESSAGE value=\"dbticket ok\" />\r\n    <MESSAGE value=\"TicketController added\" />\r\n    <MESSAGE value=\"updated TicketArray, Calculate.Sum, and added a basic Integration test\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"updated TicketArray, Calculate.Sum, and added a basic Integration test\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <breakpoint enabled=\"true\" type=\"java-exception\">\r\n          <properties class=\"java.util.NoSuchElementException\" package=\"java.util\" />\r\n          <option name=\"timeStamp\" value=\"1\" />\r\n        </breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/.idea/workspace.xml	(date 1671031612640)
+@@ -1,33 +1,21 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="updated TicketArray, Calculate.Sum, and added a basic Integration test">
++    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="Interface GUI bill + diff ticket events">
++      <change afterPath="$PROJECT_DIR$/src/view/error/RegistrationButtonPanel.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/view/error/ViewError.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Bill/Calculate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bill/Calculate.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/Person/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Person/Person.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/Test/Calculate_Itest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Calculate_Itest.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Test/Calculate_Itest.java" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/controller/Person/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/Controller.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/controller/Ticket/RegistrationControlTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Ticket/RegistrationControlTicket.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/dbTicket/TicketArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/TicketArray.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/dbTicket/dbTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/dbTicket.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/diffTicket/Culture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/diffTicket/Culture.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/diffTicket/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/diffTicket/Food.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/diffTicket/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/diffTicket/Ticket.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/diffTicket/TicketFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/diffTicket/TicketFactory.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/diffTicket/Transport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/diffTicket/Transport.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/view/Bill/RegistationButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Bill/RegistationButton.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/view/Bill/ViewBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Bill/ViewBill.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/view/Menu/RegistrationButtonPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Menu/RegistrationButtonPanel.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/view/Menu/viewMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Menu/viewMenu.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/view/Person/ViewPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Person/ViewPerson.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/view/Ticket/RegisterButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Ticket/RegisterButton.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/view/Ticket/ViewTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Ticket/ViewTicket.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -67,12 +55,11 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">
+-    <property name="WebServerToolWindowFactoryState" value="false" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Lab3" />
+-    <property name="nodejs_package_manager_path" value="npm" />
+-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+-  </component>
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
++  }
++}</component>
+   <component name="RunManager" selected="Application.Main">
+     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="Main" />
+@@ -117,6 +104,9 @@
+       <workItem from="1669205459633" duration="1907000" />
+       <workItem from="1669803442913" duration="3503000" />
+       <workItem from="1670676126551" duration="15036000" />
++      <workItem from="1670778145818" duration="8737000" />
++      <workItem from="1670919575665" duration="306000" />
++      <workItem from="1671030454286" duration="1148000" />
+     </task>
+     <task id="LOCAL-00001" summary="begin project">
+       <created>1668098209625</created>
+Index: src/view/Person/RegisterButton.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package view.Person;\r\n\r\nimport Person.Person;\r\nimport controller.Person.RegistrationControlPerson;\r\nimport dbPerson.dbPerson;\r\n\r\nimport javax.swing.*;\r\n\r\npublic class RegisterButton extends JPanel {\r\n\r\n    private JTextField textField;\r\n    private JButton AddName;\r\n    private JButton Return;\r\n    private JLabel label;\r\n    DefaultListModel<String> dbListModel = new DefaultListModel<>();\r\n\r\n    JList<String> dbJList = new JList<>(dbListModel);\r\n    private RegistrationControlPerson controlPerson;\r\n    dbPerson dbPerson;\r\n    public RegisterButton(RegistrationControlPerson controlPerson, JFrame close, dbPerson dbPerson){\r\n        this.dbPerson = dbPerson;\r\n        this.label = new JLabel(\"add your friends\");\r\n        this.textField = new JTextField();\r\n        this.controlPerson = controlPerson;\r\n        this.Return = new JButton(\"return to menu\");\r\n        this.AddName = new JButton(\"add name\");\r\n        addNameListener();\r\n        ReturnMenuListener(close);\r\n\r\n        this.add(dbJList);\r\n        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));\r\n        this.add(label);\r\n        this.add(this.textField);\r\n        this.add(this.AddName);\r\n        this.add(this.Return);\r\n// verwijder uit lijst\r\n\r\n    }\r\n    public void addNameListener(){\r\n\r\n        this.AddName.addActionListener(l -> {\r\n            String name = textField.getText();\r\n            controlPerson.addNameToDatabase(name);\r\n            textField.setText(\"\");\r\n            //db.printDatabase();\r\n        });\r\n    }\r\n    public void ReturnMenuListener(JFrame close){\r\n        this.Return.addActionListener(e -> {\r\n            close.dispose();\r\n            this.remove(label);\r\n            this.remove(this.textField);\r\n            this.remove(this.AddName);\r\n            this.remove(this.Return);\r\n            //https://stackoverflow.com/questions/8632705/how-to-close-a-gui-when-i-push-a-jbutton\r\n        });\r\n    }\r\n    public void addEntry(Person entry){this.dbListModel.addElement(String.valueOf(entry));}\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/view/Person/RegisterButton.java b/src/view/Person/RegisterButton.java
+--- a/src/view/Person/RegisterButton.java	(revision 18b4509bdde924c281b616f2eb801829d4b91d3f)
++++ b/src/view/Person/RegisterButton.java	(date 1670775361046)
+@@ -1,11 +1,12 @@
+ package view.Person;
+ 
+-import Person.Person;
++
+ import controller.Person.RegistrationControlPerson;
+-import dbPerson.dbPerson;
+-
++import dbPerson.*;
+ import javax.swing.*;
+ 
++
++
+ public class RegisterButton extends JPanel {
+ 
+     private JTextField textField;
+@@ -33,7 +34,6 @@
+         this.add(this.textField);
+         this.add(this.AddName);
+         this.add(this.Return);
+-// verwijder uit lijst
+ 
+     }
+     public void addNameListener(){
+@@ -41,7 +41,7 @@
+         this.AddName.addActionListener(l -> {
+             String name = textField.getText();
+             controlPerson.addNameToDatabase(name);
+-            textField.setText("");
++
+             //db.printDatabase();
+         });
+     }
+@@ -55,6 +55,12 @@
+             //https://stackoverflow.com/questions/8632705/how-to-close-a-gui-when-i-push-a-jbutton
+         });
+     }
+-    public void addEntry(Person entry){this.dbListModel.addElement(String.valueOf(entry));}
++    public void clearText(boolean cleartruetext){
++        System.out.println("test");
++        if (cleartruetext)
++            textField.setText("");
++    }
++
+ 
+ }
++ //observer toevoegen -> kijken als op de knop gedrukt wordt om alle vakjes leeg te maken
+\ No newline at end of file

@@ -4,18 +4,15 @@ package Person;
 public class Person {
 
     String Name;
+    int IDCode;
     double Amount;
     double Cost;
 
 
-    public Person(String Name, double Amount, double Cost){
-    this.Name = Name;
-    this.Amount = Amount;
-    this.Cost = Cost;
-    }
 
-    public Person(String Name){
+    public Person(String Name, int IDCode ){
         this.Name = Name;
+        this.IDCode = IDCode;
         this.Amount = 0.0;
         this.Cost = 0.0;
     }
@@ -24,6 +21,14 @@ public class Person {
         this.Name = person.Name;
         this.Amount = person.Amount;
         this.Cost = person.Cost;
+    }
+
+    public int getIDCode() {
+        return IDCode;
+    }
+
+    public void setIDCode(int IDCode) {
+        this.IDCode = IDCode;
     }
 
     public String getName() {
