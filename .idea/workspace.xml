@@ -2,18 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="finalised calc.balance and added it to GUI">
+      <change afterPath="$PROJECT_DIR$/src/view/error/RegistrationButtonPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/error/ViewError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Bill/Calculate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Bill/Calculate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Person/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Person/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/Calculate_Itest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Calculate_Itest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/Calculate_Itest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Person/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Ticket/RegistrationControlTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Ticket/RegistrationControlTicket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/RegistrationDbTicket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dbTicket/dbTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbTicket/dbTicket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Bill/RegistationButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Bill/RegistationButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Bill/ViewBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Bill/ViewBill.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Menu/RegistrationButtonPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Menu/RegistrationButtonPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/Person/ViewPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Person/ViewPerson.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,13 +55,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Lab3" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
-  </component>
-  <component name="RunManager" selected="JUnit.Calculate_Itest">
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  }
+}</component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="untitled" />
@@ -84,8 +85,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Calculate_Itest" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.Calculate_Itest" />
       </list>
     </recent_temporary>
   </component>
@@ -104,6 +105,8 @@
       <workItem from="1669803442913" duration="3503000" />
       <workItem from="1670676126551" duration="23291000" />
       <workItem from="1671018419384" duration="12312000" />
+      <workItem from="1671055067578" duration="2547000" />
+      <workItem from="1671095507447" duration="807000" />
     </task>
     <task id="LOCAL-00001" summary="begin project">
       <created>1668098209625</created>

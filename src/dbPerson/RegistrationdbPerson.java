@@ -11,7 +11,7 @@ public class RegistrationdbPerson extends dbPerson{
     public RegistrationdbPerson() {
         this.PersonList = new ArrayList<>();
     }
-
+    int teller = 0;
     // singleton:
     public static RegistrationdbPerson getInstance() {
         if(instance == null) {
@@ -64,6 +64,16 @@ public class RegistrationdbPerson extends dbPerson{
     public String getName(int id){
         Person person = PersonList.get(id);
         return person.getName();
+    }
+
+    @Override
+    public boolean checkDb(Person person) {
+        for(int i = 0; i< size(); i++){
+            if(person.getName() == getName(i))
+                return true;
+        }
+
+        return false;
     }
 
 

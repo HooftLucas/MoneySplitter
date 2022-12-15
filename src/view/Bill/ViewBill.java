@@ -5,8 +5,10 @@ import dbTicket.dbTicket;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
-public class ViewBill extends JFrame {
+public class ViewBill extends JFrame implements Observer {
     RegistationButton buttons;
     protected GridBagConstraints c = new GridBagConstraints();
     public ViewBill(){super("give the total bill");}
@@ -20,4 +22,9 @@ public class ViewBill extends JFrame {
         this.setVisible(true);
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        //controleren of de vakjes zijn gekleurd voor het de database gecleerd kan worden
+
+    }
 }

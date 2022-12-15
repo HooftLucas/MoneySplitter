@@ -7,6 +7,7 @@ import dbTicket.dbTicket;
 import view.Bill.ViewBill;
 import view.Person.ViewPerson;
 import view.Ticket.ViewTicket;
+import view.error.ViewError;
 
 import javax.swing.*;
 
@@ -23,6 +24,7 @@ public class RegistrationButtonPanel extends JPanel{
     private final ViewBill viewBill = new ViewBill();
     dbPerson dbPerson;
     dbTicket dbTicket;
+    private final ViewError viewerror = new ViewError();
 
     public RegistrationButtonPanel(RegistrationControlPerson regPerson, RegistrationControlTicket regTicket, dbPerson dbPerson, dbTicket dbTicket){
         this.dbPerson = dbPerson;
@@ -53,12 +55,25 @@ public class RegistrationButtonPanel extends JPanel{
     }
     public void addTicketActionListener(){
         this.addTicketMenu.addActionListener(listener -> {
-            viewTicket.initialize(controlTicket, dbPerson, controlPerson, dbTicket);
+            if(dbPerson.size()>=2) {
+                viewTicket.initialize(controlTicket, dbPerson, controlPerson, dbTicket);
+            }else
+                viewerror.initialize("Ticket", "people");
         });
     }
     public void CalcBillActionListener(){
         this.CalcBillMenu.addActionListener(listener -> {
-            viewBill.initialize(dbPerson, dbTicket);
+            if(dbPerson.size()<2&& dbTicket.size()==0) {
+                viewerror.initialize("bill", "Persons and tickets");
+            }else if(dbPerson.size()>=2&&dbTicket.size() == 0) {
+                viewerror.initialize("bill", "Tickets");
+            }
+            else {
+                viewBill.initialize(dbPerson, dbTicket);
+
+            }
+
+
         });
     }
 

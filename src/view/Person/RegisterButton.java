@@ -1,12 +1,15 @@
 package view.Person;
 
-import Person.Person;
+
 import controller.Person.RegistrationControlPerson;
-import dbPerson.dbPerson;
-
+import dbPerson.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class RegisterButton extends JPanel {
+
+public class RegisterButton extends JPanel implements KeyListener {
 
     private JTextField textField;
     private JButton AddName;
@@ -33,7 +36,7 @@ public class RegisterButton extends JPanel {
         this.add(this.textField);
         this.add(this.AddName);
         this.add(this.Return);
-// verwijder uit lijst
+
 
     }
     public void addNameListener(){
@@ -41,9 +44,10 @@ public class RegisterButton extends JPanel {
         this.AddName.addActionListener(l -> {
             String name = textField.getText();
             controlPerson.addNameToDatabase(name);
-            textField.setText("");
+
             //db.printDatabase();
         });
+
     }
     public void ReturnMenuListener(JFrame close){
         this.Return.addActionListener(e -> {
@@ -55,6 +59,28 @@ public class RegisterButton extends JPanel {
             //https://stackoverflow.com/questions/8632705/how-to-close-a-gui-when-i-push-a-jbutton
         });
     }
-    public void addEntry(Person entry){this.dbListModel.addElement(String.valueOf(entry));}
+    public void clearText(boolean cleartruetext){
+        System.out.println("test");
+        if (cleartruetext)
+            textField.setText("");
+    }
 
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            System.out.println("enter");
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
+ //observer toevoegen -> kijken als op de knop gedrukt wordt om alle vakjes leeg te maken
