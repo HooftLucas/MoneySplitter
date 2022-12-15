@@ -1,42 +1,63 @@
 package view.Person;
 
 
+import Person.Person;
 import controller.Person.RegistrationControlPerson;
 import dbPerson.*;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.*;
 
 
-public class RegisterButton extends JPanel implements KeyListener {
+
+public class RegisterButton extends JPanel {
 
     private JTextField textField;
     private JButton AddName;
     private JButton Return;
     private JLabel label;
+    private JButton deleteName;
     DefaultListModel<String> dbListModel = new DefaultListModel<>();
 
     JList<String> dbJList = new JList<>(dbListModel);
     private RegistrationControlPerson controlPerson;
     dbPerson dbPerson;
-    public RegisterButton(RegistrationControlPerson controlPerson, JFrame close, dbPerson dbPerson){
+    protected GridBagConstraints c = new GridBagConstraints();
+    DefaultListModel<String> Names;
+    private JList<String> entryList;
+    private JLabel[] Name;
+    public RegisterButton(RegistrationControlPerson controlPerson, JFrame close, dbPerson dbPerson, GridBagConstraints c){
         this.dbPerson = dbPerson;
         this.label = new JLabel("add your friends");
-        this.textField = new JTextField();
+        this.textField = new JTextField(10);
         this.controlPerson = controlPerson;
         this.Return = new JButton("return to menu");
         this.AddName = new JButton("add name");
+        this.deleteName = new JButton("delete Name");
+        this.c =c;
         addNameListener();
+        DeleteNameListener();
         ReturnMenuListener(close);
+        c.gridx = 0;
+        c.gridy =0;
+        this.setLayout(new GridBagLayout());
 
-        this.add(dbJList);
-        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        this.add(label);
-        this.add(this.textField);
-        this.add(this.AddName);
-        this.add(this.Return);
+        Names = new DefaultListModel<>();
+        entryList = new JList<>(Names);
 
+        this.add(dbJList,c);
+        c.gridy++;
+        this.add(label,c);
+        c.gridy++;
+        this.add(this.textField,c);
+        c.gridy++;
+        this.add(this.AddName,c);
+        c.gridx++;
+        this.add(this.deleteName,c);
+        c.gridy++;
+        c.gridx =1;
+        this.add(this.Return,c);
+        c.gridx++;
+        this.add(entryList,c);
 
     }
     public void addNameListener(){
@@ -44,8 +65,24 @@ public class RegisterButton extends JPanel implements KeyListener {
         this.AddName.addActionListener(l -> {
             String name = textField.getText();
             controlPerson.addNameToDatabase(name);
+            textField.setText("");
+        });
 
-            //db.printDatabase();
+    }
+    public void DeleteNameListener(){
+        this.deleteName.addActionListener(l -> {
+            String name = textField.getText();
+            System.out.println("control name");
+            for (int i = 0; i < dbPerson.size(); i++){
+                System.out.println(name);
+                System.out.println(dbPerson.getPersonID(i).getName());
+                if(name.equals(dbPerson.getPersonID(i).getName())){
+                    System.out.println("delted person");
+                    dbPerson.deletePerson(dbPerson.getPersonID(i));
+                    textField.setText("");
+                }
+            }
+
         });
 
     }
@@ -56,31 +93,15 @@ public class RegisterButton extends JPanel implements KeyListener {
             this.remove(this.textField);
             this.remove(this.AddName);
             this.remove(this.Return);
+            this.remove(this.deleteName);
+            this.remove(this.entryList);
             //https://stackoverflow.com/questions/8632705/how-to-close-a-gui-when-i-push-a-jbutton
         });
     }
-    public void clearText(boolean cleartruetext){
-        System.out.println("test");
-        if (cleartruetext)
-            textField.setText("");
+    public void showList(String name){
+        this.Names.addElement(name);
+        System.out.println(Names);
     }
 
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            System.out.println("enter");
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
 }
- //observer toevoegen -> kijken als op de knop gedrukt wordt om alle vakjes leeg te maken

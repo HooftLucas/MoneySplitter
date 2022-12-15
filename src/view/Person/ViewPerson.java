@@ -11,13 +11,15 @@ import java.awt.event.KeyListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ViewPerson extends JFrame implements Observer {
+public class ViewPerson extends JFrame implements Observer{
     RegistrationControlPerson controlPerson;
     RegisterButton buttons;
     dbPerson dbPerson;
     RegistrationdbPerson regPerson;
-
+    protected GridBagConstraints c = new GridBagConstraints();
     public ViewPerson(){ super("give up your friends");}
+
+
     public void initialize(RegistrationControlPerson controlPerson, dbPerson dbPerson){
         this.dbPerson = dbPerson;
         this.controlPerson = controlPerson;
@@ -26,7 +28,7 @@ public class ViewPerson extends JFrame implements Observer {
 
         GridBagLayout layout = new GridBagLayout();
         this.setLayout(layout);
-        buttons = new RegisterButton(controlPerson, this, dbPerson);
+        buttons = new RegisterButton(controlPerson, this, dbPerson, c);
         this.add(buttons);
         this.setVisible(true);
     }
@@ -34,11 +36,11 @@ public class ViewPerson extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Person p = (Person) arg;
-        buttons.clearText(regPerson.checkDb(p));
-        System.out.println("clear textfield");
+        Person e = (Person) arg;
+        String name = e.getName();
+        String re =RegistrationdbPerson.getInstance().getEntry((Person) arg);
+        buttons.showList(name);
+        System.out.println("updated");
+
     }
-
-
-
 }

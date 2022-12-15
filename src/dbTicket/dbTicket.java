@@ -1,6 +1,9 @@
 package dbTicket;
 
 
+import Person.Person;
+
+import java.util.Observable;
 
 public abstract class dbTicket {
 
@@ -11,7 +14,6 @@ public abstract class dbTicket {
     public abstract int size();
     public abstract void printDatabase();
     public abstract TicketArray getTicketID(int id);
-
 
 
 

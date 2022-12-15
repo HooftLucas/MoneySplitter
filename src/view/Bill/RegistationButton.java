@@ -96,7 +96,7 @@ public class RegistationButton extends JPanel  {
 
 
         controlCheckBox(teller);
-        canReturn(teller);
+
     }
 
     public void ReturnListener(){
@@ -113,31 +113,22 @@ public class RegistationButton extends JPanel  {
         });
     }
     public void controlCheckBox(int teller) {
-
-
-
         for (int i = 0; i < teller; i++) {
             hasPaid[i].addItemListener(new ItemListener() {
                 public void itemStateChanged(ItemEvent e) {
                     if (e.getStateChange() == 1) {
                         teller_hasPaid +=1;
-                        System.out.println("er wordt op het vakje geduwd " + teller_hasPaid);
-
+                        //System.out.println("er wordt op het vakje geduwd " + teller_hasPaid);
+                        if (teller_hasPaid == teller) {
+                            canClose = true;
+                            //System.out.println("can close");
+                        }
                     }
                 }
             });
-
         }
+    }
 
-    }
-    void canReturn(int teller ){
-        System.out.println(teller);
-        System.out.println(teller_hasPaid);
-        if (teller_hasPaid == teller) {
-            canClose = true;
-            System.out.println("can close");
-        } // via observer
-    }
 
     void exit(boolean cleardb){
         close.dispose();

@@ -22,6 +22,8 @@ public class RegistrationdbPerson extends dbPerson{
     @Override
     public void addPerson(Person person) {
         this.PersonList.add(person);
+        instance.setChanged();
+        instance.notifyObservers(person);
     }
 
     @Override
@@ -76,5 +78,9 @@ public class RegistrationdbPerson extends dbPerson{
         return false;
     }
 
-
+    @Override
+    public String getEntry(Person p) {
+        this.PersonList.add(p);
+        return p.getName();
+    }
 }
