@@ -11,7 +11,7 @@ public class RegistrationdbPerson extends dbPerson{
     public RegistrationdbPerson() {
         this.PersonList = new ArrayList<>();
     }
-    int teller = 0;
+
     // singleton:
     public static RegistrationdbPerson getInstance() {
         if(instance == null) {
@@ -22,19 +22,24 @@ public class RegistrationdbPerson extends dbPerson{
     @Override
     public void addPerson(Person person) {
         this.PersonList.add(person);
-        instance.setChanged();
-        instance.notifyObservers(person);
+        NotifyObserver(person.getName(),true);
     }
 
     @Override
     public void deletePerson(Person person) {
-        if(PersonList.contains(person) | !PersonList.isEmpty()){
-            PersonList.remove(person);
-        }else {
-            System.out.println(person.getName()+" is not in the database");
-        }
+            this.PersonList.remove(person);
+            NotifyObserver(person.getName(),false);
     }
 
+    @Override
+    public void NotifyObserver(String name,boolean addOrDel) {
+        view.Person.RegisterButton.update(name, addOrDel);
+    }
+
+    @Override
+    public void clear() {
+        this.PersonList.clear();
+    }
 
     @Override
     public int size() {
@@ -62,25 +67,4 @@ public class RegistrationdbPerson extends dbPerson{
             }
     }
 
-    @Override
-    public String getName(int id){
-        Person person = PersonList.get(id);
-        return person.getName();
-    }
-
-    @Override
-    public boolean checkDb(Person person) {
-        for(int i = 0; i< size(); i++){
-            if(person.getName() == getName(i))
-                return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public String getEntry(Person p) {
-        this.PersonList.add(p);
-        return p.getName();
-    }
 }

@@ -3,72 +3,77 @@ package Person;
 
 public class Person {
 
-    String Name;
-    double Amount;
-    double Cost;
-    boolean doPay;
+    String name;
+    double amount;
+    double cost;
+    boolean participate;
 
 
-
-
-    public Person(String Name){
-        this.Name = Name;
-        this.Amount = 0.0;
-        this.Cost = 0.0;
-        this.doPay = true;
+    public Person(String name){
+        this.name = name;
+        this.amount = 0.0;
+        this.cost = 0.0;
+        this.participate = true;
     }
 
     public Person(Person person) {
-        this.Name = person.Name;
-        this.Amount = person.Amount;
-        this.Cost = person.Cost;
-        this.doPay = person.doPay;
+        this.name = person.name;
+        this.amount = person.amount;
+        this.cost = person.cost;
+        this.participate = person.participate;
     }
 
-    public Person(String Name, double Amount, double Cost,boolean doPay) {
-        this.Name = Name;
-        this.Amount = Amount;
-        this.Cost = Cost;
-        this.doPay = doPay;
+    public Person(String name, double amount, double cost) {
+        this.name = name;
+        this.amount = amount;
+        this.cost = cost;
+        this.participate = true;
+    }
+
+    public Person(String name, double amount, double cost,boolean participate) {
+        this.name = name;
+        this.amount = amount;
+        this.cost = cost;
+        this.participate = participate;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public double getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(double amount) {
-        Amount = amount;
+        this.amount = amount;
     }
 
     public double getCost() {
-        return Cost;
+        return cost;
     }
 
     public void setCost(double cost) {
-        Cost = cost;
+        this.cost = cost;
     }
 
-    public boolean isDoPay() {
-        return doPay;
+    public boolean isParticipate() {
+        return participate;
     }
 
-    public void setDoPay(boolean doPay) {
-        this.doPay = doPay;
+    public void setParticipate(boolean participate) {
+        this.participate = participate;
     }
 
     @Override
     public String toString() {
-        return "Name='" + Name + '\'' +
-                ", Amount=" + Amount +
-                ", Cost=" + Cost +
-                ", doPay=" + doPay;
+        return "name='" + name + '\'' +
+                ", amount=" + amount +
+                ", cost=" + cost +
+                ", part=" + participate;
     }
 }

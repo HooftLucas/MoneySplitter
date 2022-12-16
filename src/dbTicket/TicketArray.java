@@ -27,15 +27,12 @@ public class TicketArray {
     }
 
     public int size() {
-        int size = this.array.size();
-        return size;
+        return this.array.size();
     }
 
     @Override
     public String toString() {
         return  array + "." ;
     }
-
-
 
 }

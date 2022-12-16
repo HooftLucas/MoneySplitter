@@ -21,34 +21,43 @@ public class Calculate {
         BalanceMap.clear();
         for (int ticketI = 0; ticketI < dbTicket.size(); ticketI++) {
             TicketArray tempTA = dbTicket.getTicketID(ticketI);
+            String name;
             int personSize = tempTA.size() - 1; // allows persons to be added and deleted.
             double moneyPaidTotal = 0, moneyPaid, moneyOwedTotal = 0, moneyOwed, tempValue;
-            int evenSize = personSize;
-            String name;
+
+            //calculate the number of ppl participating in current ticket:
+            int partEvenSize = personSize;
+            for(int personID = 0; personID < personSize; personID++){
+                if (!tempTA.getPerson(personID).isParticipate()){
+                    partEvenSize--;
+                }
+            }
 
 
-            for (int personID = 0; personID < personSize; personID++) {
-                if (tempTA.getPerson(personID).getAmount() != 0.0 & tempTA.getPerson(personID).isDoPay()) {
+
+
+            for (int personID = 0; personID < personSize; personID++) { // calculates the amounts paid
+                if (tempTA.getPerson(personID).getAmount() != 0.0 & tempTA.getPerson(personID).isParticipate()) {
                     name = tempTA.getPerson(personID).getName();
                     moneyPaid = tempTA.getPerson(personID).getAmount();
                     moneyPaidTotal += moneyPaid;
                     BalanceMap.put(name,BalanceMap.getOrDefault(name,0.0) - moneyPaid);
                 }
             }
-            for (int personID = 0; personID < personSize; personID++) { //person has to pay a set cost.
-                if (tempTA.getPerson(personID).getCost() != 0.0 & tempTA.getPerson(personID).isDoPay()){
+            for (int personID = 0; personID < personSize; personID++) { //calculates the set costs.
+                if (tempTA.getPerson(personID).getCost() != 0.0 & tempTA.getPerson(personID).isParticipate()){
                     name = tempTA.getPerson(personID).getName();
-                    evenSize = evenSize - 1;
+                    partEvenSize = partEvenSize - 1;
                     moneyOwed = tempTA.getPerson(personID).getCost();
                     moneyOwedTotal += moneyOwed;
                     BalanceMap.put(name,BalanceMap.getOrDefault(name,0.0) + moneyOwed);
                 }
             } tempValue = moneyOwedTotal;
 
-            for (int personID = 0; personID < personSize; personID++) { //person has to pay a variable cost based on the amount paid.
-                if (tempTA.getPerson(personID).getCost() == 0.0 & tempTA.getPerson(personID).isDoPay()){
+            for (int personID = 0; personID < personSize; personID++) { //calculated the variable costs based on the total amount paid.
+                if (tempTA.getPerson(personID).getCost() == 0.0 & tempTA.getPerson(personID).isParticipate()){
                     name = tempTA.getPerson(personID).getName();
-                    moneyOwed = (moneyPaidTotal - moneyOwedTotal) / evenSize;
+                    moneyOwed = (moneyPaidTotal - moneyOwedTotal) / partEvenSize;
                     tempValue += moneyOwed;
                     BalanceMap.put(name, BalanceMap.getOrDefault(name, 0.0) + moneyOwed);
                 }
@@ -56,7 +65,7 @@ public class Calculate {
 
             if (moneyPaidTotal - moneyOwedTotal > 0.0){ //if there is any money owed left over, divide costs equally.
                 for (int personID = 0; personID < personSize; personID++) {
-                    if(tempTA.getPerson(personID).isDoPay()) {
+                    if(tempTA.getPerson(personID).isParticipate()) {
                         name = tempTA.getPerson(personID).getName();
                         moneyOwed = (moneyPaidTotal - moneyOwedTotal) / dbPerson.size();
                         BalanceMap.put(name, BalanceMap.getOrDefault(name, 0.0) + moneyOwed);
@@ -101,7 +110,7 @@ public class Calculate {
             if (zeroBalance != ExchangeMap.size() ) {
                 ExchangeMap.replace(posName, ExchangeMap.getOrDefault(posName, 0.0) - posValue);
                 ExchangeMap.replace(negName, ExchangeMap.getOrDefault(negName, 0.0) + posValue);
-                ExchangeOutput.add(posName + " has to pay " + df.format(posValue) + " euros to " + negName);
+                ExchangeOutput.add(posName + " has to pay " + df.format(posValue) + " euros to " + negName + " ");
             }
         }
         return ExchangeOutput;

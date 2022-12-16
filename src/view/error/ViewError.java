@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ViewError extends JFrame{
-    public ViewError(){super("Error!!!");}
+    public ViewError(){super("Error!");}
     RegistrationButtonPanel buttons;
     public void initialize(String title, String Tolittle) {
         this.setSize(700, 550);

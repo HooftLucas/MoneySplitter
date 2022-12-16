@@ -12,29 +12,29 @@ public class RegistrationControlPerson implements Controller{
     }
 
     @Override
-    public void addNameToDatabase(String Name) {
+    public void addNameToDatabase(String name) {
         dbPerson dbPerson = RegistrationdbPerson.getInstance();
         boolean nameInDb = true;
 
-        if(Name.isEmpty()){
-            System.out.println("The given name is empty");
+        if(name.isEmpty()){
+            System.out.println("The given name is empty.");
         }
         else {
             if(dbPerson.size() == 0) {
-                dbPerson.addPerson(new Person(Name));
-                System.out.println(Name + " is added in the database.");
+                dbPerson.addPerson(new Person(name));
+                System.out.println(name + " is added in the database.");
             }
             else {
                 for (int i = 0; i < dbPerson.size(); i++) {
-                    if (Name.equals(dbPerson.getPersonID(i).getName())) {
-                        System.out.println(Name + " already exists. Please enter another name.");
+                    if (name.equals(dbPerson.getPersonID(i).getName())) {
+                        System.out.println(name + " already exists. Please enter another name.");
                         return;
                     } else
                         nameInDb = false;
                 }
                 if (!nameInDb) {
-                    dbPerson.addPerson(new Person(Name));
-                    System.out.println(Name + " is added in the database.");
+                    dbPerson.addPerson(new Person(name));
+                    System.out.println(name + " is added in the database.");
                 }
             }
 
@@ -42,8 +42,31 @@ public class RegistrationControlPerson implements Controller{
     }
 
     @Override
-    public void setPersonForTicket(int id, double Amount, double Cost){
-        dbPerson.getPersonID(id).setAmount(Amount);
-        dbPerson.getPersonID(id).setCost(Cost);
+    public void deleteNameFromDatabase(String name) {
+        dbPerson dbPerson = RegistrationdbPerson.getInstance();
+        boolean nameInDb = false;
+
+        if(name.isEmpty()){
+            System.out.println("The given name is empty.");
+        }
+        else {
+            for (int i = 0; i < dbPerson.size(); i++) {
+                if (name.equals(dbPerson.getPersonID(i).getName())) {
+                    dbPerson.deletePerson(dbPerson.getPersonID(i));
+                    System.out.println(name + " is removed from the database.");
+                    nameInDb = true;
+                }
+            }
+            if(!nameInDb){
+                System.out.println(name + " is not in the database.");
+            }
+        }
+    }
+
+    @Override
+    public void setPersonForTicket(int id, double amount, double cost,boolean participate ){
+        dbPerson.getPersonID(id).setAmount(amount);
+        dbPerson.getPersonID(id).setCost(cost);
+        dbPerson.getPersonID(id).setParticipate(participate);
     }
 }

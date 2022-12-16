@@ -1,21 +1,17 @@
 package view.Person;
 
-import Person.Person;
+
 import controller.Person.RegistrationControlPerson;
 import dbPerson.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Observable;
-import java.util.Observer;
 
-public class ViewPerson extends JFrame implements Observer{
+
+public class ViewPerson extends JFrame {
     RegistrationControlPerson controlPerson;
     RegisterButton buttons;
     dbPerson dbPerson;
-    RegistrationdbPerson regPerson;
     protected GridBagConstraints c = new GridBagConstraints();
     public ViewPerson(){ super("give up your friends");}
 
@@ -34,13 +30,4 @@ public class ViewPerson extends JFrame implements Observer{
     }
 
 
-    @Override
-    public void update(Observable o, Object arg) {
-        Person e = (Person) arg;
-        String name = e.getName();
-        String re =RegistrationdbPerson.getInstance().getEntry((Person) arg);
-        buttons.showList(name);
-        System.out.println("updated");
-
-    }
 }

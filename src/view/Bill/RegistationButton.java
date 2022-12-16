@@ -7,38 +7,30 @@ import dbTicket.dbTicket;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.awt.event.ItemListener;
 
 public class RegistationButton extends JPanel  {
 
-    private JLabel[] Name = new JLabel[1000];
-    private JLabel[] BalanceValue = new JLabel[1000];
-    private JLabel titleBalance;
-    private JLabel titleExchange;
-    private JButton ReturnDeldb;
-
-    private JButton Return;
+    private final JLabel[] Name = new JLabel[1000];
+    private final JLabel[] BalanceValue = new JLabel[1000];
+    private final JLabel titleBalance;
+    private final JLabel titleExchange;
+    private final JButton Deletedb;
+    private final JButton Return;
 
     JFrame close;
     boolean canClose = false;
     int teller_hasPaid = 0;
-    protected GridBagConstraints c = new GridBagConstraints();
-    DefaultListModel<String> dbListModel = new DefaultListModel<>();
-    JList<String> dbJList = new JList<>(dbListModel);
+    protected GridBagConstraints c;
     dbPerson dbPerson;
-    private JCheckBox[] hasPaid = new JCheckBox[100];
+    private final JCheckBox[] hasPaid = new JCheckBox[100];
     private static final DecimalFormat df = new DecimalFormat("0.00");
     int teller = 0;
-    boolean cleardb = false;
     HashMap<String, Double> BalanceMap =  Calculate.Balance();
     ArrayList<String> Exchange = Calculate.Exchange(BalanceMap);
-    private JLabel[] lineToPaid= new JLabel[100];
+    private final JLabel[] lineToPaid= new JLabel[100];
     dbTicket dbTicket;
 
     RegistationButton(JFrame close, GridBagConstraints c, dbPerson dbPerson, dbTicket dbTicket){
@@ -49,26 +41,23 @@ public class RegistationButton extends JPanel  {
 
         titleBalance = new JLabel("Balance: ");
         titleExchange = new JLabel("Exchange: ");
-        ReturnDeldb = new JButton("return -> bill will be deleted");
-        Return = new JButton("Return -> add tickets");
+        Deletedb = new JButton("Finish");
+        Return = new JButton("Return");
 
         ReturnClearListener();
         ReturnListener();
 
-        //this.add(dbJList);
-        //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         c.gridy = 0;
         c.gridx = 0;
         this.setLayout(new GridBagLayout());
-
 
         // Balance
         this.add(titleBalance,c);
         c.gridy += 2 ;
         for (int i = 0; i < dbPerson.size() ; i++) {
             c.gridx = 0;
-            Name[i] = new JLabel(dbPerson.getName(i) + " : ");
-            BalanceValue[i] = new JLabel(df.format(BalanceMap.get(dbPerson.getName(i))) + "€");
+            Name[i] = new JLabel(dbPerson.getPersonID(i).getName() + " : ");
+            BalanceValue[i] = new JLabel(df.format(BalanceMap.get(dbPerson.getPersonID(i).getName())) + "€");
             this.add(Name[i], c);
             c.gridx ++;
             this.add(BalanceValue[i],c );
@@ -92,7 +81,7 @@ public class RegistationButton extends JPanel  {
         }
         this.add(Return, c);
         c.gridx++;
-        this.add(ReturnDeldb,c);
+        this.add(Deletedb,c);
 
 
         controlCheckBox(teller);
@@ -100,41 +89,32 @@ public class RegistationButton extends JPanel  {
     }
 
     public void ReturnListener(){
-        this.Return.addActionListener(e -> {
-            cleardb = false;
-            exit(cleardb);
-        });
+        this.Return.addActionListener(e -> exit(false));
     }
     public void ReturnClearListener(){
-        this.ReturnDeldb.addActionListener(e -> {
-            cleardb = true;
+        this.Deletedb.addActionListener(e -> {
             if(canClose)
-                exit(cleardb);
+                exit(true);
         });
     }
     public void controlCheckBox(int teller) {
         for (int i = 0; i < teller; i++) {
-            hasPaid[i].addItemListener(new ItemListener() {
-                public void itemStateChanged(ItemEvent e) {
-                    if (e.getStateChange() == 1) {
-                        teller_hasPaid +=1;
-                        //System.out.println("er wordt op het vakje geduwd " + teller_hasPaid);
-                        if (teller_hasPaid == teller) {
-                            canClose = true;
-                            //System.out.println("can close");
-                        }
+            hasPaid[i].addItemListener(e -> {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    teller_hasPaid +=1;
+                    if (teller_hasPaid == teller) {
+                        canClose = true;
                     }
                 }
             });
         }
     }
 
-
     void exit(boolean cleardb){
         close.dispose();
         this.remove(titleBalance);
         this.remove(titleExchange);
-        this.remove(ReturnDeldb);
+        this.remove(Deletedb);
         this.remove(Return);
         for (int i = 0; i < dbPerson.size() ; i++) {
             this.remove(Name[i]);
@@ -145,16 +125,8 @@ public class RegistationButton extends JPanel  {
             this.remove(lineToPaid[j]);
         }
         if (cleardb){
-            for(int j= dbTicket.size(); j > 0; j--){
-              //  System.out.println(dbTicket.getTicketID(j));
-                dbTicket.deleteTicket(dbTicket.getTicketID(j));
-
-            }
-            for(int i = dbPerson.size(); i > 0; i--){
-               // System.out.println(dbPerson.getPersonID(i));
-                dbPerson.deletePerson(dbPerson.getPersonID(i));
-            }
-
+            dbPerson.clear();
+            dbTicket.clear();
         }
 
         teller = 0;

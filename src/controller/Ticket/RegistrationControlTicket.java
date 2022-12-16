@@ -36,7 +36,6 @@ public class RegistrationControlTicket implements Controller {
         else {
             dbTicket.addTicket(tempTA);
             System.out.println("Ticket is added: " + tempTA);
-            //dbTicket.printDatabase();
         }
     }
 }

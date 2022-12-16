@@ -33,6 +33,10 @@ public class RegistrationDbTicket extends dbTicket{
         }
     }
 
+    @Override
+    public void clear() {
+        this.TicketList.clear();
+    }
 
     @Override
     public int size() {

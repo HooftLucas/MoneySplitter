@@ -37,6 +37,27 @@ public class Main {
         view.initialize(regPerson, regTicket, dbPerson, dbTicket);
 
 
+        // testing:
+        /*
+        Person a = new Person("a",100.0,0.0,true);
+        Person b = new Person("b",0.0,0.0,true);
+        Person c = new Person("c",0.0,0.0,true);
+        dbPerson.addPerson(a);
+        dbPerson.addPerson(b);
+        dbPerson.addPerson(c);
+        regTicket.addTicketEntry("test","");
+        HashMap<String, Double> testMap = Calculate.Balance();
+        System.out.println(testMap);
+        a.setAmount(0.0);b.setAmount(100.0);c.setParticipate(false);
+        regTicket.addTicketEntry("t2","");
+        testMap = Calculate.Balance();
+        System.out.println(testMap);
+        System.out.println(Calculate.Exchange(testMap));
+
+         */
+
+
+
 
 
 

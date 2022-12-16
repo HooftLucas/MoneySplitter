@@ -7,43 +7,35 @@ import dbTicket.dbTicket;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+
 
 public class RegisterButton extends JPanel {
-    // private ArrayList<JTextField> Amount;
-    private JTextField[] Amount = new JTextField[1000];
-    private JTextField[] Cost = new JTextField[1000];
-    private JCheckBox[] doPay = new JCheckBox[100];
-    private JLabel doPayTitle = new JLabel("involved by the ticket");
+    private final JTextField[] amount = new JTextField[1000];
+    private final JTextField[] cost = new JTextField[1000];
+    private final JCheckBox[] participate = new JCheckBox[100];
 
-    private JTextField titleTicket;
-    private JButton AddTicket;
-    private JButton Return;
-    private JLabel title;
+    private final JTextField title_ticket;
+    private final JButton addTicket;
+    private final JButton Return;
+    private final JLabel title;
 
-    private JLabel[] Name = new JLabel[100];
+    private final JLabel[] name = new JLabel[100];
 
-    private JLabel title_amount;
-    private JLabel title_paid;
+    private final JLabel title_amount;
+    private final JLabel title_paid;
 
-    private JLabel name_Ticket;
+    private final JLabel name_ticket;
+    private final JLabel title_participate;
 
-    private JLabel rules1;
-    private JLabel rules2;
-    private String[] Tickets = {"Culture", "Food", "Transport"};
-
+    private final String[] Tickets = {"Culture", "Food", "Transport"};
     JList<String> list = new JList<>(Tickets);
 
     protected GridBagConstraints c = new GridBagConstraints();
-
-    DefaultListModel<String> dbListModel = new DefaultListModel<>();
     RegistrationControlTicket controlTicket;
-    JList<String> dbJList = new JList<>(dbListModel);
     dbPerson dbPerson;
     RegistrationControlPerson controlPerson;
     dbTicket dbTicket;
-    private JButton deleteTicket;
+
 
     RegisterButton(RegistrationControlTicket controlTicket, JFrame close, GridBagConstraints c, dbPerson dbPerson, RegistrationControlPerson controlPerson, dbTicket dbTicket) {
         this.controlPerson = controlPerson;
@@ -51,22 +43,18 @@ public class RegisterButton extends JPanel {
         this.c = c;
         this.dbPerson = dbPerson;
         this.controlTicket = controlTicket;
-        title = new JLabel("Add your ticket");
-        AddTicket = new JButton("add Ticket");
-        Return = new JButton("Return");
-        title_amount = new JLabel("Amount paid");
-        title_paid = new JLabel("Cost to be paid");
-        rules1 = new JLabel("for an even split put a 0 by 'Amount paid'");
-        rules2 = new JLabel(" for not even split put the right value by 'Amount paid'");
-        titleTicket = new JTextField(10);
-        name_Ticket = new JLabel("give the name of your ticket");
-        deleteTicket = new JButton("delete a ticket");
+        title = new JLabel("add your ticket");
+        addTicket = new JButton("add ticket");
+        Return = new JButton("return");
+        title_amount = new JLabel("amount paid");
+        title_paid = new JLabel("cost to be paid");
+        title_ticket = new JTextField(10);
+        name_ticket = new JLabel("give the name of your ticket");
+        title_participate = new JLabel("participated");
+
         AddTicketListener();
-        listListener();
         ReturnMenuListener(close);
-        deleteTicketListener();
-        this.add(dbJList);
-        //this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+
         c.gridy = 0;
         c.gridx = 0;
         this.setLayout(new GridBagLayout());
@@ -74,9 +62,9 @@ public class RegisterButton extends JPanel {
         this.add(title, c);
         c.gridy++;
         c.gridx = 0;
-        this.add(name_Ticket, c);
+        this.add(name_ticket, c);
         c.gridx += 2;
-        this.add(titleTicket, c);
+        this.add(title_ticket, c);
         c.gridx++;
         this.add(list, c);
         c.gridy++;
@@ -86,63 +74,57 @@ public class RegisterButton extends JPanel {
         c.gridx++;
         this.add(title_paid, c);
         c.gridx++;
-        this.add(doPayTitle, c);
-
+        this.add(title_participate, c);
         c.gridy++;
 
         //
         for (int i = 0; i < dbPerson.size(); i++) {
             c.gridx = 0;
-            Name[i] = new JLabel(dbPerson.getName(i));
-            Amount[i] = new JTextField(10);
-            Cost[i] = new JTextField(10);
-            doPay[i] = new JCheckBox();
+            name[i] = new JLabel(dbPerson.getPersonID(i).getName());
+            amount[i] = new JTextField(10);
+            cost[i] = new JTextField(10);
+            participate[i] = new JCheckBox();
+            participate[i].setSelected(true);
 
-            this.add(Name[i], c);
+            this.add(name[i], c);
             c.gridx += 2;
-            this.add(Amount[i], c);
+            this.add(amount[i], c);
             c.gridx++;
-            this.add(Cost[i], c);
+            this.add(cost[i], c);
             c.gridx++;
-            this.add(doPay[i], c);
+            this.add(participate[i], c);
             c.gridy++;
         }
 
         c.gridx = 2;
         c.gridy++;
-        this.add(AddTicket, c);
+        this.add(addTicket, c);
         c.gridx++;
         this.add(Return, c);
-        c.gridx++;
-        this.add(deleteTicket, c);
-        c.gridx = 0;
-        c.gridy++;
-        this.add(rules1, c);
-        c.gridx = 0;
-        c.gridy++;
-        this.add(rules2, c);
-        controlCheckBoxTicket();
+
+        // controlCheckBoxTicket();
 
     }
 
     public void AddTicketListener() {
         final double[] amount_person = new double[1];
         final double[] cost_person = new double[1];
-        this.AddTicket.addActionListener(l -> {
+        this.addTicket.addActionListener(l -> {
             for (int i = 0; i < dbPerson.size(); i++) {
-                //person id = i -> waarde amount en cost meegeven
-                if (Amount[i].getText().matches("[0-9]+")) {
-                    amount_person[0] = Double.parseDouble(Amount[i].getText());
+                //person id = i -> waarde amount, cost en doPay meegeven
+                if (amount[i].getText().matches("[0-9]+")) {
+                    amount_person[0] = Double.parseDouble(amount[i].getText());
                 } else
                     amount_person[0] = 0;
-                if (Cost[i].getText().matches("[0-9]+")) {
-                    cost_person[0] = Double.parseDouble(Cost[i].getText());
+                if (cost[i].getText().matches("[0-9]+")) {
+                    cost_person[0] = Double.parseDouble(cost[i].getText());
                 } else
                     cost_person[0] = 0;
 
-                controlPerson.setPersonForTicket(i, amount_person[0], cost_person[0]);
-                Amount[i].setText("");
-                Cost[i].setText("");
+                controlPerson.setPersonForTicket(i, amount_person[0], cost_person[0], participate[i].isSelected());
+                amount[i].setText("");
+                cost[i].setText("");
+                participate[i].setSelected(true);
             }
             listListener();
         });
@@ -155,73 +137,38 @@ public class RegisterButton extends JPanel {
         } else
             Data = "Others";
 
-        controlTicket.addTicketEntry(titleTicket.getText(), Data);
+        controlTicket.addTicketEntry(title_ticket.getText(), Data);
         dbTicket.printDatabase();
-        titleTicket.setText("");
+        title_ticket.setText("");
 
     }
+
 
     public void ReturnMenuListener(JFrame close) {
         this.Return.addActionListener(e -> {
             close.dispose();
             this.remove(title);
-            this.remove(AddTicket);
+            this.remove(addTicket);
             this.remove(Return);
             this.remove(title_amount);
             this.remove(title_paid);
             for (int i = 0; i < dbPerson.size(); i++) {
-                this.remove(Name[i]);
-                this.remove(Amount[i]);
-                this.remove(Cost[i]);
-                this.remove(doPay[i]);
+                this.remove(name[i]);
+                this.remove(amount[i]);
+                this.remove(cost[i]);
+                this.remove(participate[i]);
             }
-            this.remove(rules1);
-            this.remove(rules2);
-            this.remove(name_Ticket);
+            this.remove(name_ticket);
             this.remove(list);
-            this.remove(titleTicket);
+            this.remove(title_ticket);
+            this.remove(title_participate);
             c.gridy = 0;
             c.gridx = 0;
-
         });
     }
 
-    public void controlCheckBoxTicket() {
-        System.out.println(dbPerson.size());
-        for (int i = 0; i < dbPerson.size(); i++) {
-            doPay[i].addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    for (int j = 0; j < dbPerson.size(); j++) {
-                        if (e.getStateChange() == 1) {
-                            dbPerson.getPersonID(j).setDoPay(true);
-                        } else {
-                            dbPerson.getPersonID(j).setDoPay(false);
-                        }
-                    }
-
-                }
-            });
 
 
-        }
-    }
-
-    public void deleteTicketListener() {
-        this.deleteTicket.addActionListener(l -> {
-            String nameTicket = titleTicket.getText();
-            System.out.println("delete ticket");
-            for (int i = 0; i < dbTicket.size(); i++) {
-                System.out.println("name: "+nameTicket);
-                System.out.println("ticket " +dbTicket.getTicketID(i).getTicket());
-                if (nameTicket.equals(dbTicket.getTicketID(i).getTicket())) {
-                    dbTicket.deleteTicket(dbTicket.getTicketID(i));
-                    titleTicket.setText("");
-
-                }
-            }
-        });
-    }
 }
 
 

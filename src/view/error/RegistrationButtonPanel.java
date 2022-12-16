@@ -6,8 +6,8 @@ public class RegistrationButtonPanel extends JPanel {
     private final JButton Return;
     JLabel Error;
     public RegistrationButtonPanel(JFrame close,String title, String ToLittle){
-        Error = new JLabel("error: there are not enough "+ToLittle + " to make a "+ title);
-        this.Return = new JButton("Return");
+        Error = new JLabel("error: There are not enough " + ToLittle + " to make a " + title);
+        this.Return = new JButton("return");
 
         addReturnlistener(close);
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
