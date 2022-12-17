@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class viewMenu extends JFrame {
-    private RegistrationControlPerson regPerson;
+
 
     RegistrationButtonPanel buttons;
     public viewMenu(){

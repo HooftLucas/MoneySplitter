@@ -54,7 +54,11 @@ public class RegisterButton extends JPanel {
         c.gridy++;
         c.gridx = 0;
         this.add(this.Return,c);
-
+        if(dbPerson.size()!=0){
+            for(int i = 0; i < dbPerson.size(); i++){
+                nameListModel.addElement(dbPerson.getPersonID(i).getName());
+            }
+        }
         //observer:
         c.gridy = 1;
         c.gridx = 2;
@@ -101,7 +105,6 @@ public class RegisterButton extends JPanel {
             this.remove(this.deleteName);
             this.remove(this.dbContent);
             this.remove(this.nameJList);
-            //this.remove(this.entryList);
             //https://stackoverflow.com/questions/8632705/how-to-close-a-gui-when-i-push-a-jbutton
         });
     }

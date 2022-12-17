@@ -120,7 +120,6 @@ public class RegisterButton extends JPanel {
                     cost_person[0] = Double.parseDouble(cost[i].getText());
                 } else
                     cost_person[0] = 0;
-
                 controlPerson.setPersonForTicket(i, amount_person[0], cost_person[0], participate[i].isSelected());
                 amount[i].setText("");
                 cost[i].setText("");
