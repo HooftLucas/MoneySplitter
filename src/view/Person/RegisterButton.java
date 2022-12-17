@@ -56,8 +56,8 @@ public class RegisterButton extends JPanel {
         this.add(this.Return,c);
 
         //observer:
-        c.gridy++;
-        c.gridx = 0;
+        c.gridy = 1;
+        c.gridx = 2;
         this.add(dbContent,c);
         c.gridy++;
         this.add(nameJList,c);

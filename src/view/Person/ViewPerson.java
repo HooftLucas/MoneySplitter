@@ -19,7 +19,7 @@ public class ViewPerson extends JFrame {
     public void initialize(RegistrationControlPerson controlPerson, dbPerson dbPerson){
         this.dbPerson = dbPerson;
         this.controlPerson = controlPerson;
-        this.setSize(400,200);
+        this.setSize(600,400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagLayout layout = new GridBagLayout();
