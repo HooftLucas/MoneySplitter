@@ -5,4 +5,5 @@ public interface Controller {
     void deleteNameFromDatabase(String name);
     void setPersonForTicket(int id, double Amount, double Cost, boolean participate);
 
+    void NotifyObserver(String name, boolean addOrDel);
 }

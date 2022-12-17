@@ -10,7 +10,6 @@ public abstract class dbPerson {
 
     public abstract void addPerson(Person person);
     public abstract void deletePerson(Person person);
-    public abstract void NotifyObserver(String name, boolean addOrDel);
     public abstract void clear();
     public abstract int size();
     public abstract void printDatabase();

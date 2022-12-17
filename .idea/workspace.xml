@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="interface person">
+    <list default="true" id="18f92bb0-d844-471c-983e-af0e8a319a56" name="Changes" comment="added observer to viewPerson">
+      <change afterPath="$PROJECT_DIR$/src/Test/RegistrationdbPerson_UTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/Calculate_ITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Calculate_ITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/dbPerson_UTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/dbTicket_UTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Person/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Person/RegistrationControlPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/RegistrationdbPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbPerson/dbPerson.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Bill/RegistationButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Bill/RegistationButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Menu/viewMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Menu/viewMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Person/RegisterButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Ticket/RegisterButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Ticket/RegisterButton.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,13 +52,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false"
-  }
-}]]></component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -102,7 +101,7 @@
       <workItem from="1671095507447" duration="807000" />
       <workItem from="1671121865236" duration="7929000" />
       <workItem from="1671197296899" duration="10495000" />
-      <workItem from="1671283426357" duration="5089000" />
+      <workItem from="1671283426357" duration="360000" />
     </task>
     <task id="LOCAL-00001" summary="begin project">
       <created>1668098209625</created>
@@ -188,14 +187,7 @@
       <option name="project" value="LOCAL" />
       <updated>1670931235533</updated>
     </task>
-    <task id="LOCAL-00013" summary="interface person">
-      <created>1671283807715</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1671283807716</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,8 +218,7 @@
     <MESSAGE value="updated TicketArray, Calculate.Sum, and added a basic Integration test" />
     <MESSAGE value="some bugs fixed." />
     <MESSAGE value="finalised calc.balance and added it to GUI" />
-    <MESSAGE value="interface person" />
-    <option name="LAST_COMMIT_MESSAGE" value="interface person" />
+    <option name="LAST_COMMIT_MESSAGE" value="finalised calc.balance and added it to GUI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

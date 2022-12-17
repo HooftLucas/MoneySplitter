@@ -22,6 +22,7 @@ public class RegistrationControlPerson implements Controller{
         else {
             if(dbPerson.size() == 0) {
                 dbPerson.addPerson(new Person(name));
+                NotifyObserver(name,true);
                 System.out.println(name + " is added in the database.");
             }
             else {
@@ -34,6 +35,7 @@ public class RegistrationControlPerson implements Controller{
                 }
                 if (!nameInDb) {
                     dbPerson.addPerson(new Person(name));
+                    NotifyObserver(name,true);
                     System.out.println(name + " is added in the database.");
                 }
             }
@@ -53,6 +55,7 @@ public class RegistrationControlPerson implements Controller{
             for (int i = 0; i < dbPerson.size(); i++) {
                 if (name.equals(dbPerson.getPersonID(i).getName())) {
                     dbPerson.deletePerson(dbPerson.getPersonID(i));
+                    NotifyObserver(name,false);
                     System.out.println(name + " is removed from the database.");
                     nameInDb = true;
                 }
@@ -68,5 +71,10 @@ public class RegistrationControlPerson implements Controller{
         dbPerson.getPersonID(id).setAmount(amount);
         dbPerson.getPersonID(id).setCost(cost);
         dbPerson.getPersonID(id).setParticipate(participate);
+    }
+
+    @Override
+    public void NotifyObserver(String name,boolean addOrDel) {
+        view.Person.RegisterButton.update(name, addOrDel);
     }
 }

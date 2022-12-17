@@ -22,18 +22,11 @@ public class RegistrationdbPerson extends dbPerson{
     @Override
     public void addPerson(Person person) {
         this.PersonList.add(person);
-        NotifyObserver(person.getName(),true);
     }
 
     @Override
     public void deletePerson(Person person) {
             this.PersonList.remove(person);
-            NotifyObserver(person.getName(),false);
-    }
-
-    @Override
-    public void NotifyObserver(String name,boolean addOrDel) {
-        view.Person.RegisterButton.update(name, addOrDel);
     }
 
     @Override

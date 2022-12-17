@@ -33,8 +33,10 @@ public class Main {
 
 
         // gui:
+
         viewMenu view = new viewMenu();
         view.initialize(regPerson, regTicket, dbPerson, dbTicket);
+
 
 
         // testing:

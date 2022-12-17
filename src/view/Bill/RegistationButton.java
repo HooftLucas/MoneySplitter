@@ -92,9 +92,7 @@ public class RegistationButton extends JPanel  {
         this.Return.addActionListener(e -> {
             exit(false);
             if(canClose){
-                for(int i = 0; i < dbTicket.size(); i++) {
-                    dbTicket.deleteTicket(dbTicket.getTicketID(i));
-                }
+                dbTicket.clear();
             }
         }
 

@@ -1,18 +1,19 @@
 package Test;
 
 import Person.Person;
+import controller.Person.RegistrationControlPerson;
 import controller.Ticket.RegistrationControlTicket;
 import dbPerson.RegistrationdbPerson;
 import dbPerson.dbPerson;
 import dbTicket.dbTicket;
 import dbTicket.RegistrationDbTicket;
 import Bill.Calculate;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
 import org.junit.Before;
+
+
 import static org.junit.Assert.*;
 
 public class Calculate_ITest {
@@ -29,6 +30,7 @@ public class Calculate_ITest {
         System.out.println("Testing the Balance Method:");
         dbPerson testDbP = RegistrationdbPerson.getInstance();
         dbTicket testDbT = RegistrationDbTicket.getInstance();
+        RegistrationControlPerson regPerson = new RegistrationControlPerson(testDbP);
         RegistrationControlTicket regTicket = new RegistrationControlTicket(testDbT);
         HashMap<String, Double> compareMap = new HashMap<>();
         HashMap<String, Double> testMap;
